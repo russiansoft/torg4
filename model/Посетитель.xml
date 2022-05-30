@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Посетитель">
+	
+	<type name="Посетитель" title="Посетитель" scope="global">
+		<field.string name="Фамилия"/>
+		<field.string name="Имя"/>
+		<field.string name="Отчество"/>
+		<field.string name="ФИО" width="30"/>
+		<field.string name="АдресЭлектроннойПочты" title="Адрес электронной почты" width="30"/>
+		<field.string name="Телефон" width="15"/>
+		<field.string name="ИНН"/>
+		<field.string name="КПП"/>
+		<field.string name="НаименованиеОрганизации"/>
+		
+		<function name="ФИО">
+			<concat>
+				<get value=" "/>
+				<get field="Фамилия"/>
+				<get field="Имя"/>
+				<get field="Отчество"/>
+			</concat>
+		</function>
+		
+		<function name="title">
+			<get field="ФИО"/>
+		</function>
+		
+		<index name="Посетитель">
+			<key field="ФИО"/>
+		</index>
+		<index name="ПосетительПоАдресуЭП">
+			<key field="АдресЭлектроннойПочты"/>
+		</index>
+	</type>
+	
+	<form name="Посетитель">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="30"/>
+		
+		<row/>
+		<row indent="1" text="Фамилия"/>
+		<cell bind="Фамилия" outline="2">
+			<edit/>
+		</cell>
+		
+		<row/>
+		<row indent="1" text="Имя"/>
+		<cell bind="Имя" outline="2">
+			<edit/>
+		</cell>
+		
+		<row/>
+		<row indent="1" text="Отчество"/>
+		<cell bind="Отчество" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="Адрес электронной почты"/>
+		<cell bind="АдресЭлектроннойПочты" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="Телефон"/>
+		<cell bind="Телефон" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="ИНН"/>
+		<cell bind="ИНН" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="КПП"/>
+		<cell bind="КПП" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="Наименование организации"/>
+		<cell bind="НаименованиеОрганизации" outline="2">
+			<edit/>
+		</cell>
+	</form>
+</unit>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ИнвентаризацияФорма">
+
+	<form name="Инвентаризация">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="20"/>
+		<column width="12"/>
+
+		<row/>
+		<row indent="1" cols="2">
+			<button name="Оформить" text="Оформить инвентаризацию"/>
+		</row>
+
+		<row/>
+		<row/>
+		<cell text="Учетная запись"/>
+		<cell bind="Пользователь" cols="2" border="0010"/>
+		
+		<row/>
+		<row indent="1" text="Инвентаризация" size="26" cols="5" align="center"/>
+		<row indent="1" bind="title" size="20" cols="5" align="center"/>
+		
+		<row/>
+		<row/>
+		<cell text="Номенклатура" cols="2" align="center" border="1"/>
+		<cell text="Количество" align="center" border="1"/>
+		<nest field="Строки"/>
+		<row/>
+
+		<access.allow role="Администратор"/>
+	</form>
+
+	<form name="Инвентаризация.Оформлен">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="20"/>
+		<column width="12"/>
+		<column width="12"/>
+		<column width="12"/>
+
+		<row/>
+		<row/>
+		<cell text="Учетная запись"/>
+		<cell bind="Пользователь" cols="2" border="0010"/>
+		
+		<row indent="1" text="Инвентаризация" size="26" cols="5" align="center"/>
+		<row indent="1" bind="title" size="20" cols="5" align="center"/>
+		
+		<row/>
+		<row/>
+		<cell text="Номенклатура" cols="2" align="center" border="1"/>
+		<cell text="Количество" align="center" border="1"/>
+		<nest field="Строки"/>
+		<row/>
+	</form>
+
+	<form name="Инвентаризация-Строка">
+		<row/>
+		<cell bind="Номенклатура" cols="2" border="1"/>
+		<cell bind="Количество" align="right" border="1"/>
+	</form>
+</unit>

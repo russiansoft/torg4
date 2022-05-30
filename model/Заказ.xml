@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Заказ">
+	
+	<!--Уведомление-->
+	<type name="Уведомление">
+		<field.string name="ОтправленныйСтатус"/>
+		<field.string name="ОтветУведомления" variable="1"/>
+		<event name="ОтправкаУведомления">
+			<not>
+				<is>
+					<get field="ОтправленныйСтатус"/>
+					<get field="owner.Статус"/>
+				</is>
+			</not>
+		</event>
+		<state name="ОтправкаУведомления">
+			<function name="ОтветУведомления">
+				<!-- <http>
+					<get value="https://sms.ru"/>
+					<get value="GET"/>
+					<join>
+						<get value="/sms/send"/>
+						<get value="?api_id=49682DE7-436D-4D38-25A9-4EE17B86BE21"/>
+						<get value="&amp;to="/>
+						<get field="owner.Телефон"/>
+						<get value="&amp;msg="/>
+						<uri>
+							<concat>
+								<get value=" "/>
+								<get value="Интернет-магазин СВАРОПТТОРГ:"/>
+								<get field="owner.Статус"/>
+								<get value="заказ"/>
+								<get field="owner.Номер"/>
+								<get field="owner.НаименованиеОрганизации"/>
+							</concat>
+						</uri>
+						<get value="&amp;json=1"/>
+					</join>
+					<null/>
+				</http> -->
+			</function>
+			<function name="ОтправленныйСтатус">
+				<get field="owner.Статус"/>
+			</function>
+		</state>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+
+	<!--Заказ-->
+	<type name="Заказ" title="Заказ" scope="global">
+		<field.string name="Пользователь" title="Пользователь" width="20"/>
+		<field.string name="Фамилия"/>
+		<field.string name="Имя"/>
+		<field.string name="Отчество"/>
+		<field.string name="Телефон"/>
+		<field.string name="ИНН"/>
+		<field.string name="КПП"/>
+		<field.string name="НаименованиеОрганизации"/>
+		<field.date name="Дата" width="9" indexing="sort"/>
+		<field.string name="Номер" width="10"/>
+		<field.array name="Строки" type="Строка"/>
+		<field.number name="Сумма" precision="2" width="15" align="right"/>
+		<field.boolean name="ЗаказОформлен"/>
+		<field.string name="Статус" width="20"/>
+		<field.string name="ОписаниеСтатуса"/>
+		<field.object name="Уведомление" type="Уведомление" variable="1"/>
+		
+		<!--Заголовок-->
+		<function name="title">
+			<join>
+				<get value=" от "/>
+				<format>
+					<get field="Дата"/>
+					<get value="Дата"/>
+				</format>
+			</join>
+		</function>
+
+		<!--Сумма-->
+		<function name="Сумма">
+			<sum>
+				<get value="Строки"/>
+				<get value="Сумма"/>
+			</sum>
+		</function>
+		
+		<!--Конструктор-->
+		<state name="constructor">
+			<field.ref name="Предыдущий" type="Заказ"/>
+			<function name="Пользователь">
+				<account/>
+			</function>
+			<function name="Предыдущий">
+				<last>
+					<get value="ЗаказПользователь"/>
+					<get field="Пользователь"/>
+				</last>
+			</function>
+			<function name="Фамилия">
+				<get field="Предыдущий.Фамилия"/>
+			</function>
+			<function name="Имя">
+				<get field="Предыдущий.Имя"/>
+			</function>
+			<function name="Отчество">
+				<get field="Предыдущий.Отчество"/>
+			</function>
+			<function name="Телефон">
+				<get field="Предыдущий.Телефон"/>
+			</function>
+			<function name="ИНН">
+				<get field="Предыдущий.ИНН"/>
+			</function>
+			<function name="КПП">
+				<get field="Предыдущий.КПП"/>
+			</function>
+			<function name="НаименованиеОрганизации">
+				<get field="Предыдущий.НаименованиеОрганизации"/>
+			</function>
+			<function name="Дата">
+				<today/>
+			</function>
+			<query name="Строки">
+				<select from="Корзина-Строка">
+					<filter by="owner" field="parent"/>
+					<order by="Номенклатура"/>
+					<get field="Номенклатура" as="Номенклатура"/>
+					<get field="Количество" as="Количество"/>
+				</select>
+			</query>
+		</state>
+
+		<!--Состояние выполнения оформления-->
+		<state name="Оформить">
+			<function name="ЗаказОформлен">
+				<true/>
+			</function>
+			<query>
+				<delete from="Покупка">
+					<filter by="Пользователь" field="Пользователь"/>
+				</delete>
+			</query>
+			<function name="Статус">
+				<get value="Новый"/>
+			</function>
+			<function name="ОписаниеСтатуса">
+				<get value="Ожидает принятия менеджером"/>
+			</function>
+		</state>
+		
+		<!--Для совместимости со старым названием-->
+		<state name="Отправлен">
+			<event name="ЗаказОформлен">
+				<true/>
+			</event>
+		</state>
+
+		<!--Оформленный заказ-->
+		<function name="Оформлен">
+			<get field="ЗаказОформлен"/>
+		</function>
+		<state name="Оформлен" save="1">
+		</state>
+		
+		<!--Индекс-->
+		<index name="Заказ">
+			<key field="Дата"/>
+		</index>
+		<index name="ЗаказПользователь">
+			<key field="Пользователь"/>
+			<key field="Дата"/>
+		</index>
+		
+		<!--Доступ-->
+		<access.allow role="1Cv77"/>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+
+	<query id="Заказ">
+		<select from="ЗаказПользователь">
+			<filter by="Пользователь" field="Аутентификация.ТекущийПользователь"/>
+		</select>
+	</query>
+
+	<!--Строка заказа-->
+	<type name="Строка">
+		<field.ref name="Номенклатура" type="Номенклатура" title="Номенклатура"/>
+		<field.number name="Количество" title="Количество"/>
+		<field.number name="Цена" precision="2"/>
+		<field.number name="Сумма" precision="2"/>
+		<function name="Цена">
+			<get field="Номенклатура.Цена"/>
+		</function>
+		<function name="Сумма">
+			<mul>
+				<get field="Количество"/>
+				<get field="Цена"/>
+			</mul>
+		</function>
+		<access.allow role="1Cv77"/>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+</unit>

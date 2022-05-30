@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Инвентаризация">
+
+	<!--Инвентаризация-->
+	<type name="Инвентаризация" title="Инвентаризация" scope="global">
+		<field.string name="Пользователь" title="Пользователь" width="20"/>
+		<field.date name="Дата" width="9" indexing="sort"/>
+		<field.string name="Номер" width="10"/>
+		<field.array name="Строки" type="Строка"/>
+		<field.boolean name="ИнвентаризацияОформлен"/>
+		
+		<!--Заголовок-->
+		<function name="title">
+			<join>
+				<get value=" от "/>
+				<format>
+					<get field="Дата"/>
+					<get value="Дата"/>
+				</format>
+			</join>
+		</function>
+
+		<!--Сумма-->
+		<function name="Сумма">
+			<sum>
+				<get value="Строки"/>
+				<get value="Сумма"/>
+			</sum>
+		</function>
+		
+		<!--Конструктор-->
+		<state name="constructor">
+			<function name="Пользователь">
+				<account/>
+			</function>
+			<function name="Дата">
+				<today/>
+			</function>
+			<query name="Строки">
+				<select from="Корзина-Строка">
+					<filter by="owner" field="parent"/>
+					<order by="Номенклатура"/>
+					<get field="Номенклатура" as="Номенклатура"/>
+					<get field="Количество" as="Количество"/>
+				</select>
+			</query>
+		</state>
+
+		<!--Состояние выполнения оформления-->
+		<state name="Оформить">
+			<function name="ИнвентаризацияОформлен">
+				<true/>
+			</function>
+			<query>
+				<delete from="Покупка">
+					<filter by="Пользователь" field="Пользователь"/>
+				</delete>
+			</query>
+		</state>
+		
+		<!--Оформленная инвентаризация-->
+		<function name="Оформлен">
+			<get field="ИнвентаризацияОформлен"/>
+		</function>
+		<state name="Оформлен" save="1">
+		</state>
+		
+		<!--Индекс-->
+		<index name="Инвентаризация">
+			<key field="Дата"/>
+		</index>
+		<index name="ИнвентаризацияПользователь">
+			<key field="Пользователь"/>
+			<key field="Дата"/>
+		</index>
+		
+		<!--Доступ-->
+		<access.allow role="1Cv77"/>
+
+		<access.allow role="Администратор"/>
+	</type>
+
+	<query id="Инвентаризация">
+		<select from="ИнвентаризацияПользователь">
+			<filter by="Пользователь" field="Аутентификация.ТекущийПользователь"/>
+		</select>
+	</query>
+
+	<!--Строка Инвентаризации-->
+	<type name="Строка">
+		<field.ref name="Номенклатура" type="Номенклатура" title="Номенклатура"/>
+		<field.number name="Количество" title="Количество"/>
+		<field.number name="Цена" precision="2"/>
+		<access.allow role="1Cv77"/>
+
+		<access.allow role="Администратор"/>
+	</type>
+</unit>

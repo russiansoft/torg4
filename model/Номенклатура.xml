@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Номенклатура">
+	
+	<type name="Номенклатура" title="Номенклатура" scope="global">
+		<field.string name="Код" width="10"/>
+		<field.string name="Наименование" width="30"/>
+		<field.number name="Цена" precision="2" width="10" align="right"/>
+		<field.number name="Остаток" precision="3" width="10" align="right"/>
+		<field.string name="ЕдиницаИзмерения" title="Ед. изм." width="5"/>
+		<field.string name="Артикул" width="20"/>
+		<field.string name="Ссылка" variable="1"/>
+		<field.string name="QRCode" variable="1"/>
+		<field.blob name="ИзображениеQRCode" variable="1"/>
+		<field.blob name="Изображение"/>
+		<field.blob name="ПросмотрИзображения" variable="1"/>
+		<field.object name="Выбор" type="ВыборНоменклатуры" variable="1"/>
+		<field.string name="Описание"/>
+		
+		<function name="title">
+			<get field="Наименование"/>
+		</function>
+
+		<function name="ПросмотрИзображения">
+			<get field="Изображение"/>
+		</function>
+
+		<function name="Ссылка">
+			<join>
+				<get value="https://xn--40-6kcai3c0bf.xn--p1ai/?id="/>
+				<get field="id"/>
+			</join>
+		</function>
+		
+		<function name="QRCode">
+			<get field="Ссылка"/>
+		</function>
+
+		<index name="Номенклатура">
+			<key field="Наименование"/>
+		</index>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+	
+	<form name="Номенклатура" role="Посетитель">
+		<column width="2"/>
+		<column width="20"/>
+		<column width="30"/>
+
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" bold="1" wrap="1"/>
+	
+		<row/>
+		<row indent="1" text="Цена"/>
+		<cell bind="Цена"/>
+
+		<row/>
+		<row indent="1" text="Остаток"/>
+		<cell bind="Остаток"/>
+
+		<row/>
+		<row indent="1" text="Единица измерения"/>
+		<cell bind="ЕдиницаИзмерения"/>
+
+		<nest field="Выбор"/>
+
+		<row/>
+		<row indent="1" bind="ПросмотрИзображения" cols="2">
+			<image/>
+		</row>
+
+		<row/>
+		<row indent="1" text="Описание"/>
+		<row/>
+		<row indent="1" bind="Описание" cols="2" wrap="1">
+		</row>
+
+		<row/>
+		<row indent="1" bind="QRCode">
+			<qrcode/>
+		</row>
+		<row bind="ИзображениеQRCode" name="ИзображениеQRCode"/>
+
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+	</form>
+
+	<form name="Номенклатура">
+		<column width="2"/>
+		<column width="20"/>
+		<column width="30"/>
+
+		<!--<bar/>
+		<bar indent="1" cols="2">
+			<button name="Этикетка" text="Этикетка" title="Сформировать печатную форму этикетки" click="ПечатьЭтикетки"/>
+		</bar>-->
+		
+		<row/>
+		<row indent="1" text="Наименование"/>
+		<cell bind="Наименование" bold="1" wrap="1"/>
+	
+		<row/>
+		<row indent="1" text="Код"/>
+		<cell bind="Код"/>
+	
+		<row/>
+		<row indent="1" text="Цена"/>
+		<cell bind="Цена"/>
+
+		<row/>
+		<row indent="1" text="Остаток"/>
+		<cell bind="Остаток"/>
+
+		<row/>
+		<row indent="1" text="Единица измерения"/>
+		<cell bind="ЕдиницаИзмерения"/>
+
+		<row/>
+		<row indent="1" text="Артикул"/>
+		<cell bind="Артикул"/>
+	
+		<nest field="Выбор"/>
+
+		<row/>
+		<row indent="1" text="Изображение"/>
+		<cell bind="Изображение" outline="2">
+			<edit grow="1"/>
+			<tool type="upload" accept="image/*"/>
+			<tool type="download"/>
+		</cell>
+
+		<row/>
+		<row indent="1" bind="ПросмотрИзображения" cols="2">
+			<image/>
+		</row>
+
+		<row/>
+		<row indent="1" text="Описание"/>
+		<row/>
+		<row indent="1" bind="Описание" cols="2" outline="2">
+			<edit type="area" grow="1" vertical="9"/>
+		</row>
+
+		<row/>
+		<row indent="1" bind="QRCode">
+			<qrcode/>
+		</row>
+		<cell bind="Ссылка" wrap="1">
+			<label vertical="stretch"/>
+		</cell>
+		<row bind="ИзображениеQRCode" name="ИзображениеQRCode"/>
+
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+		<row/>
+
+	</form>
+</unit>

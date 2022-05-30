@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Покупка">
+
+	<type name="Покупка" scope="global">
+		<field.ref name="Номенклатура" type="Номенклатура" title="Номенклатура" width="30"/>
+		<field.string name="Пользователь" title="Пользователь" width="20"/>
+		<field.number name="Количество" title="Количество"/>
+		
+		<constructor>
+			<function name="Пользователь">
+				<account/>
+			</function>
+			<function name="Количество">
+				<get value="1"/>
+			</function>
+		</constructor>
+		
+		<index name="Покупка">
+			<key field="Пользователь"/>
+			<key field="Номенклатура"/>
+		</index>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+	
+</unit>

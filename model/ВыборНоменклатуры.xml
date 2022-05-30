@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ВыборНоменклатуры">
+
+	<type name="ВыборНоменклатуры" scope="global">
+		<field.ref name="Покупка" type="Покупка"/>
+		<field.number name="Количество"/>
+
+		<function name="Покупка">
+			<seek>
+				<get value="Покупка"/>
+				<account/>
+				<get field="owner"/>
+			</seek>
+		</function>
+
+		<function name="Количество">
+			<get field="Покупка.Количество"/>
+		</function>
+
+		<state name="ДобавитьВКорзину">
+			<query>
+				<insert into="Покупка">
+					<put field="owner" in="Номенклатура"/> <!--as-->
+				</insert>
+			</query>
+		</state>
+		
+		<state name="ВКорзине">
+			<function name="title">
+				<get value="В корзине"/>
+			</function>
+		</state>
+
+		<function name="ВКорзине">
+			<seek>
+				<get value="Покупка"/>
+				<account/>
+				<get field="owner"/>
+			</seek>
+		</function>
+		
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+
+	<form name="ВыборНоменклатуры">
+		<row/>
+		<row indent="1" text="Купить"/>
+		<cell>
+			<button name="ДобавитьВКорзину" text="Добавить в корзину"/>
+		</cell>
+
+	</form>
+
+	<form name="ВыборНоменклатуры.ВКорзине">
+		<row/>
+		<row indent="1" text="В корзине"/>
+		<cell bind="Количество">
+			<button text="-" title="Уменьшить" click="НоменклатураУменьшить"/>
+			<label text=" " grow="1"/>
+			<edit/>
+			<label text=" " grow="1"/>
+			<button text="+" title="Увеличить" click="НоменклатураУвеличить"/>
+			<label text=" "/>
+			<button text="Все" title="Все" click="НоменклатураВсе"/>
+			<label text=" "/>
+			<button text="🞪" title="Удалить" click="НоменклатураУдалить"/>
+		</cell>
+		<row/>
+		<row indent="1"/>
+		<cell bold="1" color="00C000">
+			<link reference="Корзина" type="report" text="🛒 Перейти в корзину"/>
+		</cell>
+	</form>
+</unit>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="ЗаказФорма">
+
+	<form name="Заказ">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="20"/>
+		<column width="12"/>
+		<column width="12"/>
+		<column width="12"/>
+
+		<row/>
+		<row indent="1" cols="2">
+			<button name="Оформить" text="Оформить заказ"/>
+		</row>
+
+		<row/>
+		<row/>
+		<cell text="Учетная запись"/>
+		<cell bind="Пользователь" cols="2" border="0010"/>
+		
+		<row/>
+		<row indent="1" text="Фамилия"/>
+		<cell bind="Фамилия" cols="2" outline="2">
+			<edit/>
+		</cell>
+		
+		<row/>
+		<row indent="1" text="Имя"/>
+		<cell bind="Имя" cols="2" outline="2">
+			<edit/>
+		</cell>
+		
+		<row/>
+		<row indent="1" text="Отчество"/>
+		<cell bind="Отчество" cols="2" outline="2">
+			<edit/>
+		</cell>
+	
+		<row/>
+		<row indent="1" text="Телефон"/>
+		<cell bind="Телефон" cols="2" outline="2">
+			<edit/>
+		</cell>
+
+		<row/>
+		<row indent="1" text="Реквизиты организации" bold="1" italic="1" cols="5" align="center"/>
+		
+		<row/>
+		<row indent="1" text="ИНН"/>
+		<cell bind="ИНН" outline="2">
+			<edit/>
+		</cell>
+		<cell text="КПП " align="right"/>
+		<cell bind="КПП" outline="2">
+			<edit/>
+		</cell>
+
+		<row/>
+		<row indent="1" text="Наименование организации"/>
+		<cell bind="НаименованиеОрганизации" cols="3" outline="2">
+			<edit type="area" vertical="3"/>
+		</cell>
+		<row/>
+		
+		<row/>
+		<row indent="1" text="Заказ" size="26" cols="5" align="center"/>
+		<row indent="1" bind="title" size="20" cols="5" align="center"/>
+		
+		<row/>
+		<row/>
+		<cell text="Номенклатура" cols="2" align="center" border="1"/>
+		<cell text="Количество" align="center" border="1"/>
+		<cell text="Цена" align="center" border="1"/>
+		<cell text="Сумма" align="center" border="1"/>
+		<nest field="Строки"/>
+		<row/>
+		<cell text="Всего" cols="4" border="1"/>
+		<cell bind="Сумма" align="right" border="1"/>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</form>
+
+	<form name="Заказ.Оформлен">
+		<column width="2"/>
+		<column width="30"/>
+		<column width="20"/>
+		<column width="12"/>
+		<column width="12"/>
+		<column width="12"/>
+
+		<row indent="1" bind="Статус" cols="3" size="20" bold="1" color="00A000"/>
+		<row indent="1" bind="ОписаниеСтатуса" cols="3" color="00A000"/>
+
+		<row/>
+		<row/>
+		<cell text="Учетная запись"/>
+		<cell bind="Пользователь" cols="2" border="0010"/>
+		
+		<row indent="1" text="Фамилия"/>
+		<cell bind="Фамилия" cols="2" border="0010"/>
+		
+		<row indent="1" text="Имя"/>
+		<cell bind="Имя" cols="2" border="0010"/>
+		
+		<row indent="1" text="Отчество"/>
+		<cell bind="Отчество" cols="2" border="0010"/>
+	
+		<row indent="1" text="Телефон"/>
+		<cell bind="Телефон" cols="2" border="0010"/>
+
+		<row/>
+		<row indent="1" text="Реквизиты организации" bold="1" italic="1" cols="5" align="center"/>
+		
+		<row indent="1" text="ИНН"/>
+		<cell bind="ИНН" border="0010"/>
+		<cell text="КПП " align="right"/>
+		<cell bind="КПП" border="0010"/>
+
+		<row indent="1" text="Наименование организации"/>
+		<cell bind="НаименованиеОрганизации" cols="3" border="0010"/>
+		<row/>
+		
+
+		<row indent="1" text="Заказ" size="26" cols="5" align="center"/>
+		<row indent="1" bind="title" size="20" cols="5" align="center"/>
+		
+		<row/>
+		<row/>
+		<cell text="Номенклатура" cols="2" align="center" border="1"/>
+		<cell text="Количество" align="center" border="1"/>
+		<cell text="Цена" align="center" border="1"/>
+		<cell text="Сумма" align="center" border="1"/>
+		<nest field="Строки"/>
+		<row/>
+		<cell text="Всего" cols="4" border="1"/>
+		<cell bind="Сумма" align="right" border="1"/>
+	</form>
+
+	<form name="Заказ-Строка">
+		<row/>
+		<cell bind="Номенклатура" cols="2" border="1"/>
+		<cell bind="Количество" align="right" border="1"/>
+		<cell bind="Цена" align="right" border="1"/>
+		<cell bind="Сумма" align="right" border="1"/>
+	</form>
+</unit>

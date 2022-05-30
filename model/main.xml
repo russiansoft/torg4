@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="main">
+
+	<!--Роли-->
+	<role name="Администратор"/>
+	<role name="Посетитель"/>
+	<role name="1Cv77"/>
+
+	<type name="main" scope="global" report="1">
+		<field.object name="Аутентификация" type="Аутентификация"/>
+		<field.string name="Версия"/>
+
+		<function name="title">
+			<get value="ООО &quot;СВАРОПТТОРГ&quot;"/>
+		</function>
+
+		<function name="Версия">
+			<get value="Версия 0.11"/>
+		</function>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+	
+	<!--Главная форма (Администратор)-->
+	<form name="main" role="Администратор">
+		<column width="2"/>
+		<column width="6"/>
+		<column width="60"/>
+
+		<nest field="Аутентификация"/>
+
+		<row/>
+		<row/>
+		<cell text="📚" size="32"/>
+		<cell>
+			<link reference="Номенклатура" type="search" text="Каталог товаров"/>
+		</cell>
+		
+		<row/>
+		<row/>
+		<cell text="🔍" size="32"/>
+		<cell>
+			<link reference="Номенклатура" type="search" text="Найти наименование"/>
+		</cell>
+		
+		<!--<row/>
+		<row indent="2">
+			<link reference="Покупка" type="list" text="Покупки"/>
+		</row>-->
+		
+		<row/>
+		<row/>
+		<cell text="🛒" size="32"/>
+		<cell>
+			<link reference="Корзина" type="report" text="Корзина"/>
+		</cell>
+		
+		<!--<row/>
+		<row/>
+		<cell text="🏷" size="32"/>
+		<cell>
+			<link reference="Этикетки" type="report" text="Этикетки"/>
+		</cell>-->
+		
+		<row/>
+		<row/>
+		<cell text="🎁" size="32"/>
+		<cell>
+			<link reference="Заказ" type="list" text="Мои заказы"/>
+		</cell>
+		
+		<!--<row/>
+		<row indent="2">
+			<link reference="account" type="list" text="Пользователи"/>
+		</row>-->
+		<row/>
+		<row/>
+		<row/>
+		<cell indent="1" bind="Версия" color="808080">
+			<link reference="Версия" type="report"/>
+		</cell>
+	</form>
+	
+	<!--Главная форма (Посетитель)-->
+	<form name="main" role="Посетитель">
+		<column width="2"/>
+		<column width="6"/>
+		<column width="60"/>
+
+		<nest field="Аутентификация"/>
+
+		<row/>
+		<row/>
+		<cell text="📚" size="32"/>
+		<cell>
+			<link reference="Номенклатура" type="search" text="Каталог товаров"/>
+		</cell>
+		
+		<row/>
+		<row/>
+		<cell text="🔍" size="32"/>
+		<cell>
+			<link reference="Номенклатура" type="search" text="Найти наименование"/>
+		</cell>
+		
+		<!--<row/>
+		<row indent="2">
+			<link reference="Покупка" type="list" text="Покупки"/>
+		</row>-->
+		
+		<row/>
+		<row/>
+		<cell text="🛒" size="32"/>
+		<cell>
+			<link reference="Корзина" type="report" text="Корзина"/>
+		</cell>
+		
+		<row/>
+		<row/>
+		<cell text="🎁" size="32"/>
+		<cell>
+			<link reference="Заказ" type="list" text="Мои заказы"/>
+		</cell>
+
+	</form>
+	
+	<format name="ДеньМесяца" DF="dd.MMM"/>
+	<format name="Дата" DLF="D"/>
+	<format name="Сумма" NFD="2" NZ="0" NG="0"/>
+	
+</unit>

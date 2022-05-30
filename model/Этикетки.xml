@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Этикетки">
+	<type name="Этикетки" title="Этикетки" scope="global" report="1">
+		<field.string name="Пользователь"/>
+		<field.array name="Строки" type="Строка"/>
+		
+		<constructor>
+			<function name="Пользователь">
+				<account/>
+			</function>
+		</constructor>
+		
+		<query name="Строки">
+			<select from="Корзина-Строка">
+				<filter by="owner" field="parent"/>
+				<get field="Номенклатура" as="Номенклатура"/>
+				<get field="QRCode" as="QRCode"/>
+			</select>
+		</query>
+		
+		<access.allow role="Администратор"/>
+		
+	</type>
+
+	<!--Строка-->
+	<type name="Строка">
+		<field.ref name="Номенклатура" type="Номенклатура"/>
+		<field.string name="Наименование"/>
+		<field.string name="Код"/>
+		<field.string name="Ссылка" variable="1"/>
+		<field.blob name="QRCode"/>
+		<constructor>
+			<function name="Наименование">
+				<get field="Номенклатура.Наименование"/>
+			</function>
+			<function name="Код">
+				<get field="Номенклатура.Код"/>
+			</function>
+			<function name="ИзображениеQRCode">
+				<get field="Номенклатура.ИзображениеQRCode"/>
+			</function>
+		</constructor>
+		<function name="Ссылка">
+			<join>
+				<get value="https://xn--40-6kcai3c0bf.xn--p1ai/?id="/>
+				<get field="Номенклатура.id"/>
+			</join>
+		</function>
+		<access.allow role="Администратор"/>
+	</type>
+	
+	<!--Форма отчета-->
+	<form name="Этикетки">
+		<column width="2"/>
+		<column width="9"/>
+		<column width="2"/>
+		<column width="13"/>
+		<column width="10"/>
+		
+		<bar/>
+		<bar indent="1" cols="5">
+			<button name="Print" text="🖨 Печать" title="Открыть печатную форму"/><label text=" "/>
+		</bar>
+		<bar/>
+
+		<nest field="Строки"/>
+	</form>	
+	
+	<!--Форма этикетки-->
+	<form name="Этикетки-Строка">
+		
+		<!--Верхня рамка-->
+		<row cols="5" border="1000"/>
+		
+		<!--Куаркод и наименование-->
+		<row border=""/>
+		<cell bind="QRCode" cols="1" rows="4">
+			<image/>
+		</cell> 
+		<cell/>
+		<cell bind="Наименование" bold="1" wrap="1" cols="2" rows="2"/>
+		<cell border=""/>
+		
+		<!--Второй ряд наименования-->
+		<row/>
+		
+		<!--Организация и штрихкод-->
+		<row border="" cols="3"/>
+		<cell text="СВАРОПТТОРГ" size="7" align="left" vertical="bottom"/>
+		<cell bind="Код" font="EanGnivc" size="24" align="right" rows="3"/>
+		<cell border=""/>
+		
+		<!--Нижняя строка куаркода-->
+		<row size="6" cols="3" border=""/>
+		<cell text="сварка40.рф" align="left" vertical="top"/>
+		
+		<!--<row border="" cols="3"/>-->
+		<!--<cell/><cell border=""/>-->
+
+		<!--Нижняя рамка-->
+		<row/>
+		<row cols="5" border="1000"/>
+	</form>	
+</unit>

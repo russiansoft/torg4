@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Корзина">
+	
+	<type name="Корзина" title="Корзина" scope="global" report="1">
+		<field.string name="Пользователь"/>
+		<field.number name="Сумма" precision="2"/>
+		<field.array name="Строки" type="Строка"/>
+
+		<function name="Сумма">
+			<sum>
+				<get value="Строки"/>
+				<get value="Сумма"/>
+			</sum>
+		</function>
+
+		<function name="title">
+			<join>
+				<format>
+					<get field="Сумма"/>
+					<get value="Сумма"/>
+				</format>
+				<get value=" руб."/>
+			</join>
+		</function>
+
+		<constructor>
+			<function name="Пользователь">
+				<account/>
+			</function>
+			
+		</constructor>
+
+		<query name="Строки">
+			<select from="Покупка">
+				<filter by="Пользователь" field="Пользователь"/>
+				<get field="id" as="Покупка"/>
+				<get field="Номенклатура" as="Номенклатура"/>
+				<get field="Количество" as="Количество"/>
+			</select>
+		</query>
+		
+		<!--<state name="ОформитьЗаказ">
+			
+		</state>-->
+		
+		<index name="Корзина">
+		</index>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+
+	<type name="Строка" report="1">
+		<field.ref name="Номенклатура" type="Номенклатура" title="Номенклатура"/>
+		<field.ref name="Покупка" type="Покупка"/>
+		<field.number name="Количество" title="Количество"/>
+		<field.number name="Сумма" precision="2"/>
+		<field.string name="Ссылка" variable="1"/>
+		<field.blob name="QRCode" variable="1"/>
+
+		<function name="Ссылка">
+			<join>
+				<get value="https://xn--40-6kcai3c0bf.xn--p1ai/?id="/>
+				<get field="Номенклатура.id"/>
+			</join>
+		</function>
+
+		<function name="Сумма">
+			<mul>
+				<get field="Номенклатура.Цена"/>
+				<get field="Количество"/>
+			</mul>
+		</function>
+		
+		<!-- <constructor>
+			<function name="Количество">
+				<get value="1"/>
+			</function>
+		</constructor> -->
+
+		<state name="Удалить">
+			<query>
+				<delete from="Покупка">
+					<filter by="id" field="id"/>
+				</delete>
+			</query>
+		</state>
+		
+		<index name="Корзина-Строка">
+			<key field="owner"/>
+			<key field="Номенклатура"/>
+		</index>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+
+	<form name="Корзина" role="Посетитель">
+		<column width="2"/>
+		<column width="10"/>
+		<column width="50"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="10"/>
+
+		<row/>
+		<row/>
+		<cell text="Номенклатура" align="center" color="009646"/>
+		<cell text="Количество" align="center" color="009646"/>
+		<cell text="Сумма, руб." align="center" color="009646"/>
+		<nest field="Строки"/>
+		<row/>
+		<row indent="2" border="1000" cols="2"/>
+		<row indent="1" cols="2" size="20">
+			<label grow="1"/>
+			<link reference="Заказ" type="create" text="Оформить заказ   🡆"/>
+		</row>
+		<cell bind="Сумма" bold="1" align="right"/>
+	</form>
+
+	<form name="Корзина">
+		<column width="2"/>
+		<column width="50"/>
+		<column width="15"/>
+		<column width="15"/>
+		<column width="10"/>
+		<column width="15"/>
+
+		<row/>
+		<row/>
+		<cell text="Номенклатура" align="center" color="009646"/>
+		<cell text="Количество" align="center" color="009646"/>
+		<cell text="Сумма, руб." align="center" color="009646"/>
+		<nest field="Строки"/>
+		<row/>
+		<row indent="2" border="1000" cols="2"/>
+		<row indent="1" cols="2" size="20">
+			<label grow="1"/>
+			<link reference="Заказ" type="create" text="Оформить заказ   🡆"/>
+		</row>
+		<cell bind="Сумма" bold="1" align="right"/>
+
+		<bar/>
+		<bar indent="1" cols="2">
+			<button name="Этикетки" text="Этикетки" title="Сформировать этикетки" click="КорзинаПечатьЭтикеток"/>
+			<label text="  "/>
+			<button name="Очистить" text="Очистить" title="Очистить" click="КорзинаОчистить"/>
+		</bar>
+		
+		<row/>
+		<row/>
+		<row indent="1">
+			<link reference="Инвентаризация" type="create" text="✦ Инвентаризация"/>
+		</row>
+	</form>
+
+	<form name="Корзина-Строка">
+		<!--<line/>-->
+		<row/>
+		<row/>
+		<cell bind="Номенклатура" wrap="1"/>
+		<cell bind="Количество">
+			<button text="-" title="Уменьшить" click="КорзинаУменьшить"/>
+			<label text="  " grow="1"/>
+			<edit/>
+			<!--<tool type="calculator"/>-->
+			<label text=" " grow="1"/>
+			<button text="+" title="Увеличить" click="КорзинаУвеличить"/>
+			<label text=" " grow="1"/>
+			<button text="..." title="Записать" click="КорзинаЗаписать"/>
+		</cell>
+		<cell bind="Сумма" align="right">
+		</cell>
+		<cell>
+			<label text="        "/>
+			<button text="🞪" title="Удалить" click="КорзинаУдалить"/>
+		</cell>
+		<cell bind="Ссылка">
+			<qrcode/>
+		</cell>
+	</form>
+</unit>

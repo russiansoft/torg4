@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Аутентификация">
+
+	<type name="Аутентификация" scope="global" report="1">
+		<field.string name="ТекущийПользователь"/>
+
+		<function name="ТекущийПользователь">
+			<account/>
+		</function>
+
+		<function name="Выполнена">
+			<contains>
+				<get field="ТекущийПользователь"/>
+				<get value="@"/>
+			</contains>
+		</function>
+		
+		<state name="Выполнена">
+			
+		</state>
+
+		<access.allow role="Администратор"/>
+		<access.allow role="Посетитель"/>
+	</type>
+	
+	<form name="Аутентификация">
+		<row/>
+		<row indent="1" text="Вход не выполнен" align="left" cols="2" color="606080"/>
+		<row/>
+		<cell cols="2">
+			<button command="google" text="Вход"/>
+		</cell>
+	</form>
+	
+	<form name="Аутентификация.Выполнена">
+		<row/>
+		<row indent="1" bind="ТекущийПользователь" align="left" cols="2" color="606080"/>
+		<row/>
+		<cell cols="2">
+			<button command="local" text="Выход"/>
+		</cell>
+	</form>
+	
+</unit>
