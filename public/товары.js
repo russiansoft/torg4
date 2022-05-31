@@ -3,7 +3,7 @@ let count = 0;
 
 async function Заполнить(clear = false)
 {
-	element("#content").innerHTML = "";
+	element("main").innerHTML = "";
 	count = 0;
 	Дозаполнить();
 }
@@ -24,7 +24,28 @@ async function Дозаполнить()
 	for (let id of records)
 	{
 		let record = await dataset.find(id);
-		new Template("#card").fill(record).out("#content");
+		record.Артикул = ("" + record.Артикул).trim();
+		if (!record.Артикул)
+			record.Артикул = "(нет)";
+		let template = new Template("#card").fill(record);
+
+		let file = record.Изображение;
+		if (file)
+		{
+			let attributes = { };
+			for (let part of file.split("|"))
+			{
+				if (!part)
+					continue;
+				let pair = part.split(":");
+				attributes[pair[0]] = pair[1];
+			}
+			attributes.address = attributes.address.replace(/\\/g, "/");
+			let base64 = await hive.get(attributes.address);
+			let image = "data:image/jpeg;base64," + base64.content;
+			template.fill( { "image": image } );
+		}
+		template.out("main");
 	}
 	count += records.length;
 	query.skip += 14;
@@ -40,5 +61,5 @@ function Открыть(id)
 
 onload = async function()
 {
-	Заполнить(true);
+	Заполнить();
 }
