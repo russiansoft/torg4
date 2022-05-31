@@ -3,13 +3,14 @@ let count = 0;
 
 async function Заполнить(clear = false)
 {
-	await dataset.begin();
+	element("#content").innerHTML = "";
+	count = 0;
+	Дозаполнить();
+}
 
-	if (clear)
-	{
-		element("#content").innerHTML = "";
-		count = 0;
-	}
+async function Дозаполнить()
+{
+	await dataset.begin();
 	let query = 
 	{
 		"from": "Номенклатура",
