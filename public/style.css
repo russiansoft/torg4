@@ -1,0 +1,19 @@
+body
+{
+	background-color: #fafafa;
+}
+
+@media (prefers-color-scheme: dark)
+{
+	*
+	{
+		background-color: #222 !important;
+		color: #ddd !important;
+		border-color: #444 !important;
+	}
+}
+.card:hover
+{
+	box-shadow: 0 0 5px 0px;
+	cursor: pointer;
+}

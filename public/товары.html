@@ -15,10 +15,34 @@
 	<script src="dataset.js"></script>
 	<script src="client.js"></script>
 	<script src="template.js"></script>
-	<!-- <script src="index.js"></script> -->
+	<script src="товары.js"></script>
 	<title>СВАРОПТТОРГ</title>
 </head>
-	<body>
-		<a href="товары.html">Каталог товаров</a>
-	</body>
+<body>
+	<h1>Каталог товаров</h1>	
+	<template id="card">
+		<div class="card m-2" record="{id}" onclick="Открыть('{id}')">
+			<div class="card-body">
+				<h4 class="card-title">{Наименование}</h4>
+			</div>
+		</div>
+	</template>
+	<div id="container" class="container-fluid">
+		<div class="row m-2">
+			<label class="col-form-label col-sm-2">Найти:</label>
+			<div class="col-sm-10">
+				<input id="search" class="form-control" oninput="Заполнить()"/>
+			</div>
+		</div>
+	</div>
+<div id="content" class="container-fluid">
+	</div>
+	<div id="more" class="d-none">
+		<div class="row">
+			<div class="col-sm-6">
+				<button class="btn btn-secondary" onclick="Заполнить()">Вывести еще</button>
+			</div>
+		</div>
+	</div>
+</body>
 </html>
