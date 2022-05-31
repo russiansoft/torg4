@@ -45,6 +45,8 @@ async function Дозаполнить()
 			let image = "data:image/jpeg;base64," + base64.content;
 			template.fill( { "image": image } );
 		}
+		else
+			template.fill( { "image": "nophoto.jpeg" } );
 		template.out("main");
 	}
 	count += records.length;

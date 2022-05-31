@@ -50,14 +50,14 @@
 			</div>
 		</footer>
 		<template id="card">
-			<div class="card m-2" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-2" style="width: 18rem;" record="{id}" onclick="Открыть('{id}')">
+				<img class="card-img-top" src="{image}">
 				<div class="card-body">
 					<h4 class="card-title">{Наименование}</h4>
 					<span>Код: {Код}</span>
 					<span>Арт.: {Артикул}</span>
 					<div>Цена: {Цена}</div>
 					<div>Остаток: {Остаток} {ЕдиницаИзмерения}</div>
-					<img src="{image}">
 				</div>
 			</div>
 		</template>
