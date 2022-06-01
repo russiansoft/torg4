@@ -12,7 +12,11 @@ body
 		border-color: #444 !important;
 	}
 }
-.card:hover
+nav
+{
+	background-color: white;
+	border-bottom: 1px solid Highlight;
+}.card:hover
 {
 	box-shadow: 0 0 5px 0px;
 	cursor: pointer;

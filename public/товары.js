@@ -58,10 +58,11 @@ async function Дозаполнить()
 
 function Открыть(id)
 {
-	open("товар?id=" + id);
+	location = "товар?id=" + id;
 }
 
-onload = async function()
+addEventListener("load", async function()
 {
 	Заполнить();
-}
+	element("#search").focus();
+} );

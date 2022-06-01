@@ -17,52 +17,26 @@
 		<script src="client.js"></script>
 		<script src="template.js"></script>
 		<script src="nav.js"></script>
-		<script src="товары.js"></script>
+		<script src="товар.js"></script>
 		<title>СВАРОПТТОРГ</title>
-		<style>
-			#search
-			{
-				border: gold solid 3px;
-			}
-		</style>
 	</head>
 	<body>
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header>
-			<div id="container" class="container-fluid">
-				<h1 class="row m-2">Каталог товаров</h1>	
-				<div class="row m-2">
-					<label class="col-form-label col-sm-2">Найти:</label>
-					<div class="col-sm-10">
-						<input id="search" class="form-control" oninput="Заполнить()"/>
-					</div>
-				</div>
-			</div>
 		</header>
 		<main class="container-fluid">
+			<div class="form-group row">
+				<div class="col-sm-4">
+					<label for="title">Наименование:</label>
+				</div>
+				<div class="col-sm-8">
+					<input id="title" class="form-control" bind="Наименование"/>
+				</div>
+			</div>
 		</main>
 		<aside>
 		</aside>
 		<footer>
-			<div id="more" class="d-none">
-				<div class="row">
-					<div class="col-sm-6">
-						<button class="btn btn-secondary" onclick="Дозаполнить()">Вывести еще</button>
-					</div>
-				</div>
-			</div>
 		</footer>
-		<template id="card">
-			<div class="card m-2" style="width: 18rem;" record="{id}" onclick="Открыть('{id}')">
-				<img class="card-img-top" src="{image}">
-				<div class="card-body">
-					<h4 class="card-title">{Наименование}</h4>
-					<span>Код: {Код}</span>
-					<span>Арт.: {Артикул}</span>
-					<div>Цена: {Цена}</div>
-					<div>Остаток: {Остаток} {ЕдиницаИзмерения}</div>
-				</div>
-			</div>
-		</template>
 	</body>
 </html>

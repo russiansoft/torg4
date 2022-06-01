@@ -1,0 +1,21 @@
+<div class="container-fluid">
+	<a class="navbar-brand" href="/">
+		<img class="img img-responsive" src="favicon.svg" width="30">
+		СВАРОПТТОРГ
+	</a>
+	<div class="navbar-nav">
+		<a class="nav-link active" href="товары">Каталог товаров</a>
+		<a class="nav-link" href="корзина">Корзина</a>
+		<a class="nav-link" href="заказы">Мои заказы</a>
+		<div class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">
+				<i class="navbar-text bi bi-person-fill"></i>
+				<span class="navbar-text" id="user"></span>
+			</a>
+			<div class="dropdown-menu">
+				<button class="dropdown-item d-none" id="login" onclick="Войти()">Войти</button>
+				<button class="dropdown-item d-none" id="logout" onclick="Выйти()">Выйти</button>
+			</div>
+		</div>
+	</div>
+</div>
