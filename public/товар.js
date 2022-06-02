@@ -13,7 +13,12 @@ addEventListener("load", async function()
 
 		document.record.Описание = document.record.Описание.replace(/\n/g, "<br/>");
 
-		let template = new Template("#content").fill(document.record);
+		let template = new Template("#content");
+		
+		let money = Intl.NumberFormat("ru", { "style": "currency", "currency": "RUB" } );
+		template.fill( { "Цена": money.format(document.record.Цена) } );
+
+		template.fill(document.record);
 
 		let file = document.record.Изображение;
 		if (file)
