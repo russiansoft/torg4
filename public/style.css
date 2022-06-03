@@ -22,3 +22,13 @@ nav
 	/* box-shadow: 0 0 5px 0px; */
 	cursor: pointer;
 }
+.carousel-item
+{
+	transition: transform 2.6s ease-in-out;
+}
+  
+.carousel-fade .active.carousel-item-start,
+.carousel-fade .active.carousel-item-end
+{
+	transition: opacity 0s 2.6s;
+}
