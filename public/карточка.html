@@ -19,7 +19,7 @@
 		<script src="карточка.js"></script>
 		<title>СВАРОПТТОРГ</title>
 	</head>
-	<body>
+	<body onload="Загрузка()">
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header class="container-fluid">
 			<div class="row m-2"></div>
@@ -30,6 +30,23 @@
 			</div>
 		</header>
 		<main class="container-fluid">
+			<div class="row m-2">
+				<h1 class="col" id="title"></h1>
+			</div>
+			<div class="row m-2">
+				<label class="col-form-label col-sm-4">Изображение:</label>
+				<div class="col-sm-8">
+					<button class="btn btn-outline-secondary d-none"
+					        id="choose" onclick="Выбрать()">Выбрать</button>
+					<button class="btn btn-outline-secondary d-none"
+					        id="delete" onclick="Удалить()">Удалить</button>
+				</div>
+			</div>
+			<div class="row m-2">
+				<div class="col-sm-12">
+					<img id="image" class="img-fluid" src="">
+				</div>
+			</div>
 			<div class="row m-2">
 				<label class="col-form-label col-sm-12">Описание:</label>
 				<div class="col-sm-12">

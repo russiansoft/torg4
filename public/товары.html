@@ -47,21 +47,37 @@
 			<div class="container-fluid d-none" id="more">
 				<div class="row m-2">
 					<div class="col-sm-6">
-						<button class="btn btn-secondary" onclick="Дозаполнить()">Вывести еще</button>
+						<button class="btn btn-primary" onclick="Дозаполнить()">Вывести еще</button>
 					</div>
 				</div>
 				<div class="row m-2">
 				</div>
 		</footer>
 		<template id="card">
-			<div class="card m-2" style="width: 18rem;" record="{id}" onclick="Открыть('{id}')">
+			<div class="card m-2" style="width: 18rem;" record="{id}">
 				<img class="card-img-top" src="{image}">
 				<div class="card-body">
-					<h4 class="card-title">{Наименование}</h4>
-					<span>Код: {Код}</span>
-					<span>Арт.: {Артикул}</span>
-					<div>Цена: {Цена}</div>
-					<div>Остаток: {Остаток} {ЕдиницаИзмерения}</div>
+					<a class="card-title h4" href="товар?id={id}">{Наименование}</a>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col">Код: {Код}</div>
+						</div>
+						<div class="row">
+							<div class="col">Арт.: {Артикул}</div>
+						</div>
+						<div class="row">
+							<div class="col">Цена: {Цена}</div>
+						</div>
+						<div class="row">
+							<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
+							<div class="col-sm-auto">
+								<a class="btn btn-success" href="карточка?id={id}"
+								   target="_blank">
+									<i class="bi bi-pencil-fill"></i>
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</template>

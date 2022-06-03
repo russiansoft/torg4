@@ -16,8 +16,9 @@ nav
 {
 	background-color: white;
 	border-bottom: 1px solid Highlight;
-}.card:hover
+}
+.card a:hover
 {
-	box-shadow: 0 0 5px 0px;
+	/* box-shadow: 0 0 5px 0px; */
 	cursor: pointer;
 }

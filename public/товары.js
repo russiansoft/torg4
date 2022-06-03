@@ -56,11 +56,6 @@ async function Дозаполнить()
 	display("#more", records.length > 0);
 }
 
-function Открыть(id)
-{
-	location = "товар?id=" + id;
-}
-
 addEventListener("load", async function()
 {
 	Заполнить();
