@@ -39,8 +39,9 @@
 				</div>
 			</div>
 		</header>
-		<main class="container-fluid">
-		</main>
+		<div class="container-fluid">
+			<main class="row justify-content-center"></main>
+		</div>
 		<aside>
 		</aside>
 		<footer>
@@ -54,27 +55,29 @@
 				</div>
 		</footer>
 		<template id="card">
-			<div class="card m-2" style="width: 18rem;" record="{id}">
-				<img class="card-img-top" src="{image}">
-				<div class="card-body">
-					<a class="card-title h4" href="товар?id={id}">{Наименование}</a>
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col">Код: {Код}</div>
-						</div>
-						<div class="row">
-							<div class="col">Арт.: {Артикул}</div>
-						</div>
-						<div class="row">
-							<div class="col">Цена: {Цена}</div>
-						</div>
-						<div class="row">
-							<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
-							<div class="col-sm-auto">
-								<a class="btn btn-success" href="карточка?id={id}"
-								   target="_blank">
-									<i class="bi bi-pencil-fill"></i>
-								</a>
+			<div class="col-sm-auto">
+				<div class="card m-2" style="width: 18rem;" record="{id}">
+					<img class="card-img-top" src="{image}">
+					<div class="card-body">
+						<a class="card-title h4" href="товар?id={id}">{Наименование}</a>
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col">Код: {Код}</div>
+							</div>
+							<div class="row">
+								<div class="col">Арт.: {Артикул}</div>
+							</div>
+							<div class="row">
+								<div class="col">Цена: {Цена}</div>
+							</div>
+							<div class="row">
+								<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
+								<div class="col-sm-auto">
+									<a class="btn btn-success" href="карточка?id={id}"
+									target="_blank">
+										<i class="bi bi-pencil-fill"></i>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
