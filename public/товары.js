@@ -11,12 +11,9 @@ async function Заполнить(clear = false)
 async function Дозаполнить()
 {
 	await dataset.begin();
-	let query = 
-	{
-		"from": "Номенклатура",
-		"skip": count,
-		"take": 15
-	};
+	let query =  { "from": "Номенклатура",
+		           "skip": count,
+		           "take": 15 };
 	let search = element("#search").value;
 	if (search)
 		query.search = search;
@@ -56,8 +53,32 @@ async function Дозаполнить()
 	display("#more", records.length > 0);
 }
 
-addEventListener("load", async function()
+async function ВКорзину(id)
+{
+	await dataset.begin();
+	let max = 0;
+	let query = 
+	{
+		"from": "Покупка",
+		"where" : { "Пользователь" : auth.account }
+	};
+	let records = await dataset.select(query);
+	for (let id of records)
+	{
+		let entry = await dataset.find(id);
+		if (max < entry.Порядок)
+			max < entry.Порядок;
+	}
+	let values = { "Пользователь": auth.account,
+		           "Порядок": "" + (max + 1),
+		           "Номенклатура": id,
+		           "Количество": "1" };
+	let record = await dataset.create("Покупка",  values);
+	await dataset.commit();
+}
+
+async function Загрузка()
 {
 	Заполнить();
 	element("#search").focus();
-} );
+}
