@@ -16,6 +16,7 @@
 		<script src="dataset.js"></script>
 		<script src="client.js"></script>
 		<script src="template.js"></script>
+		<script src="cart.js"></script>
 		<script src="nav.js"></script>
 		<script src="товары.js"></script>
 		<title>СВАРОПТТОРГ</title>
@@ -62,22 +63,10 @@
 						<a class="card-title h5" href="товар?id={id}">{Наименование}</a>
 						<div class="container-fluid p-0">
 							<div class="row">
-								<div class="col">Код: {Код}</div>
-							</div>
-							<div class="row">
-								<div class="col">Арт.: {Артикул}</div>
-							</div>
-							<div class="row">
-								<div class="col">Цена: {Цена}</div>
-							</div>
-							<div class="row">
-								<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
-							</div>
-							<div class="row mt-2">
-								<div class="col-sm-auto">
-									<button class="btn btn-danger" onclick="ВКорзину('{id}')">
-										<i class="bi bi-cart3"></i> В корзину
-									</a>
+								<div class="col">
+									Код: {Код}
+									<br>
+									Арт.: {Артикул}
 								</div>
 								<div class="col-sm-auto">
 									<a class="btn btn-success" href="карточка?id={id}"
@@ -86,9 +75,33 @@
 									</a>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col">Цена: {Цена}</div>
+							</div>
+							<div class="row">
+								<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-sm-auto d-none" id="buying-{id}">
+									<button class="btn btn-danger" onclick="ВКорзину('{id}')">
+										<i class="bi bi-cart3"></i> В корзину
+									</button>
+								</div>
+								<div class="col-sm-auto d-none" id="buyed-{id}">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</template>
+		<template id="buyed">
+			<div class="col">
+				<p class="text-danger">
+					<a href="корзина">
+						<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
+					</a>
+				</p>
 			</div>
 		</template>
 	</body>

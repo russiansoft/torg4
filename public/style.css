@@ -1,6 +1,7 @@
 body
 {
-	background-color: #fafafa;
+	/* background-color: #fafafa; */
+	background-color: white;
 }
 
 @media (prefers-color-scheme: dark)

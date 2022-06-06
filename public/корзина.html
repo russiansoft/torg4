@@ -17,6 +17,7 @@
 		<script src="dataset.js"></script>
 		<script src="client.js"></script>
 		<script src="template.js"></script>
+		<script src="cart.js"></script>
 		<script src="nav.js"></script>
 		<script src="корзина.js"></script>
 		<title>СВАРОПТТОРГ</title>
@@ -24,8 +25,19 @@
 	<body onload="Загрузка()">
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
 		<header>
-			<div id="container" class="container-fluid">
-				<h1 class="row m-2">Корзина</h1>	
+			<div class="container-fluid">
+				<h1 class="row m-2">
+					<p class="col">
+						Корзина
+					</p>
+				</h1>	
+				<div class="row m-2">
+					<div class="col">
+						<button class="btn btn-secondary" onclick="Очистить()">
+							<i class="bi bi-x-circle"></i> Очистить
+						</button>
+					</div>
+				</div>
 			</div>
 		</header>
 		<main class="container-fluid">
@@ -40,18 +52,19 @@
 					<div class="row">
 						<div class="col-sm-3">
 							<img class="img-fluid" src="{image}">
+							<!-- <p>{Порядок}</p> -->
 						</div>
 						<div class="col-sm-6">
-							<a class="card-title h5" href="товар?id={id}">{Наименование}</a>
+							<a class="card-title h5" href="товар?id={Номенклатура}">{Наименование}</a>
 							<p class="card-subtitle">Код: {Код}</p>
 							<p class="card-subtitle">Арт.: {Артикул}</p>
 							<p class="card-text">Цена: {Цена}</p>
 						</div>
 						<div class="col-sm-3">
 							<p>{Количество} {ЕдиницаИзмерения}</p>
-							<button class="btn btn-secondary">+</button>
-							<button class="btn btn-secondary">–</button>
-							<button class="btn btn-outline-secondary"><i class="bi bi-trash3"></i></button>
+							<button class="btn btn-secondary" onclick="Увеличить('{id}')">+</button>
+							<button class="btn btn-secondary" onclick="Уменьшить('{id}')">–</button>
+							<button class="btn btn-outline-secondary m-3" onclick="Удалить('{id}')"><i class="bi bi-trash3"></i></button>
 						</div>
 					</div>
 				</div>

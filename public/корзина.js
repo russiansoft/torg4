@@ -1,13 +1,11 @@
 
-async function Загрузка()
+async function Заполнить()
 {
 	element("main").innerHTML = "";
 	await dataset.begin();
-	let query = 
-	{
-		"from": "Покупка",
-		"where" : { "Пользователь" : auth.account }
-	};
+	let query =  { "from": "ПокупкаПорядок",
+		           "where" : { "Пользователь" : auth.account },
+		           "filter" : { "deleted": "" }	};
 	let records = await dataset.select(query);
 	for (let id of records)
 	{
@@ -40,4 +38,33 @@ async function Загрузка()
 		}
 		template.out("main");
 	}
+}
+
+async function Очистить()
+{
+	await cart.clear();
+	Заполнить();
+}
+
+async function Увеличить(id)
+{
+	await cart.plus(id);
+	Заполнить();
+}
+
+async function Уменьшить(id)
+{
+	await cart.minus(id);
+	Заполнить();
+}
+
+async function Удалить(id)
+{
+	await cart.remove(id);
+	Заполнить();
+}
+
+async function Загрузка()
+{
+	Заполнить();
 }

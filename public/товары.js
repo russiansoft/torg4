@@ -45,6 +45,8 @@ async function Дозаполнить()
 		else
 			template.fill( { "image": "nophoto.jpeg" } );
 		template.out("main");
+
+		ОбновитьЭлемент(id);
 	}
 	count += records.length;
 	query.skip += 14;
@@ -55,26 +57,27 @@ async function Дозаполнить()
 
 async function ВКорзину(id)
 {
+	await cart.add(id);
 	await dataset.begin();
-	let max = 0;
-	let query = 
+	ОбновитьЭлемент(id);
+}
+
+async function ОбновитьЭлемент(id)
+{
+	let покупка = await dataset.find( { "from": "Покупка",
+                                        "where": { "Пользователь": auth.account },
+								        "filter": { "Номенклатура": id,
+										            "deleted": "" } } );
+	display("#buying-" + id, покупка == null);
+	display("#buyed-" + id, покупка != null);
+	if (покупка != null)
 	{
-		"from": "Покупка",
-		"where" : { "Пользователь" : auth.account }
-	};
-	let records = await dataset.select(query);
-	for (let id of records)
-	{
-		let entry = await dataset.find(id);
-		if (max < entry.Порядок)
-			max < entry.Порядок;
+		let template = new Template("#buyed");
+		template.fill(покупка);
+		let item = await dataset.find(id);
+		template.fill(item);
+		template.out("#buyed-" + id);
 	}
-	let values = { "Пользователь": auth.account,
-		           "Порядок": "" + (max + 1),
-		           "Номенклатура": id,
-		           "Количество": "1" };
-	let record = await dataset.create("Покупка",  values);
-	await dataset.commit();
 }
 
 async function Загрузка()

@@ -19,6 +19,11 @@
 		
 		<index name="Покупка">
 			<key field="Пользователь"/>
+			<key field="Номенклатура"/>
+		</index>
+
+		<index name="ПокупкаПорядок">
+			<key field="Пользователь"/>
 			<key field="Порядок"/>
 			<key field="Номенклатура"/>
 		</index>

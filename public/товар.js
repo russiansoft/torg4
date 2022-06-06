@@ -1,5 +1,5 @@
 
-addEventListener("load", async function()
+async function Загрузка()
 {
 	await dataset.begin();
 
@@ -44,5 +44,34 @@ addEventListener("load", async function()
 
 		let qrcode = new QRCode(element("main #qrcode"));
 		qrcode.makeCode(qr);
+
+		Обновить();
 	}
-} );
+}
+
+async function ВКорзину()
+{
+	let id = document.record.id;
+	await cart.add(id);
+	await dataset.begin();
+	Обновить();
+}
+
+async function Обновить()
+{
+	let id = document.record.id;
+	let покупка = await dataset.find( { "from": "Покупка",
+                                        "where": { "Пользователь": auth.account },
+								        "filter": { "Номенклатура": id,
+										            "deleted": "" } } );
+	display("#buying-" + id, покупка == null);
+	display("#buyed-" + id, покупка != null);
+	if (покупка != null)
+	{
+		let template = new Template("#buyed");
+		template.fill(покупка);
+		let item = await dataset.find(id);
+		template.fill(item);
+		template.out("#buyed-" + id);
+	}
+}
