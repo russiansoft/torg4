@@ -1,7 +1,7 @@
 
 async function Войти()
 {
-	let auth = await auth.identify(localStorage["device"]);
+	await auth.identify(localStorage["device"]);
 	if (!auth.user)
 	{
 		let google = await auth.google();
