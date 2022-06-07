@@ -10,7 +10,15 @@ async function Заполнить(clear = false)
 
 async function Дозаполнить()
 {
-	await dataset.begin();
+	try
+	{
+		await dataset.begin();
+	}
+	catch
+	{
+		new Template("#restricted").out("main");
+		return;
+	}
 	let query =  { "from": "Номенклатура",
 		           "skip": count,
 		           "take": 15 };
