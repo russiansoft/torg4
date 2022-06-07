@@ -40,6 +40,16 @@ async function Заполнить()
 	}
 }
 
+async function Этикетки()
+{
+	let layout = new Layout();
+}
+
+async function Инвентаризация()
+{
+
+}
+
 async function Очистить()
 {
 	await cart.clear();
