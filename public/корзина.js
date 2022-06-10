@@ -40,17 +40,6 @@ async function Заполнить()
 	}
 }
 
-async function Этикетки()
-{
-	let layout = new Layout();
-	let test = await layout.test();
-	let a = document.createElement("a");
-    a.download = "test.xlsx";
-	let type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-    a.href = "data:" + type + ";base64," + test.content;
-    a.click();
-}
-
 async function Инвентаризация()
 {
 
