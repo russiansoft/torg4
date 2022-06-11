@@ -33,3 +33,8 @@ nav
 {
 	transition: opacity 0s 2.6s;
 }
+
+tr
+{
+	line-height: 1em;
+}

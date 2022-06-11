@@ -34,7 +34,7 @@
 				</h1>	
 				<div class="row m-2">
 					<div class="col">
-						<button class="btn btn-secondary" onclick="Печать()">
+						<button class="btn btn-primary" onclick="Печать()">
 							Печать
 						</button>
 					</div>
@@ -42,13 +42,13 @@
 			</div>
 		</header>
 		<main class="container-fluid">
-			<table id="sheet" class="sheet" style="width: 309.6px;">
+			<table class="table-bordered_">
 				<colgroup>
-					<col data-width="2" style="width: 17.2px;"></col>
-					<col data-width="9" style="width: 77.4px;"></col>
-					<col data-width="2" style="width: 17.2px;"></col>
-					<col data-width="13" style="width: 111.8px;"></col>
-					<col data-width="10" style="width: 86px;"></col>
+					<col style="width: 2ch;"></col>
+					<col style="width: 9ch;"></col>
+					<col style="width: 2ch;"></col>
+					<col style="width: 13ch;"></col>
+					<col style="width: 10ch;"></col>
 				</colgroup>
 				<tbody>
 				</tbody>
@@ -60,35 +60,36 @@
 		</footer>
 		<template>
 			<tr>
-				<td class="sheet-cell" colspan="5" style="max-width: 17.2px;"></td>
+				<td colspan="5"></td>
 			</tr>
 			<tr>
-				<td class="sheet-cell" style="max-width: 17.2px;"></td>
-				<td class="sheet-cell" colspan="1" rowspan="4" style="max-width: 77.4px;">
-					<img id="" src="data:png;base64,{qrcode}" class="sheet-image-full">
+				<td></td>
+				<td colspan="1" rowspan="4">
+					<img src="data:png;base64,{qrcode}" class="img-fluid">
 				</td>
-				<td class="sheet-cell" style="max-width: 17.2px;"></td>
-				<td class="sheet-cell fw-bold text-wrap" colspan="2" rowspan="2" style="white-space: pre-wrap; max-width: 111.8px;">{title}</td>
-				<td class="sheet-cell" style="max-width: 86px;"></td>
+				<td></td>
+				<td class="fw-bold text-wrap" colspan="2" rowspan="2">{title}</td>
+				<td></td>
 			</tr>
 			<tr>
-				<td class="sheet-cell" style="max-width: 17.2px;"></td>
+				<td></td>
 			</tr>
 			<tr>
-				<td class="sheet-cell" colspan="3" style="max-width: 17.2px;"></td>
-				<td class="sheet-cell" style="text-align: left; font-size: 7pt; max-width: 77.4px;">СВАРОПТТОРГ</td>
-				<td class="sheet-cell" rowspan="3" style="text-align: right; font-family: EanGnivc; font-size: 24pt; max-width: 17.2px;">{Штрихкод}</td>
-				<td class="sheet-cell" style="max-width: 111.8px;"></td>
+				<td colspan="3"></td>
+				<td style="text-align: left; font-size: 7pt;">СВАРОПТТОРГ</td>
+				<td class="text-end align-top pt-4" rowspan="3"
+				    style="font-family: EanGnivc; font-size: 24pt;">{Штрихкод}</td>
+				<td></td>
 			</tr>
-			<tr style="font-size: 6px;">
-				<td class="sheet-cell" colspan="3" style="font-size: 6pt; max-width: 17.2px;"></td>
-				<td class="sheet-cell" style="font-size: 6pt; text-align: left; max-width: 77.4px;">сварка40.рф</td>
-			</tr>
-			<tr>
-				<td class="sheet-cell" style="max-width: 17.2px;"></td>
+			<tr style="font-size: 6pt;">
+				<td colspan="3"></td>
+				<td style="text-align: left;">сварка40.рф</td>
 			</tr>
 			<tr>
-				<td class="sheet-cell" colspan="5" style="max-width: 17.2px;"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td colspan="5"></td>
 			</tr>
 		</template>
 	</body>
