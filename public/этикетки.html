@@ -22,6 +22,13 @@
 		<script src="nav.js"></script>
 		<script src="этикетки.js"></script>
 		<title>СВАРОПТТОРГ</title>
+		<style>
+			.title
+			{
+				max-height:2em;
+				overflow-y: hidden;
+			}
+		</style>
 	</head>
 	<body onload="Загрузка()">
 		<nav class="navbar fixed-top navbar-expand-sm"></nav>
@@ -66,8 +73,9 @@
 				<td></td>
 				<td colspan="1" rowspan="4" id="qrcode-{id}"></td>
 				<td></td>
-				<td class="fw-bold text-wrap" colspan="2" rowspan="2">{title}</td>
-				<td></td>
+				<td class="fw-bold text-wrap" colspan="2" rowspan="2">
+					<p class="title">{title}</p>
+				</td>
 			</tr>
 			<tr>
 				<td></td>
