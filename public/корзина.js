@@ -71,16 +71,24 @@ async function Очистить()
 	Заполнить();
 }
 
+async function ВывестиКоличество(id)
+{
+	await dataset.begin();
+	let entry = await dataset.find(id);
+	let record = await dataset.find(entry.Номенклатура);
+	element("#count-" + id).innerHTML = entry.Количество + " " + record.ЕдиницаИзмерения;
+}
+
 async function Увеличить(id)
 {
 	await cart.plus(id);
-	Заполнить();
+	ВывестиКоличество(id);
 }
 
 async function Уменьшить(id)
 {
 	await cart.minus(id);
-	Заполнить();
+	ВывестиКоличество(id);
 }
 
 async function ВвестиКоличество(id)
@@ -89,7 +97,7 @@ async function ВвестиКоличество(id)
 	if (result == null)
 		return;
 	await cart.set(id, result);
-	Заполнить();
+	ВывестиКоличество(id);
 }
 
 async function Удалить(id)
