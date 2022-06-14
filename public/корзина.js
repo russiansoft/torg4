@@ -42,7 +42,27 @@ async function Заполнить()
 
 async function Инвентаризация()
 {
-
+	if (!confirm("Создать инвентаризацию по выбранным товарам?"))
+		return;
+	await dataset.begin();
+	let doc = await dataset.create("Инвентаризация");
+	// await dataset.save( [ { "id": doc.id, "ИнвентаризацияОформлен": "1" } ] );
+	let query =  { "from": "ПокупкаПорядок",
+		           "where" : { "Пользователь" : auth.account },
+		           "filter" : { "deleted": "" }	};
+	let records = await dataset.select(query);
+	for (let id of records)
+	{
+		let entry = await dataset.find(id);
+		let values =
+		{
+			"Номенклатура": entry.Номенклатура,
+			"Количество": "" + entry.Количество
+		};
+		let line = await dataset.add(doc.id, "Строки", values);
+	}
+	await dataset.commit();
+	alert("Создан документ Инвентаризация");
 }
 
 async function Очистить()
