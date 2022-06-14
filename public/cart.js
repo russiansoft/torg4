@@ -22,6 +22,22 @@ let cart = new class Cart
 		await dataset.commit();
 	}
 
+	async get(id)
+	{
+		await dataset.begin();
+		let entry = await dataset.find(id);
+		if (entry)
+			return entry.Количество;
+	}
+
+	async set(id, count)
+	{
+		await dataset.begin();
+		let entry = await dataset.find(id);
+		await dataset.save( [ { "id": id, "Количество": "" + count } ] );
+		await dataset.commit();
+	}
+
 	async remove(id)
 	{
 		await dataset.begin();

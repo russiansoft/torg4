@@ -83,6 +83,15 @@ async function Уменьшить(id)
 	Заполнить();
 }
 
+async function ВвестиКоличество(id)
+{
+	let result = prompt("Введите количество", 0 + await cart.get(id));
+	if (result == null)
+		return;
+	await cart.set(id, result);
+	Заполнить();
+}
+
 async function Удалить(id)
 {
 	await cart.remove(id);
