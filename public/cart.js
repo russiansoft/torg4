@@ -22,6 +22,16 @@ let cart = new class Cart
 		await dataset.commit();
 	}
 
+	async find(item)
+	{
+		await dataset.begin();
+		let query =  { "from": "Покупка",
+			           "where": { "Пользователь": auth.account },
+					   "filter": { "Номенклатура": item,
+						           "deleted": "" } };
+		return await dataset.find(query);
+	}
+
 	async get(id)
 	{
 		await dataset.begin();

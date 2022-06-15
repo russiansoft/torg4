@@ -65,7 +65,8 @@ async function Дозаполнить()
 
 async function ВКорзину(id)
 {
-	await cart.add(id);
+	if (!await cart.find(id))
+		await cart.add(id);
 	await dataset.begin();
 	ОбновитьЭлемент(id);
 }

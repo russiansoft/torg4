@@ -52,7 +52,8 @@ async function Загрузка()
 async function ВКорзину()
 {
 	let id = document.record.id;
-	await cart.add(id);
+	if (!await cart.find(id))
+		await cart.add(id);
 	await dataset.begin();
 	Обновить();
 }
