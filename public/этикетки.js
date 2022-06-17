@@ -5,12 +5,13 @@ async function Печать()
 	let layout = new Layout();
 	let worksheet = await layout.worksheet(source);
 
-	let a = document.createElement("a");
+	let a = element("#print"); //document.createElement("a");
     a.download = "test.xlsx";
 	let type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     a.href = "data:" + type + ";base64," + worksheet;
-    a.click();
 }
+
+let images = [];
 
 async function Загрузка()
 {
@@ -34,5 +35,31 @@ async function Загрузка()
 
 		let img = element("#qrcode-" + record.id + " img");
 		img.classList.add("img-fluid");
+		images.push(img);
+
+		// if (img.src == "")
+		// 	throw "Пустая картинка";
 	}
+	setTimeout(ОжиданиеКартинок, 100);
+}
+
+function ОжиданиеКартинок()
+{
+	let ready = true;
+	for (let image of images)
+	{
+		if (image.src == "")
+		{
+			ready = false;
+			break;
+		}
+	}
+	if (ready)
+	{
+		Печать();
+		display("#hourglass", false);
+		display("#print", true);
+	}
+	else
+		setTimeout(ОжиданиеКартинок, 100);
 }
