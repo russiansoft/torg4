@@ -59,6 +59,7 @@ function ОжиданиеКартинок()
 		Печать();
 		display("#hourglass", false);
 		display("#print", true);
+		display("table", true);
 	}
 	else
 		setTimeout(ОжиданиеКартинок, 100);
