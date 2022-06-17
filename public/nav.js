@@ -60,4 +60,7 @@ addEventListener("load", async function()
 	let next = element("nav").nextElementSibling;
 	if (next)
 		next.style.marginTop = element("nav").offsetHeight + "px";
+
+	if (Загрузка)
+		Загрузка();
 } );
