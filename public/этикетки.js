@@ -15,15 +15,15 @@ let images = [];
 
 async function Загрузка()
 {
-	await dataset.begin();
+	await database.begin();
 	let query =  { "from": "ПокупкаПорядок",
 		           "where" : { "Пользователь" : auth.account },
 		           "filter" : { "deleted": "" }	};
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let entry = await dataset.find(id);
-		let record = await dataset.find(entry.Номенклатура);
+		let entry = await database.find(id);
+		let record = await database.find(entry.Номенклатура);
 		let template = new Template("template");
 		template.fill(record);
 

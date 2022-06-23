@@ -1,11 +1,11 @@
 
 async function Сформировать()
 {
-	await dataset.begin();
+	await database.begin();
 	let query =  { "from": "ПокупкаПорядок",
 		           "where": { "Пользователь": auth.account },
 		           "filter": { "deleted": "" }	};
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	let rows = [];
 	let row = null;
 	for (let id of records)
@@ -15,8 +15,8 @@ async function Сформировать()
 			row = [];
 			rows.push(row);
 		}
-		let entry = await dataset.find(id);
-		let record = await dataset.find(entry.Номенклатура);
+		let entry = await database.find(id);
+		let record = await database.find(entry.Номенклатура);
 		row.push(record);
 		if (row.length == 3)
 			row = null;

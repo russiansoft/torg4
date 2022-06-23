@@ -12,7 +12,7 @@ async function Дозаполнить()
 {
 	try
 	{
-		await dataset.begin();
+		await database.begin();
 	}
 	catch
 	{
@@ -25,10 +25,10 @@ async function Дозаполнить()
 	let search = element("#search").value;
 	if (search)
 		query.search = search;
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let record = await dataset.find(id);
+		let record = await database.find(id);
 		record.Артикул = ("" + record.Артикул).trim();
 		if (!record.Артикул)
 			record.Артикул = "(нет)";
@@ -59,7 +59,7 @@ async function Дозаполнить()
 	count += records.length;
 	query.skip += 14;
 	query.take = 1;
-	records = await dataset.select(query);
+	records = await database.select(query);
 	display("#more", records.length > 0);
 }
 
@@ -67,13 +67,13 @@ async function ВКорзину(id)
 {
 	if (!await cart.find(id))
 		await cart.add(id);
-	await dataset.begin();
+	await database.begin();
 	ОбновитьЭлемент(id);
 }
 
 async function ОбновитьЭлемент(id)
 {
-	let покупка = await dataset.find( { "from": "Покупка",
+	let покупка = await database.find( { "from": "Покупка",
                                         "where": { "Пользователь": auth.account },
 								        "filter": { "Номенклатура": id,
 										            "deleted": "" } } );
@@ -83,7 +83,7 @@ async function ОбновитьЭлемент(id)
 	{
 		let template = new Template("#buyed");
 		template.fill(покупка);
-		let item = await dataset.find(id);
+		let item = await database.find(id);
 		template.fill(item);
 		template.out("#buyed-" + id);
 	}

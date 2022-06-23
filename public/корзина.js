@@ -2,19 +2,19 @@
 async function Заполнить()
 {
 	element("main").innerHTML = "";
-	await dataset.begin();
+	await database.begin();
 	let query =  { "from": "ПокупкаПорядок",
 		           "where" : { "Пользователь" : auth.account },
 		           "filter" : { "deleted": "" }	};
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let entry = await dataset.find(id);
+		let entry = await database.find(id);
 		let template = new Template("#card").fill(entry);
 
 		if (entry.Номенклатура)
 		{
-			let record = await dataset.find(entry.Номенклатура);
+			let record = await database.find(entry.Номенклатура);
 			template.fill(record);
 
 			let file = record.Изображение;
@@ -44,24 +44,24 @@ async function Инвентаризация()
 {
 	if (!confirm("Создать инвентаризацию по выбранным товарам?"))
 		return;
-	await dataset.begin();
-	let doc = await dataset.create("Инвентаризация");
-	// await dataset.save( [ { "id": doc.id, "ИнвентаризацияОформлен": "1" } ] );
+	await database.begin();
+	let doc = await database.create("Инвентаризация");
+	// await database.save( [ { "id": doc.id, "ИнвентаризацияОформлен": "1" } ] );
 	let query =  { "from": "ПокупкаПорядок",
 		           "where" : { "Пользователь" : auth.account },
 		           "filter" : { "deleted": "" }	};
-	let records = await dataset.select(query);
+	let records = await database.select(query);
 	for (let id of records)
 	{
-		let entry = await dataset.find(id);
+		let entry = await database.find(id);
 		let values =
 		{
 			"Номенклатура": entry.Номенклатура,
 			"Количество": "" + entry.Количество
 		};
-		let line = await dataset.add(doc.id, "Строки", values);
+		let line = await database.add(doc.id, "Строки", values);
 	}
-	await dataset.commit();
+	await database.commit();
 	alert("Создан документ Инвентаризация");
 }
 
@@ -73,9 +73,9 @@ async function Очистить()
 
 async function ВывестиКоличество(id)
 {
-	await dataset.begin();
-	let entry = await dataset.find(id);
-	let record = await dataset.find(entry.Номенклатура);
+	await database.begin();
+	let entry = await database.find(id);
+	let record = await database.find(entry.Номенклатура);
 	element("#count-" + id).innerHTML = entry.Количество + " " + record.ЕдиницаИзмерения;
 }
 

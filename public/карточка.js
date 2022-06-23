@@ -1,7 +1,7 @@
 
 async function Записать()
 {
-	await dataset.commit();
+	await database.commit();
 	close();
 }
 
@@ -20,14 +20,14 @@ async function Выбрать()
 			value += "|type:" + file.type;
 		value += "|address:" + result.address + "|";
 
-		await dataset.save( [ { "id": document.record, "Изображение": value } ] );
+		await database.save( [ { "id": document.record, "Изображение": value } ] );
 		await ВывестиИзображение(value);
 	} );
 }
 
 async function Удалить()
 {
-	await dataset.save( [ { "id": document.record, "Изображение": "" } ] );
+	await database.save( [ { "id": document.record, "Изображение": "" } ] );
 	await ВывестиИзображение("");
 }
 
@@ -56,7 +56,7 @@ async function ВывестиИзображение(value)
 
 async function Загрузка()
 {
-	await dataset.begin();
+	await database.begin();
 
 	// Обработка изменений полей ввода
 	document.onchange = OnChange;
@@ -65,7 +65,7 @@ async function Загрузка()
 	if (url.searchParams.has("id"))
 	{
 		let id = url.searchParams.get("id");
-		document.record = await dataset.find(id);
+		document.record = await database.find(id);
 		document.title = document.record.title;
 		element("#title").innerHTML = document.record.title;
 		await ВывестиИзображение(document.record.Изображение);

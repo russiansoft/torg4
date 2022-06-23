@@ -1,13 +1,13 @@
 
 async function Загрузка()
 {
-	await dataset.begin();
+	await database.begin();
 
 	let url = new URL(location);
 	if (url.searchParams.has("id"))
 	{
 		let id = url.searchParams.get("id");
-		document.record = await dataset.find(id);
+		document.record = await database.find(id);
 		document.title = document.record.title;
 		//DataOut(document.record);
 
@@ -54,14 +54,14 @@ async function ВКорзину()
 	let id = document.record.id;
 	if (!await cart.find(id))
 		await cart.add(id);
-	await dataset.begin();
+	await database.begin();
 	Обновить();
 }
 
 async function Обновить()
 {
 	let id = document.record.id;
-	let покупка = await dataset.find( { "from": "Покупка",
+	let покупка = await database.find( { "from": "Покупка",
                                         "where": { "Пользователь": auth.account },
 								        "filter": { "Номенклатура": id,
 										            "deleted": "" } } );
@@ -71,7 +71,7 @@ async function Обновить()
 	{
 		let template = new Template("#buyed");
 		template.fill(покупка);
-		let item = await dataset.find(id);
+		let item = await database.find(id);
 		template.fill(item);
 		template.out("#buyed-" + id);
 	}

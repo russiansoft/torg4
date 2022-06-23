@@ -3,14 +3,14 @@ let cart = new class Cart
 {
 	async add(id)
 	{
-		await dataset.begin();
+		await database.begin();
 		let max = 0;
 		let query =  { "from": "Покупка",
 			           "where" : { "Пользователь" : auth.account } };
-		let records = await dataset.select(query);
+		let records = await database.select(query);
 		for (let id of records)
 		{
-			let entry = await dataset.find(id);
+			let entry = await database.find(id);
 			if (max < entry.Порядок)
 				max = entry.Порядок;
 		}
@@ -18,78 +18,78 @@ let cart = new class Cart
 					"Порядок": "" + (max + 1),
 					"Номенклатура": id,
 					"Количество": "1" };
-		let record = await dataset.create("Покупка",  values);
-		await dataset.commit();
+		let record = await database.create("Покупка",  values);
+		await database.commit();
 	}
 
 	async find(item)
 	{
-		await dataset.begin();
+		await database.begin();
 		let query =  { "from": "Покупка",
 			           "where": { "Пользователь": auth.account },
 					   "filter": { "Номенклатура": item,
 						           "deleted": "" } };
-		return await dataset.find(query);
+		return await database.find(query);
 	}
 
 	async get(id)
 	{
-		await dataset.begin();
-		let entry = await dataset.find(id);
+		await database.begin();
+		let entry = await database.find(id);
 		if (entry)
 			return entry.Количество;
 	}
 
 	async set(id, count)
 	{
-		await dataset.begin();
-		let entry = await dataset.find(id);
-		await dataset.save( [ { "id": id, "Количество": "" + count } ] );
-		await dataset.commit();
+		await database.begin();
+		let entry = await database.find(id);
+		await database.save( [ { "id": id, "Количество": "" + count } ] );
+		await database.commit();
 	}
 
 	async remove(id)
 	{
-		await dataset.begin();
-		await dataset.save([ { "id": id, "deleted": "1" } ]);
-		await dataset.commit();
+		await database.begin();
+		await database.save([ { "id": id, "deleted": "1" } ]);
+		await database.commit();
 	}
 
 	async plus(id)
 	{
-		await dataset.begin();
-		let entry = await dataset.find(id);
-		await dataset.save( [ { "id": id, "Количество": "" + (entry.Количество + 1) } ] );
-		await dataset.commit();
+		await database.begin();
+		let entry = await database.find(id);
+		await database.save( [ { "id": id, "Количество": "" + (entry.Количество + 1) } ] );
+		await database.commit();
 	}
 
 	async minus(id)
 	{
-		await dataset.begin();
-		let entry = await dataset.find(id);
-		await dataset.save( [ { "id": id, "Количество": "" + (entry.Количество - 1) } ] );
-		await dataset.commit();
+		await database.begin();
+		let entry = await database.find(id);
+		await database.save( [ { "id": id, "Количество": "" + (entry.Количество - 1) } ] );
+		await database.commit();
 	}
 
 	async clear()
 	{
-		await dataset.begin();
+		await database.begin();
 		let changes = [ ];
 		let query =  { "from": "Покупка",
 			           "where" : { "Пользователь" : auth.account } };
-		for (let id of await dataset.select(query))
+		for (let id of await database.select(query))
 			changes.push( { "id": id, "deleted": "1" } );
-		await dataset.save(changes);
-		await dataset.commit();
+		await database.save(changes);
+		await database.commit();
 	}
 
 	async count()
 	{
-		await dataset.begin();
+		await database.begin();
 		let changes = [ ];
 		let query =  { "from": "Покупка",
 			           "where" : { "Пользователь" : auth.account, "deleted": "" } };
-		let records = await dataset.select(query);
+		let records = await database.select(query);
 		return records.length;
 	}
 }
