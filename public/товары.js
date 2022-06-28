@@ -3,9 +3,11 @@ let count = 0;
 
 async function Заполнить(clear = false)
 {
+	element("#fill-button").classList.add("disabled");
 	element("main").innerHTML = "";
 	count = 0;
 	Дозаполнить();
+	element("#fill-button").classList.remove("disabled");
 }
 
 async function Дозаполнить()

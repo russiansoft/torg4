@@ -33,9 +33,12 @@
 			<div id="container" class="container-fluid">
 				<h1 class="row m-2">Каталог товаров</h1>	
 				<div class="row m-2">
-					<label class="col-form-label col-sm-2">Найти:</label>
-					<div class="col-sm-10">
-						<input id="search" class="form-control" oninput="Заполнить()"/>
+					<label class="col-form-label col-sm-2">Поиск:</label>
+					<div class="col-sm-8">
+						<input id="search" class="form-control"/>
+					</div>
+					<div class="col-sm-2">
+						<button class="btn btn-primary disabled" id="fill-button" onclick="Заполнить()">Найти</button>
 					</div>
 				</div>
 			</div>
