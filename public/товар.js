@@ -1,6 +1,7 @@
 
 async function Загрузка()
 {
+	await LoadNav();
 	await database.begin();
 
 	let url = new URL(location);
@@ -42,7 +43,7 @@ async function Загрузка()
 
 		template.out("main");
 
-		let qrcode = new QRCode(element("main #qrcode"));
+		let qrcode = new QRCode(document.find("main #qrcode"));
 		qrcode.makeCode(qr);
 
 		Обновить();

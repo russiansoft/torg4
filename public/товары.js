@@ -1,17 +1,16 @@
 
-let count = 0;
-
 async function Заполнить(clear = false)
 {
-	element("#fill-button").classList.add("disabled");
-	element("main").innerHTML = "";
-	count = 0;
+	document.find("#fill-button").classList.add("disabled");
+	let paginator = document.find("data-paginator");
+	paginator.clear();
 	Дозаполнить();
-	element("#fill-button").classList.remove("disabled");
+	document.find("#fill-button").classList.remove("disabled");
 }
 
 async function Дозаполнить()
 {
+	let paginator = document.find("data-paginator");
 	try
 	{
 		await database.begin();
@@ -21,12 +20,11 @@ async function Дозаполнить()
 		new Template("#restricted").out("main");
 		return;
 	}
-	let query =  { "from": "Номенклатура",
-		           "skip": count,
-		           "take": 15 };
-	let search = element("#search").value;
+	let query =  { "from": "Номенклатура" };
+	let search = document.find("#search").value;
 	if (search)
 		query.search = search;
+	paginator.split(query);
 	let records = await database.select(query);
 	for (let id of records)
 	{
@@ -57,12 +55,9 @@ async function Дозаполнить()
 		template.out("main");
 
 		ОбновитьЭлемент(id);
+		paginator.add();
 	}
-	count += records.length;
-	query.skip += 14;
-	query.take = 1;
-	records = await database.select(query);
-	display("#more", records.length > 0);
+	await paginator.request(database);
 }
 
 async function ВКорзину(id)
@@ -93,6 +88,7 @@ async function ОбновитьЭлемент(id)
 
 async function Загрузка()
 {
+	await LoadNav();
 	Заполнить();
-	element("#search").focus();
+	document.find("#search").focus();
 }

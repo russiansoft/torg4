@@ -1,7 +1,7 @@
 
 async function Заполнить()
 {
-	element("main").innerHTML = "";
+	document.find("main").innerHTML = "";
 	await database.begin();
 	let query =  { "from": "ПокупкаПорядок",
 		           "where" : { "Пользователь" : auth.account },
@@ -76,7 +76,7 @@ async function ВывестиКоличество(id)
 	await database.begin();
 	let entry = await database.find(id);
 	let record = await database.find(entry.Номенклатура);
-	element("#count-" + id).innerHTML = entry.Количество + " " + record.ЕдиницаИзмерения;
+	document.find("#count-" + id).innerHTML = entry.Количество + " " + record.ЕдиницаИзмерения;
 }
 
 async function Увеличить(id)

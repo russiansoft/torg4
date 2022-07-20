@@ -25,25 +25,16 @@ async function Выйти()
 	location.replace(location);
 }
 
-// Загрузка
-addEventListener("load", async function()
+async function Перезапуск()
 {
-	// Завершение аутентификации Google
-	let url = new URL(location);
-	if (url.searchParams.has("code"))
-	{
-		let code = url.searchParams.get("code");
-		await auth.login(code, localStorage["device"]);
-		location.replace(location.origin);
-		return;
-	}
+	await database.restart();
+	location.replace(location);
+}
 
-	// Регистрация устройства
-	if (!localStorage["device"])
-		localStorage["device"] = await auth.register();
-
-	// Идентификация
-	await auth.identify(localStorage["device"]);
+// Событие загрузки
+async function LoadNav()
+{
+	await auth.load();
 
 	// Вывод
 	let template = new Template();
@@ -57,10 +48,7 @@ addEventListener("load", async function()
 	display("#logout", name != "");
 
 	// Отступ
-	let next = element("nav").nextElementSibling;
+	let next = document.find("nav").nextElementSibling;
 	if (next)
-		next.style.marginTop = element("nav").offsetHeight + "px";
-
-	if (Загрузка)
-		Загрузка();
-} );
+		next.style.marginTop = document.find("nav").offsetHeight + "px";
+}

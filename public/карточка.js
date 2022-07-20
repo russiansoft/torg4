@@ -46,10 +46,10 @@ async function ВывестиИзображение(value)
 		attributes.address = attributes.address.replace(/\\/g, "/");
 		let base64 = await hive.get(attributes.address);
 		let image = "data:image/jpeg;base64," + base64.content;
-		element("#image").src = image;
+		document.find("#image").src = image;
 	}
 	else
-		element("#image").src = "";
+		document.find("#image").src = "";
 	display("#choose", !value);
 	display("#delete", value);
 }
@@ -64,7 +64,7 @@ async function Загрузка()
 		let id = url.searchParams.get("id");
 		document.record = await database.find(id);
 		document.title = document.record.title;
-		element("#title").innerHTML = document.record.title;
+		document.find("#title").innerHTML = document.record.title;
 		await ВывестиИзображение(document.record.Изображение);
 	}
 	let work = document.record;
