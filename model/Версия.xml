@@ -4,8 +4,8 @@
 
 	<type name="Версия" title="Новое в версии" report="1" scope="global">
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 	
 	<form name="Версия">

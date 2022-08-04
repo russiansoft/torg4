@@ -6,6 +6,8 @@
 		<field.string name="Пользователь"/>
 		<field.number name="Сумма" precision="2"/>
 		<field.array name="Строки" type="Строка"/>
+		<field.object name="Навигация" type="Навигация"/>
+		<field.object name="Paginator" type="Paginator"/>
 
 		<function name="Сумма">
 			<sum>
@@ -47,8 +49,8 @@
 		<index name="Корзина">
 		</index>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 
 	<type name="Строка" report="1">
@@ -92,8 +94,8 @@
 			<key field="Номенклатура"/>
 		</index>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 
 	<form name="Корзина" role="Посетитель">

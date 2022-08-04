@@ -79,8 +79,8 @@
 		<cell text="Всего" cols="4" border="1"/>
 		<cell bind="Сумма" align="right" border="1"/>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</form>
 
 	<form name="Заказ.Оформлен">

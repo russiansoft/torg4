@@ -2,6 +2,7 @@
 
 <unit name="Этикетки">
 	<type name="Этикетки" title="Этикетки" scope="global" report="1">
+		<field.object name="Навигация" type="Навигация"/>
 		<field.string name="Пользователь"/>
 		<field.array name="Строки" type="Строка"/>
 		
@@ -19,7 +20,7 @@
 			</select>
 		</query>
 		
-		<access.allow role="Администратор"/>
+		<access.full role="Администратор"/>
 		
 	</type>
 
@@ -47,7 +48,7 @@
 				<get field="Номенклатура.id"/>
 			</join>
 		</function>
-		<access.allow role="Администратор"/>
+		<access.full role="Администратор"/>
 	</type>
 	
 	<!--Форма отчета-->

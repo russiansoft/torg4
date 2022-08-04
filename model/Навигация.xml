@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Навигация">
+
+	<type name="Навигация" scope="global">
+	</type>
+
+</unit>

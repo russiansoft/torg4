@@ -1,0 +1,42 @@
+
+<template>
+	<header class="container-fluid">
+		<div class="row m-2"></div>
+		<div class="row m-2">
+			<div class="col">
+				<button class="btn btn-primary" data-cmd="Записать">Записать</button>
+			</div>
+		</div>
+	</header>
+	<main class="container-fluid">
+		<div class="row m-2">
+			<h2 class="col" id="title">{title}</h2>
+		</div>
+		<div class="row m-2">
+			<label class="col-form-label col-sm-4">Изображение:</label>
+			<div class="col-sm-8">
+				<button class="btn btn-outline-secondary d-none" id="choose" data-cmd="Выбрать">
+					Выбрать
+				</button>
+				<button class="btn btn-outline-secondary d-none" id="delete" data-cmd="Удалить">
+					Удалить
+				</button>
+			</div>
+		</div>
+		<div class="row m-2">
+			<div class="col-sm-12">
+				<img id="image" class="img-fluid" src="">
+			</div>
+		</div>
+		<div class="row m-2">
+			<label class="col-form-label col-sm-12">Описание:</label>
+			<div class="col-sm-12">
+				<textarea class="form-control" data-bind="Описание" rows="7"></textarea>
+			</div>
+		</div>
+	</main>
+	<aside>
+	</aside>
+	<footer>
+	</footer>
+</template>

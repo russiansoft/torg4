@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Товары">
+
+	<type name="Товары" scope="global">
+		<field.object name="Навигация" type="Навигация"/>
+		<field.object name="Paginator" type="Paginator"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
+	</type>
+
+	<type name="Товар" scope="global">
+		<field.object name="Навигация" type="Навигация"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
+	</type>
+
+</unit>

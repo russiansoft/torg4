@@ -1,0 +1,53 @@
+
+<template id="form">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">
+			<img class="img align-text-top" src="favicon.svg" style="height:1.5em">
+			<span class="d-inline d-sm-none">СВАРОПТТОРГ</span>
+			<span class="d-none d-sm-inline">СВАРОПТТОРГ</span>
+		</a>
+		<div class="navbar-nav">
+			<a class="nav-link text-center" data-read="Товары" href="?type=Товары">
+				<i class="bi bi-search fs-3 d-block d-sm-none"></i>
+				<i class="bi bi-search d-none d-sm-block d-md-inline"></i>
+				<span class="d-none d-sm-inline"> Каталог товаров</span>
+			</a>
+			<a class="nav-link text-center" data-read="Корзина" href="?type=Корзина">
+				<i class="bi bi-cart3 fs-3 d-block d-sm-none"></i>
+				<i class="bi bi-cart3 d-none d-sm-block d-md-inline"></i>
+				<span class="d-none d-sm-inline"> Корзина</span>
+			</a>
+			<div class="nav-item dropdown">
+				<a class="nav-link text-center dropdown-toggle" data-bs-toggle="dropdown">
+					<i class="bi bi-person fs-3 d-block d-sm-none"></i>
+					<i class="bi bi-person d-none d-sm-block d-md-inline"></i>
+					<span class="d-none d-sm-inline">
+						<span class="d-sm-inline d-md-none">Профиль</span>
+						<span class="d-sm-none d-md-inline">{user}</span>
+						<small><i class="bi bi-caret-down-fill"></i></small>
+					</span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end">
+					<div class="dropdown-header d-block d-md-none">{user}</div>
+					<button class="dropdown-item d-none" id="login" data-cmd="login">
+						Войти
+					</button>
+					<button class="dropdown-item d-none" id="logout" data-cmd="logout">
+						<i class="bi bi-door-open"></i>
+						 Выйти
+					</button>
+
+					<div class="dropdown-divider d-none"></div>
+					<a class="nav-link d-none" href="заказы">
+						<i class="bi bi-box-seam"></i> Мои заказы
+					</a>
+
+					<div class="dropdown-divider" data-read="Администрирование"></div>
+					<a class="nav-link" data-read="Администрирование" href="?type=Администрирование">
+						<i class="bi bi-wrench-adjustable"></i> Администрирование
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

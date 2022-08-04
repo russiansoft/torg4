@@ -1,7 +1,7 @@
 
 async function Сформировать()
 {
-	await database.begin();
+	await database.transaction();
 	let query =  { "from": "ПокупкаПорядок",
 		           "where": { "Пользователь": auth.account },
 		           "filter": { "deleted": "" }	};

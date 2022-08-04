@@ -40,8 +40,8 @@
 			</seek>
 		</function>
 		
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 
 	<form name="ВыборНоменклатуры">

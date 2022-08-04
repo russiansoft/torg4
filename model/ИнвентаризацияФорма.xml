@@ -29,7 +29,7 @@
 		<nest field="Строки"/>
 		<row/>
 
-		<access.allow role="Администратор"/>
+		<access.full role="Администратор"/>
 	</form>
 
 	<form name="Инвентаризация.Оформлен">

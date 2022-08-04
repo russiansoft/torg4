@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Роли">
+	
+	<role name="Посетитель">
+		<access.full type="Аутентификация"/>
+		<access.full type="Карусель"/>
+		<access.none type="Корзина"/>
+		<access.none type="Корзина-Строка"/>
+		<access.full type="Навигация"/>
+		<access.hide type="Настройки"/>
+		<access.read type="Номенклатура"/>
+		<access.full type="Покупка"/>
+		<access.none type="Товары"/>
+		<access.full type="Товар"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
+	<role name="Администратор">
+		<access.full type="Администрирование"/>
+		<access.full type="Аутентификация"/>
+		<access.full type="Карусель"/>
+		<access.full type="Корзина"/>
+		<access.full type="Корзина-Строка"/>
+		<access.full type="Навигация"/>
+		<access.full type="Настройки"/>
+		<access.full type="Номенклатура"/>
+		<access.full type="Покупка"/>
+		<access.full type="Товары"/>
+		<access.full type="Товар"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
+	<role name="Разработчик">
+		<access.full type="Администрирование"/>
+		<access.full type="Аутентификация"/>
+		<access.hide type="Карусель"/>
+		<access.full type="Корзина"/>
+		<access.full type="Корзина-Строка"/>
+		<access.full type="Навигация"/>
+		<access.full type="Настройки"/>
+		<access.full type="Номенклатура"/>
+		<access.full type="Покупка"/>
+		<access.full type="Товары"/>
+		<access.full type="Товар"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
+
+</unit>

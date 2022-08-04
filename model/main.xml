@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<unit name="main">
+<unit name="Main">
 
 	<!--Роли-->
 	<role name="Администратор"/>
 	<role name="Посетитель"/>
 	<role name="1Cv77"/>
 
-	<type name="main" scope="global" report="1">
+	<type name="Main" scope="global" report="1">
 		<field.object name="Аутентификация" type="Аутентификация"/>
 		<field.string name="Версия"/>
+		<field.object name="Навигация" type="Навигация"/>
+		<field.object name="Карусель" type="Карусель"/>
 
 		<function name="title">
 			<get value="ООО &quot;СВАРОПТТОРГ&quot;"/>
@@ -19,12 +21,12 @@
 			<get value="Версия 0.11"/>
 		</function>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<!-- <access.full role="Посетитель"/> -->
 	</type>
 	
 	<!--Главная форма (Администратор)-->
-	<form name="main" role="Администратор">
+	<form name="Main" role="Администратор">
 		<column width="2"/>
 		<column width="6"/>
 		<column width="60"/>
@@ -84,7 +86,7 @@
 	</form>
 	
 	<!--Главная форма (Посетитель)-->
-	<form name="main" role="Посетитель">
+	<form name="Main" role="Посетитель">
 		<column width="2"/>
 		<column width="6"/>
 		<column width="60"/>

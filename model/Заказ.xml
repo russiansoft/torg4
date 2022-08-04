@@ -45,8 +45,8 @@
 			</function>
 		</state>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 
 	<!--Заказ-->
@@ -175,10 +175,10 @@
 		</index>
 		
 		<!--Доступ-->
-		<access.allow role="1Cv77"/>
+		<access.full role="1Cv77"/>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 
 	<query id="Заказ">
@@ -202,9 +202,9 @@
 				<get field="Цена"/>
 			</mul>
 		</function>
-		<access.allow role="1Cv77"/>
+		<access.full role="1Cv77"/>
 
-		<access.allow role="Администратор"/>
-		<access.allow role="Посетитель"/>
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
 	</type>
 </unit>

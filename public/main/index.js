@@ -1,4 +1,8 @@
 
+import { binding } from "./reactive.js";
+import { LoadNav } from "./nav.js";
+import "./classes.js";
+
 async function Загрузка()
 {
 	let url = new URL(location);
@@ -8,4 +12,7 @@ async function Загрузка()
 		location = "товар?id=" + id;
 	}
 	await LoadNav();
+	await binding(document.find("body"));
 }
+
+addEventListener("load", Загрузка);

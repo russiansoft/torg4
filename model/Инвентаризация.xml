@@ -76,9 +76,9 @@
 		</index>
 		
 		<!--Доступ-->
-		<access.allow role="1Cv77"/>
+		<access.full role="1Cv77"/>
 
-		<access.allow role="Администратор"/>
+		<access.full role="Администратор"/>
 	</type>
 
 	<query id="Инвентаризация">
@@ -92,8 +92,8 @@
 		<field.ref name="Номенклатура" type="Номенклатура" title="Номенклатура"/>
 		<field.number name="Количество" title="Количество"/>
 		<field.number name="Цена" precision="2"/>
-		<access.allow role="1Cv77"/>
+		<access.full role="1Cv77"/>
 
-		<access.allow role="Администратор"/>
+		<access.full role="Администратор"/>
 	</type>
 </unit>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<unit name="Paginator">
+
+	<type name="Paginator" title="Paginator" scope="global">
+		<access.full role="Администратор"/>
+		<access.full role="Посетитель"/>
+	</type>
+
+</unit>
