@@ -12,6 +12,7 @@
 		<field.string name="Версия"/>
 		<field.object name="Навигация" type="Навигация"/>
 		<field.object name="Карусель" type="Карусель"/>
+		<field.object name="Подвал" type="Подвал"/>
 
 		<function name="title">
 			<get value="ООО &quot;СВАРОПТТОРГ&quot;"/>

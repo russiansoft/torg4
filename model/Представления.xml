@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<unit name="Представления">
+	<type name="Администрирование" scope="global">
+		<field.object name="Навигация" type="Навигация"/>
+	</type>
+	<type name="Карусель" scope="global"/>
+	<type name="Навигация" scope="global"/>
+	<type name="Подвал" scope="global"/>
+	<type name="Товары" scope="global">
+		<field.object name="Навигация" type="Навигация"/>
+		<field.object name="Paginator" type="Paginator"/>
+		<field.object name="Подвал" type="Подвал"/>
+	</type>
+	<type name="Товар" scope="global">
+		<field.object name="Навигация" type="Навигация"/>
+	</type>
+	<type name="Paginator" title="Paginator" scope="global"/>
+</unit>

@@ -8,6 +8,7 @@
 		<field.array name="Строки" type="Строка"/>
 		<field.object name="Навигация" type="Навигация"/>
 		<field.object name="Paginator" type="Paginator"/>
+		<field.object name="Подвал" type="Подвал"/>
 
 		<function name="Сумма">
 			<sum>

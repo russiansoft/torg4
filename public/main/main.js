@@ -13,9 +13,18 @@ model.classes.Main = class Main
 		let id = url.searchParams.get("id");
 		if (!type && id)
 			location.replace("?type=Товар&Номенклатура=" + id);
-
 		let layout = await new Layout().load("main.html");
-		await layout.template().fill(this).out(element);
+		await layout.template("#form").fill(this).out(element);
 		binding(element);
 	}
 };
+
+model.classes.Подвал = class Подвал
+{
+	async view(element)
+	{
+		let layout = await new Layout().load("main.html");
+		await layout.template("#footer").fill(this).out(element);
+		binding(element);
+	}
+}

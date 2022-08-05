@@ -9,6 +9,8 @@ model.classes.Навигация = class Навигация
 {
 	async view(element)
 	{
+		element.classList.add("navbar", "sticky-top", "navbar-expand",
+		                      "navbar-dark", "bg-dark")
 		let layout = await new Layout().load("навигация.html");
 		let template = layout.template("#form");
 		await template.fill(auth).fill(this).out(element);

@@ -1,6 +1,6 @@
 
-<template>
-	<nav class="navbar sticky-top navbar-expand" data-id="{id}.Навигация"></nav>
+<template id="form">
+	<nav data-id="{id}.Навигация"></nav>
 	<main class="container-fluid p-0">
 		<!-- <div class="row m-3">
 			<div class="col-sm-6">
@@ -8,6 +8,77 @@
 			</div>
 		</div> -->
 		<!-- <div class="row m-3"></div> -->
-		<!-- <div data-id="{id}.Карусель"></div> -->
+		<div data-id="{id}.Карусель"></div>
 	</main>
+	<footer data-id="{id}.Подвал"></footer>
+</template>
+
+<template id="footer">
+	<div class="container-fluid bg-dark text-white p-3">
+		<div class="row m-2">
+			<div class="col-md-6 col-xl-4">
+				<img class="img-fluid" src="logo-footer.png" alt="СварОптТорг, сварочное оборудование в Калуге">
+				<p>
+					ООО «СварОптТорг» является представителем в городе Калуге
+					мировых лидеров по производству сварочного оборудования.
+				</p>
+			</div>	
+			<div class="col-md-6 col-xl-8">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 col-xl-6">
+
+							<h4 class="text-info">Контакты</h4>
+							<ul>
+								<li class="list-item">
+									<a href="?type=Контакты">
+										<i class="bi bi-geo-alt"></i>
+										г. Калуга, пер. Воскресенский, 29
+									</a>
+								</li>
+								<li class="list-item separated-list">
+									<i class="bi bi-telephone"></i>
+									<a href="tel:+79190357733">+7 (919) 035-77-33</a>
+									<a href="tel:+74842795592">+7 (4842) 79-55-92</a>
+								</li>
+								<li class="list-item separated-list">
+									<i class="bi bi-printer"></i>
+									<a href="tel:84842795592">8 (4842) 79-55-92</a>
+								</li>
+								<li class="list-item separated-list">
+									<i class="bi bi-envelope"></i>
+									<a href="mailto:oookalugamaster@mail.ru">oookalugamaster@mail.ru</a>
+								</li>
+							</ul>
+						</div>
+
+						<div class="col-12 col-xl-6">
+							<h4 class="text-info d-none d-xl-block">Мы в соц. сетях</h4>
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-5ch m-2">
+										<a href="https://vk.com/svarkakaluga" target="_blank">
+											<img class="img-fluid w-100" src="vk.ico">
+										</a>
+									</div>
+									<div class="col-5ch m-2">
+										<a href="https://ok.ru/group/58730073358344" target="_blank">
+											<img class="img-fluid w-100" src="ok.png">
+										</a>
+									</div>
+									<div class="col-5ch m-2">
+										<a href="https://telegram.me/SvarOptTorg" target="_blank">
+											<img class="img-fluid w-100" src="telegram.png">
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>			
+		</div>
+	</div>
 </template>

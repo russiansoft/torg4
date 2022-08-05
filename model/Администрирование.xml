@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<unit name="Администрирование">
-
-	<type name="Администрирование" scope="global">
-		<field.object name="Навигация" type="Навигация"/>
-	</type>
-
-</unit>

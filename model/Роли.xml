@@ -10,6 +10,7 @@
 		<access.full type="Навигация"/>
 		<access.hide type="Настройки"/>
 		<access.read type="Номенклатура"/>
+		<access.full type="Подвал"/>
 		<access.full type="Покупка"/>
 		<access.none type="Товары"/>
 		<access.full type="Товар"/>
@@ -25,6 +26,7 @@
 		<access.full type="Навигация"/>
 		<access.full type="Настройки"/>
 		<access.full type="Номенклатура"/>
+		<access.full type="Подвал"/>
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
@@ -40,6 +42,7 @@
 		<access.full type="Навигация"/>
 		<access.full type="Настройки"/>
 		<access.full type="Номенклатура"/>
+		<access.full type="Подвал"/>
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
