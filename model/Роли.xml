@@ -4,6 +4,7 @@
 	
 	<role name="Посетитель">
 		<access.full type="Аутентификация"/>
+		<access.read type="ВыборНоменклатуры"/>
 		<access.full type="Карусель"/>
 		<access.none type="Корзина"/>
 		<access.none type="Корзина-Строка"/>
@@ -19,6 +20,7 @@
 	</role>
 	<role name="Администратор">
 		<access.full type="Администрирование"/>
+		<access.full type="ВыборНоменклатуры"/>
 		<access.full type="Аутентификация"/>
 		<access.full type="Карусель"/>
 		<access.full type="Корзина"/>
@@ -35,6 +37,7 @@
 	</role>
 	<role name="Разработчик">
 		<access.full type="Администрирование"/>
+		<access.full type="ВыборНоменклатуры"/>
 		<access.full type="Аутентификация"/>
 		<access.hide type="Карусель"/>
 		<access.full type="Корзина"/>
