@@ -22,6 +22,8 @@
 		<access.full type="Администрирование"/>
 		<access.full type="ВыборНоменклатуры"/>
 		<access.full type="Аутентификация"/>
+		<access.full type="Заказ"/>
+		<access.full type="Инвентаризация"/>
 		<access.full type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
@@ -32,6 +34,8 @@
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
+		<access.full type="Этикетки"/>
+		<access.full type="Этикетки-Строка"/>
 		<access.full type="Main"/>
 		<access.full type="Paginator"/>
 	</role>
@@ -39,6 +43,8 @@
 		<access.full type="Администрирование"/>
 		<access.full type="ВыборНоменклатуры"/>
 		<access.full type="Аутентификация"/>
+		<access.full type="Заказ"/>
+		<access.full type="Инвентаризация"/>
 		<access.hide type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
@@ -49,6 +55,8 @@
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
+		<access.full type="Этикетки"/>
+		<access.full type="Этикетки-Строка"/>
 		<access.full type="Main"/>
 		<access.full type="Paginator"/>
 	</role>
