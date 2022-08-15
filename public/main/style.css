@@ -54,3 +54,8 @@ input#search
 {
 	cursor: pointer;
 }
+
+footer *
+{
+	color: white;
+}

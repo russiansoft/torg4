@@ -9,7 +9,7 @@
 		<access.none type="Корзина"/>
 		<access.none type="Корзина-Строка"/>
 		<access.full type="Навигация"/>
-		<access.hide type="Настройки"/>
+		<access.none type="Настройки"/>
 		<access.read type="Номенклатура"/>
 		<access.full type="Подвал"/>
 		<access.full type="Покупка"/>
@@ -45,7 +45,7 @@
 		<access.full type="Аутентификация"/>
 		<access.full type="Заказ"/>
 		<access.full type="Инвентаризация"/>
-		<access.hide type="Карусель"/>
+		<access.none type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
 		<access.full type="Навигация"/>
