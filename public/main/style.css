@@ -59,3 +59,8 @@ footer *
 {
 	color: white;
 }
+
+.pre-wrap
+{
+	white-space: pre-wrap !important;
+}
