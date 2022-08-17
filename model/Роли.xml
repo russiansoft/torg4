@@ -24,6 +24,7 @@
 		<access.full type="Аутентификация"/>
 		<access.full type="Заказ"/>
 		<access.full type="Инвентаризация"/>
+		<access.full type="Инвентаризация-Строка"/>
 		<access.full type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
@@ -45,6 +46,7 @@
 		<access.full type="Аутентификация"/>
 		<access.full type="Заказ"/>
 		<access.full type="Инвентаризация"/>
+		<access.full type="Инвентаризация-Строка"/>
 		<access.none type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
