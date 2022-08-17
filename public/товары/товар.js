@@ -41,7 +41,7 @@ model.classes.Товар = class Товар
 				attributes[pair[0]] = pair[1];
 			}
 			attributes.address = attributes.address.replace(/\\/g, "/");
-			let base64 = await hive.get(attributes.address);
+			let base64 = await hive.image(attributes.address, 600);
 			let image = "data:image/jpeg;base64," + base64.content;
 			template.fill( { "image": image } );
 		}
