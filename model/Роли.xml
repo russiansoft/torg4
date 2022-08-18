@@ -40,6 +40,28 @@
 		<access.full type="Main"/>
 		<access.full type="Paginator"/>
 	</role>
+	<role name="1Cv77">
+		<access.full type="Администрирование"/>
+		<access.full type="ВыборНоменклатуры"/>
+		<access.full type="Аутентификация"/>
+		<access.full type="Заказ"/>
+		<access.full type="Инвентаризация"/>
+		<access.full type="Инвентаризация-Строка"/>
+		<access.full type="Карусель"/>
+		<access.full type="Корзина"/>
+		<access.full type="Корзина-Строка"/>
+		<access.full type="Навигация"/>
+		<access.full type="Настройки"/>
+		<access.full type="Номенклатура"/>
+		<access.full type="Подвал"/>
+		<access.full type="Покупка"/>
+		<access.full type="Товары"/>
+		<access.full type="Товар"/>
+		<access.full type="Этикетки"/>
+		<access.full type="Этикетки-Строка"/>
+		<access.full type="Main"/>
+		<access.full type="Paginator"/>
+	</role>
 	<role name="Разработчик">
 		<access.full type="Администрирование"/>
 		<access.full type="ВыборНоменклатуры"/>
