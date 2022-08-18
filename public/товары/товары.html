@@ -33,9 +33,11 @@
 <template id="card">
 	<div class="col-sm-auto" data-id="{id}">
 		<div class="card m-2" style="width: 18rem;" record="{id}">
-			<img class="card-img-top" src="{image}">
+			<img class="image-fluid" src="{image}">
 			<div class="card-body">
-				<a class="card-title h5" href="?type=Товар&Номенклатура={id}">{Наименование}</a>
+				<div class="title-container h5">
+					<a class="card-title h5" href="?type=Товар&Номенклатура={id}">{Наименование}</a>
+				</div>
 				<div class="container-fluid p-0">
 					<div class="row">
 						<div class="col">

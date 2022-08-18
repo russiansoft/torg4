@@ -24,6 +24,15 @@ nav
 	/* box-shadow: 0 0 5px 0px; */
 	cursor: pointer;
 }
+.title-container
+{
+	height: 3.6em;
+	overflow: hidden;
+}
+.title-container .card-title
+{
+	line-height: 1.2em;
+}
 .carousel-item
 {
 	transition: transform 2.6s ease-in-out;
