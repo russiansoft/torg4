@@ -5,7 +5,7 @@ body
 	overflow-x: hidden;
 }
 
-@media (prefers-color-scheme: dark)
+/* @media (prefers-color-scheme: dark)
 {
 	*
 	{
@@ -13,7 +13,7 @@ body
 		color: #ddd !important;
 		border-color: #444 !important;
 	}
-}
+} */
 nav
 {
 	background-color: white;
