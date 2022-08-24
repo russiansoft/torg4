@@ -25,10 +25,12 @@ model.classes.Этикетки = class Этикетки
 		{
 			let entry = await database.find(id);
 			let record = await database.find(entry.Номенклатура);
+			if (document.querySelector("#qrcode-" + record.id))
+				continue;
 			let template = layout.template("#label");
 			template.fill(record);
 
-			template.out("tbody");
+			await template.out("tbody");
 
 			let qr = "https://xn--40-6kcai3c0bf.xn--p1ai/?id=" + record.id;
 			let qrcode = new QRCode(document.find("#qrcode-" + record.id));
@@ -41,10 +43,10 @@ model.classes.Этикетки = class Этикетки
 			// if (img.src == "")
 			// 	throw "Пустая картинка";
 		}
-		setTimeout(() => { this.ОжиданиеКартинок(); } , 100);
+		setTimeout(async () => { await this.ОжиданиеКартинок(); } , 100);
 	}
 
-	ОжиданиеКартинок()
+	async ОжиданиеКартинок()
 	{
 		let ready = true;
 		for (let image of this.images)
@@ -57,7 +59,7 @@ model.classes.Этикетки = class Этикетки
 		}
 		if (ready)
 		{
-			this.Печать();
+			await this.Печать();
 			document.find("#hourglass").show(false);
 			document.find("#print").show(true);
 			document.find("table").show(true);
