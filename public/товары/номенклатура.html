@@ -21,13 +21,13 @@
 				<button class="btn btn-outline-secondary d-none" id="delete" data-cmd="Удалить">
 					Удалить
 				</button>
+				<button class="btn btn-outline-secondary" id="add" data-cmd="Добавить">
+					Добавить
+				</button>
 			</div>
 		</div>
-		<div class="row m-2">
-			<div class="col-sm-12">
-				<img id="image" class="img-fluid" src="">
-			</div>
-		</div>
+		<section id="images">
+		</section>
 		<div class="row m-2">
 			<label class="col-form-label col-sm-12">Описание:</label>
 			<div class="col-sm-12">
@@ -40,3 +40,11 @@
 	<footer>
 	</footer>
 </template>
+
+<temlate id="image">
+	<div class="row m-2" id="{id}">
+		<div class="col-sm-12">
+			<img class="img-fluid">
+		</div>
+	</div>
+</temlate>

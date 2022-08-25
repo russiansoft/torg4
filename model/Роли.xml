@@ -35,6 +35,7 @@
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
+		<access.full type="Эскиз"/>
 		<access.full type="Этикетки"/>
 		<access.full type="Этикетки-Строка"/>
 		<access.full type="Main"/>
@@ -62,6 +63,7 @@
 		<access.full type="Покупка"/>
 		<access.full type="Товары"/>
 		<access.full type="Товар"/>
+		<access.full type="Эскиз"/>
 		<access.full type="Этикетки"/>
 		<access.full type="Этикетки-Строка"/>
 		<access.full type="Main"/>

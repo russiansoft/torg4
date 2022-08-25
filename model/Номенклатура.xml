@@ -16,6 +16,7 @@
 		<field.blob name="ПросмотрИзображения" variable="1"/>
 		<field.object name="Выбор" type="ВыборНоменклатуры" variable="1"/>
 		<field.string name="Описание"/>
+		<field.array name="Эскизы" type="Эскиз"/>
 		
 		<function name="title">
 			<get field="Наименование"/>
@@ -44,6 +45,10 @@
 		<access.full role="Посетитель"/>
 	</type>
 	
+	<type name="Эскиз" scope="global">
+		<field.blob name="Изображение"/>
+	</type>
+
 	<form name="Номенклатура" role="Посетитель">
 		<column width="2"/>
 		<column width="20"/>

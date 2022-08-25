@@ -18,7 +18,7 @@ model.classes.Номенклатура = class Номенклатура
 		await template.out(element);
 		await binding(element);
 		//document.find("#title").innerHTML = form.object.title;
-		await this.ВывестиИзображение(form.object.Изображение);
+		await this.ВывестиИзображения();
 	}
 
 	async ВКорзину()
@@ -53,37 +53,90 @@ model.classes.Номенклатура = class Номенклатура
 			value += "|address:" + result.address + "|";
 
 			await database.save( [ { "id": form.object.id, "Изображение": value } ] );
-			await form.object.ВывестиИзображение(value);
+			await form.object.ВывестиИзображения();
+		} );
+	}
+
+	async Добавить()
+	{
+		new FileDialog().show(async function(file)
+		{
+			let extension = "";
+			let point = file.name.lastIndexOf(".");
+			if (point != -1)
+				extension = file.name.slice(point + 1);
+			
+			let result = await hive.put(file.data, extension);
+			let value = "name:" + file.name;
+			if (file.type) 
+				value += "|type:" + file.type;
+			value += "|address:" + result.address + "|";
+
+			await database.add(form.object.id, "Эскизы", { "Изображение": value } );
+			await form.object.ВывестиИзображения();
 		} );
 	}
 
 	async Удалить()
 	{
 		await database.save( [ { "id": form.object.id, "Изображение": "" } ] );
-		await this.ВывестиИзображение("");
+		await this.ВывестиИзображения();
 	}
 
-	async ВывестиИзображение(value)
+	async ВывестиИзображения(value)
 	{
-		if (value)
+		let values = [form.object.Изображение];
+		let query =
 		{
-			let attributes = { };
-			for (let part of value.split("|"))
+			"from": "owner",
+			"where":
 			{
-				if (!part)
-					continue;
-				let pair = part.split(":");
-				attributes[pair[0]] = pair[1];
+				"owner": form.object.id
 			}
-			attributes.address = attributes.address.replace(/\\/g, "/");
-			let base64 = await hive.get(attributes.address);
-			let image = "data:image/jpeg;base64," + base64.content;
-			document.find("#image").src = image;
+		};
+		for (let id of await database.select(query))
+		{
+			let эскиз = await database.find(id);
+			values.push(эскиз.Изображение);
 		}
-		else
-			document.find("#image").src = "";
-		document.find("#choose").show(!value);
-		document.find("#delete").show(value);
+		let order = -1;
+		for (let value of values)
+		{
+			order++;
+
+			let src = "";
+			if (value)
+			{
+				let attributes = { };
+				for (let part of value.split("|"))
+				{
+					if (!part)
+						continue;
+					let pair = part.split(":");
+					attributes[pair[0]] = pair[1];
+				}
+				attributes.address = attributes.address.replace(/\\/g, "/");
+				let base64 = await hive.get(attributes.address);
+				let image = "data:image/jpeg;base64," + base64.content;
+				src = image;
+			}
+			//else
+			//	document.find("#image").src = "";
+
+			let layout = await new Layout().load("номенклатура.html");
+			let template = layout.template("#image");
+
+			template.fill( { "id": "image" + order } );
+			await template.out("#images");
+			let img = document.find("#image" + order + " img");
+			img.src = src;
+
+			document.find("#choose").show(!value);
+			document.find("#delete").show(value);
+		}
 	}
 };
 
+model.classes.Эскиз = class Эскиз
+{
+};
