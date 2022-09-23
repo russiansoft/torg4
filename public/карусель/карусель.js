@@ -1,12 +1,13 @@
 
-import { model } from "./model.js";
-import { Layout } from "./template.js";
+import { server } from "./server.js";
+import { Template } from "./template.js";
 
-model.classes.Карусель = class Карусель
+document.classes["sot-carousel"] = class SotCarousel
 {
-	async view(parent)
+	async View(parent)
 	{
-		let layout = await new Layout().load("карусель.html");
-		layout.template("#form").out(parent);
+		let layout = await server.LoadHTML("карусель.html");
+		let template = new Template(layout.querySelector("template"));
+		await template.InsertInto(this);
 	}
 };

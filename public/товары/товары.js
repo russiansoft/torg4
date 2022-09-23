@@ -1,27 +1,34 @@
 
 import { Database, database } from "./database.js";
-import { auth, hive } from "./server.js";
+import { server, auth, hive } from "./server.js";
 import { model } from "./model.js";
 import { binding } from "./reactive.js";
-import { Layout, Template } from "./template.js";
+import { Template } from "./template.js";
 import { cart } from "./cart.js";
-import { form } from "./form.js";
+// import { form } from "./form.js";
 import "./покупка.js";
-import "./номенклатура.js";
-import "./paginator.js";
+// import "./номенклатура.js";
+// import "./paginator.js";
+import "./client.js";
 
-model.classes.Товары = class Товары
+document.classes.main = class Main
 {
-	async view(element)
+	async View()
 	{
-		let layout = await new Layout().load("товары.html");
-		let template = layout.template("#form");
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
+		let layout = await server.LoadHTML("товары.html");
+		let template = new Template(layout.querySelector("#form"));
 		template.fill(this);
-		await template.out(element);
-		await binding(element);
+		await template.InsertInto(this);
+		//await binding(element);
 		this.Заполнить();
-		let search = document.find("input#search");
-		let button = document.find("button#fill");
+		let search = document.querySelector("input#search");
+		let button = document.querySelector("button#fill");
 		search.addEventListener("keydown", (event) =>
 		{
 			if (event.key == "Enter")
@@ -32,12 +39,12 @@ model.classes.Товары = class Товары
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("товары.html");
-		let paginator = await database.get(this.id + ".Paginator");
-		let button = document.find("button#fill");
+		let layout = await server.LoadHTML("товары.html");
+		//let paginator = await database.get(this.id + ".Paginator");
+		let button = document.querySelector("button#fill");
 		button.classList.add("disabled");
-		if (очистить)
-			paginator.clear();
+		// if (очистить)
+		// 	paginator.clear();
 		let db = null;
 		try
 		{
@@ -49,10 +56,11 @@ model.classes.Товары = class Товары
 			return;
 		}
 		let query =  { "from": "Номенклатура" };
-		let search = document.find("#search").value;
+		let search = document.querySelector("#search").value;
 		if (search)
 			query.search = search;
-		paginator.split(query);
+		// paginator.split(query);
+		query.take = 10;
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -62,7 +70,7 @@ model.classes.Товары = class Товары
 			record.Артикул = ("" + record.Артикул).trim();
 			if (!record.Артикул)
 				record.Артикул = "(нет)";
-			let template = layout.template("#card").fill(record);
+			let template = new Template(layout.querySelector("#card")).fill(record);
 
 			let file = record.Изображение;
 			if (file)
@@ -83,12 +91,12 @@ model.classes.Товары = class Товары
 			}
 			else
 				template.fill( { "image": "nophoto.png" } );
-			template.out("main");
+			await template.InsertInto(document.querySelector("main"));
 
 			await this.ОбновитьЭлемент(db, id);
-			paginator.add();
+			//paginator.add();
 		}
-		await paginator.request(db);
+		//await paginator.request(db);
 		button.classList.remove("disabled");
 	}
 
@@ -102,16 +110,16 @@ model.classes.Товары = class Товары
 		let покупка = await db.find( { "from": "Покупка",
 									   "where": { "Пользователь": auth.account },
 									   "filter": { "Номенклатура": id, "deleted": "" } } );
-		document.find("#buying-" + id).show(покупка == null);
-		document.find("#buyed-" + id).show(покупка != null);
+		document.querySelector("#buying-" + id).show(покупка == null);
+		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let layout = await new Layout().load("товары.html");
-			let template = layout.template("#buyed");
+			let layout = await server.LoadHTML("товары.html");
+			let template = new Template(layout.querySelector("#buyed"));
 			template.fill(покупка);
 			let item = await db.find(id);
 			template.fill(item);
-			template.out("#buyed-" + id);
+			await template.InsertInto(document.querySelector("#buyed-" + id));
 		}
 	}
 };

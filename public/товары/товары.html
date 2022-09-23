@@ -1,94 +1,123 @@
 
-<template id="form">
-	<nav data-id="{id}.Навигация"></nav>
-	<header id="container" class="container-fluid">
-		<h2 class="row m-2">
-			<div class="col-grow">
-				Каталог товаров
-			</div>
-		</h2>
-		<div class="row m-2">
-			<label class="col-form-label col-10ch">Поиск:</label>
-			<div class="col-20ch col-grow">
-				<input class="form-control" id="search"/>
-			</div>
-			<div class="col-1ch"></div>
-			<div class="col-10ch">
-				<button class="btn btn-primary disabled" id="fill" data-cmd="Заполнить">Найти</button>
-			</div>
-		</div>
-	</header>
-	<div class="container-fluid">
-		<main class="row justify-content-center" id="content"></main>
-	</div>
-	<aside>
-	</aside>
-	<footer>
-		<div data-id="{id}.Paginator" data-container="#content" data-portion="15"></div>
-		<div class="row m-2"></div>
-	</footer>
-	<footer data-id="{id}.Подвал"></footer>
-</template>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="sot.png">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-icons.css">
+		<link rel="stylesheet" href="col.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="qrcode.js"></script>
+		<script type="module">
+			import "./view.js";
+			import "./навигация.js";
+			import "./товары.js";
+			import "./подвал.js";
+		</script>
+		<title>СВАРОПТТОРГ</title>
+	</head>
+	<body>
+		<nav class="sot-nav"></nav>
+		<main class="main"></main>
+		<footer class="sot-footer"></footer>
 
-<template id="card">
-	<div class="col-sm-auto" data-id="{id}">
-		<div class="card m-2" style="width: 18rem;" record="{id}">
-			<img class="img-fluid" src="{image}">
-			<div class="card-body">
-				<div class="title-container h5">
-					<a class="card-title h5" href="?type=Товар&Номенклатура={id}">{Наименование}</a>
-				</div>
-				<div class="container-fluid p-0">
-					<div class="row">
-						<div class="col">
-							Код: {Код}
-							<br>
-							Арт.: {Артикул}
-						</div>
-						<div class="col-sm-auto">
-							<a class="btn btn-success" href="?type=Номенклатура&id={id}"
-							target="_blank">
-								<i class="bi bi-pencil-fill"></i>
-							</a>
-						</div>
+		<template id="form">
+			<nav data-id="{id}.Навигация"></nav>
+			<header id="container" class="container-fluid">
+				<h2 class="row m-2">
+					<div class="col-grow">
+						Каталог товаров
 					</div>
-					<div class="row">
-						<div class="col">Цена: {Цена}</div>
+				</h2>
+				<div class="row m-2">
+					<label class="col-form-label col-10ch">Поиск:</label>
+					<div class="col-20ch col-grow">
+						<input class="form-control" id="search"/>
 					</div>
-					<div class="row">
-						<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
-					</div>
-					<div class="row mt-2">
-						<div class="col-sm-auto d-none" id="buying-{id}">
-							<button class="btn btn-danger" data-cmd="ВКорзину">
-								<i class="bi bi-cart3"></i> В корзину
-							</button>
-						</div>
-						<div class="col-sm-auto d-none" id="buyed-{id}">
-						</div>
+					<div class="col-1ch"></div>
+					<div class="col-10ch">
+						<button class="btn btn-primary disabled" id="fill" data-cmd="Заполнить">Найти</button>
 					</div>
 				</div>
+			</header>
+			<div class="container-fluid">
+				<main class="row justify-content-center" id="content"></main>
 			</div>
-		</div>
-	</div>
-</template>
+			<aside>
+			</aside>
+			<footer>
+				<div data-id="{id}.Paginator" data-container="#content" data-portion="15"></div>
+				<div class="row m-2"></div>
+			</footer>
+			<footer data-id="{id}.Подвал"></footer>
+		</template>
 
-<template id="buyed">
-	<div class="col">
-		<p class="text-danger">
-			<a href="?type=Корзина">
-				<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
-			</a>
-		</p>
-	</div>
-</template>
+		<template id="card">
+			<div class="col-sm-auto" data-id="{id}">
+				<div class="card m-2" style="width: 18rem;" record="{id}">
+					<img class="img-fluid" src="{image}">
+					<div class="card-body">
+						<div class="title-container h5">
+							<a class="card-title h5" href="?type=Товар&Номенклатура={id}">{Наименование}</a>
+						</div>
+						<div class="container-fluid p-0">
+							<div class="row">
+								<div class="col">
+									Код: {Код}
+									<br>
+									Арт.: {Артикул}
+								</div>
+								<div class="col-sm-auto">
+									<a class="btn btn-success" href="?type=Номенклатура&id={id}"
+									target="_blank">
+										<i class="bi bi-pencil-fill"></i>
+									</a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">Цена: {Цена}</div>
+							</div>
+							<div class="row">
+								<div class="col">Остаток: {Остаток} {ЕдиницаИзмерения}</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-sm-auto d-none" id="buying-{id}">
+									<button class="btn btn-danger" data-cmd="ВКорзину">
+										<i class="bi bi-cart3"></i> В корзину
+									</button>
+								</div>
+								<div class="col-sm-auto d-none" id="buyed-{id}">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</template>
 
-<template id="restricted">
-	<div class="col-sm-auto">
-		<h2 class="text-center bg-danger m-5 p-3">Доступ ограничен</h2>
-		<h3 class="text-center text-info m-5 p-3">
-			Для получения доступа выполните вход
-		</h3>
-		<div><img src="dog.jpg"/></div>
-	</div>
-</template>
+		<template id="buyed">
+			<div class="col">
+				<p class="text-danger">
+					<a href="?type=Корзина">
+						<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
+					</a>
+				</p>
+			</div>
+		</template>
+
+		<template id="restricted">
+			<div class="col-sm-auto">
+				<h2 class="text-center bg-danger m-5 p-3">Доступ ограничен</h2>
+				<h3 class="text-center text-info m-5 p-3">
+					Для получения доступа выполните вход
+				</h3>
+				<div><img src="dog.jpg"/></div>
+			</div>
+		</template>
+
+	</body>
+</html>
+
