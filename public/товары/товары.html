@@ -20,44 +20,36 @@
 		<title>СВАРОПТТОРГ</title>
 	</head>
 	<body>
-		<nav class="sot-nav"></nav>
-		<main class="main"></main>
-		<footer class="sot-footer"></footer>
+		<section class="sot-nav"></section>
+		<section class="content"></section>
+		<section class="sot-footer"></section>
 
 		<template id="form">
-			<nav data-id="{id}.Навигация"></nav>
-			<header id="container" class="container-fluid">
-				<h2 class="row m-2">
+			<div class="container-fluid p-3">
+				<h2 class="row mb-3">
 					<div class="col-grow">
 						Каталог товаров
 					</div>
 				</h2>
-				<div class="row m-2">
-					<label class="col-form-label col-10ch">Поиск:</label>
-					<div class="col-20ch col-grow">
+				<div class="row g-2 mb-3">
+					<label class="col-auto col-form-label">Поиск:</label>
+					<div class="col">
 						<input class="form-control" id="search"/>
 					</div>
-					<div class="col-1ch"></div>
-					<div class="col-10ch">
-						<button class="btn btn-primary disabled" id="fill" data-cmd="Заполнить">Найти</button>
+					<div class="col-auto">
+						<button class="btn btn-primary disabled" data-cmd="Заполнить" id="fill">
+							Найти
+						</button>
 					</div>
 				</div>
-			</header>
-			<div class="container-fluid">
-				<main class="row justify-content-center" id="content"></main>
+				<div class="row g-3 mb-3" id="cards"></div>
+				<div class="row g-2 mb-4 class-paginator" data-take="3"></div>
 			</div>
-			<aside>
-			</aside>
-			<footer>
-				<div data-id="{id}.Paginator" data-container="#content" data-portion="15"></div>
-				<div class="row m-2"></div>
-			</footer>
-			<footer data-id="{id}.Подвал"></footer>
 		</template>
 
 		<template id="card">
 			<div class="col-sm-auto" data-id="{id}">
-				<div class="card m-2" style="width: 18rem;" record="{id}">
+				<div class="card" style="width: 18rem;" record="{id}">
 					<img class="img-fluid" src="{image}">
 					<div class="card-body">
 						<div class="title-container h5">

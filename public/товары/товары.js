@@ -8,10 +8,10 @@ import { cart } from "./cart.js";
 // import { form } from "./form.js";
 import "./покупка.js";
 // import "./номенклатура.js";
-// import "./paginator.js";
+import "./paginator.js";
 import "./client.js";
 
-document.classes.main = class Main
+document.classes.content = class Content
 {
 	async View()
 	{
@@ -21,8 +21,7 @@ document.classes.main = class Main
 		// Начало транзакции
 		await database.transaction();
 
-		let layout = await server.LoadHTML("товары.html");
-		let template = new Template(layout.querySelector("#form"));
+		let template = new Template(document.querySelector("#form"));
 		template.fill(this);
 		await template.InsertInto(this);
 		//await binding(element);
@@ -39,12 +38,14 @@ document.classes.main = class Main
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await server.LoadHTML("товары.html");
-		//let paginator = await database.get(this.id + ".Paginator");
+		let paginator = document.querySelector(".class-paginator");
 		let button = document.querySelector("button#fill");
 		button.classList.add("disabled");
-		// if (очистить)
-		// 	paginator.clear();
+		if (очистить)
+		{
+			document.querySelector("#cards").innerHTML = "";
+			paginator.reset();
+		}
 		let db = null;
 		try
 		{
@@ -59,8 +60,7 @@ document.classes.main = class Main
 		let search = document.querySelector("#search").value;
 		if (search)
 			query.search = search;
-		// paginator.split(query);
-		query.take = 10;
+		paginator.split(query);
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -70,7 +70,8 @@ document.classes.main = class Main
 			record.Артикул = ("" + record.Артикул).trim();
 			if (!record.Артикул)
 				record.Артикул = "(нет)";
-			let template = new Template(layout.querySelector("#card")).fill(record);
+			let template = new Template(document.querySelector("#card"));
+			template.fill(record);
 
 			let file = record.Изображение;
 			if (file)
@@ -91,16 +92,16 @@ document.classes.main = class Main
 			}
 			else
 				template.fill( { "image": "nophoto.png" } );
-			await template.InsertInto(document.querySelector("main"));
+			await template.InsertInto(document.querySelector("#cards"));
 
 			await this.ОбновитьЭлемент(db, id);
-			//paginator.add();
+			paginator.add();
 		}
-		//await paginator.request(db);
+		await paginator.Request(db);
 		button.classList.remove("disabled");
 	}
 
-	async more()
+	async More()
 	{
 		await this.Заполнить(false);
 	}
@@ -114,8 +115,7 @@ document.classes.main = class Main
 		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let layout = await server.LoadHTML("товары.html");
-			let template = new Template(layout.querySelector("#buyed"));
+			let template = new Template(document.querySelector("#buyed"));
 			template.fill(покупка);
 			let item = await db.find(id);
 			template.fill(item);
