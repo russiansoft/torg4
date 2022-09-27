@@ -7,7 +7,7 @@ import { binding } from "./reactive.js";
 
 document.classes["sot-footer"] = class SotFooter
 {
-	async View()
+	async Create()
 	{
 		let layout = await server.LoadHTML("подвал.html");
 		await layout.template().Join(this);

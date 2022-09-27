@@ -7,7 +7,7 @@ import { binding } from "./reactive.js";
 
 document.classes["sot-nav"] = class SotNav
 {
-	async View()
+	async Create()
 	{
 		this.classList.add("navbar", "sticky-top", "navbar-expand",
 		                   "navbar-dark", "bg-dark");

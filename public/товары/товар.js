@@ -9,7 +9,7 @@ import "./client.js";
 
 document.classes.content = class Content
 {
-	async View()
+	async Create()
 	{
 		// Аутентификация
 		await auth.load();
