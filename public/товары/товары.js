@@ -4,7 +4,7 @@ import { server, auth, hive } from "./server.js";
 import { Template } from "./template.js";
 import { cart } from "./cart.js";
 import "./покупка.js";
-import "./paginator.js";
+import "./pagination.js";
 import "./client.js";
 
 document.classes.content = class Content
@@ -32,13 +32,13 @@ document.classes.content = class Content
 
 	async Заполнить(очистить = true)
 	{
-		let paginator = document.querySelector(".class-paginator");
+		let pagination = document.querySelector(".pagination-class");
 		let button = document.querySelector("button#fill");
 		button.classList.add("disabled");
 		if (очистить)
 		{
 			document.querySelector("#cards").innerHTML = "";
-			paginator.reset();
+			pagination.reset();
 		}
 		let db = null;
 		try
@@ -54,7 +54,7 @@ document.classes.content = class Content
 		let search = document.querySelector("#search").value;
 		if (search)
 			query.search = search;
-		paginator.split(query);
+		pagination.split(query);
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -89,9 +89,9 @@ document.classes.content = class Content
 			await template.Join(document.querySelector("#cards"));
 
 			await this.ОбновитьЭлемент(db, id);
-			paginator.add();
+			pagination.add();
 		}
-		await paginator.Request(db);
+		await pagination.Request(db);
 		button.classList.remove("disabled");
 	}
 
@@ -109,11 +109,11 @@ document.classes.content = class Content
 		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let template = new Template(document.querySelector("#buyed"));
+			let template = document.template("#buyed");
 			template.fill(покупка);
 			let item = await db.find(id);
 			template.fill(item);
-			await template.Join(document.querySelector("#buyed-" + id));
+			await template.Join("#buyed-" + id);
 		}
 	}
 };

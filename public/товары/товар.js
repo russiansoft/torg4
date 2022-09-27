@@ -94,7 +94,7 @@ document.classes.content = class Content
 			template.fill(покупка);
 			let item = await database.find(id);
 			template.fill(item);
-			template.out("#buyed-" + id);
+			await template.Join("#buyed-" + id);
 		}
 	}
 }
