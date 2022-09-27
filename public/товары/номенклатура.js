@@ -1,22 +1,33 @@
 
 import { FileDialog } from "./client.js";
 import { Database, database } from "./database.js";
-import { Layout, Template } from "./template.js";
-import { hive } from "./server.js";
+import { Template } from "./template.js";
+import { auth, hive } from "./server.js";
 import { model } from "./model.js";
-import { form } from "./form.js";
-import { binding } from "./reactive.js";
+//import { form } from "./form.js";
+import { review } from "./reactive.js";
 import { cart } from "./cart.js";
 
-model.classes.Номенклатура = class Номенклатура
+document.classes.content = class Content
 {
-	async view(element)
+	async View()
 	{
-		let layout = await new Layout().load("номенклатура.html");
-		let template = layout.template();
-		template.fill(form.object);
-		await template.out(element);
-		await binding(element);
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
+		// Получение идентификатора
+		let url = new URL(location);
+		this.dataset.id = url.searchParams.get("id");
+
+		// Получение экземпляра объекта
+		let object = await database.find(this.dataset.id);
+
+		await document.template("#form").fill(object).Join(this);
+		await review(this);
+		//await binding(element);
 		//document.find("#title").innerHTML = form.object.title;
 		await this.ВывестиИзображения();
 	}
@@ -85,13 +96,15 @@ model.classes.Номенклатура = class Номенклатура
 
 	async ВывестиИзображения(value)
 	{
-		let values = [form.object.Изображение];
+		let object = await database.find(this.dataset.id);
+
+		let values = [object.Изображение];
 		let query =
 		{
 			"from": "owner",
 			"where":
 			{
-				"owner": form.object.id
+				"owner": object.id
 			}
 		};
 		for (let id of await database.select(query))
@@ -123,16 +136,15 @@ model.classes.Номенклатура = class Номенклатура
 			//else
 			//	document.find("#image").src = "";
 
-			let layout = await new Layout().load("номенклатура.html");
-			let template = layout.template("#image");
-
+			let template = document.template("#image");
 			template.fill( { "id": "image" + order } );
-			await template.out("#images");
-			let img = document.find("#image" + order + " img");
+			await template.Join("#images");
+
+			let img = document.querySelector("#image" + order + " img");
 			img.src = src;
 
-			document.find("#choose").show(!value);
-			document.find("#delete").show(value);
+			document.querySelector("#choose").show(!value);
+			document.querySelector("#delete").show(value);
 		}
 	}
 };

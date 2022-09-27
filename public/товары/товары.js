@@ -1,13 +1,9 @@
 
 import { Database, database } from "./database.js";
 import { server, auth, hive } from "./server.js";
-import { model } from "./model.js";
-import { binding } from "./reactive.js";
 import { Template } from "./template.js";
 import { cart } from "./cart.js";
-// import { form } from "./form.js";
 import "./покупка.js";
-// import "./номенклатура.js";
 import "./paginator.js";
 import "./client.js";
 
@@ -21,9 +17,7 @@ document.classes.content = class Content
 		// Начало транзакции
 		await database.transaction();
 
-		let template = new Template(document.querySelector("#form"));
-		template.fill(this);
-		await template.InsertInto(this);
+		await document.template("#form").fill(this).Join(this);
 		//await binding(element);
 		this.Заполнить();
 		let search = document.querySelector("input#search");
@@ -53,7 +47,7 @@ document.classes.content = class Content
 		}
 		catch
 		{
-			new Template("#restricted").out("main");
+			await document.template("#restricted").Join("main");
 			return;
 		}
 		let query =  { "from": "Номенклатура" };
@@ -70,7 +64,7 @@ document.classes.content = class Content
 			record.Артикул = ("" + record.Артикул).trim();
 			if (!record.Артикул)
 				record.Артикул = "(нет)";
-			let template = new Template(document.querySelector("#card"));
+			let template = document.template("#card");
 			template.fill(record);
 
 			let file = record.Изображение;
@@ -92,7 +86,7 @@ document.classes.content = class Content
 			}
 			else
 				template.fill( { "image": "nophoto.png" } );
-			await template.InsertInto(document.querySelector("#cards"));
+			await template.Join(document.querySelector("#cards"));
 
 			await this.ОбновитьЭлемент(db, id);
 			paginator.add();
@@ -119,7 +113,7 @@ document.classes.content = class Content
 			template.fill(покупка);
 			let item = await db.find(id);
 			template.fill(item);
-			await template.InsertInto(document.querySelector("#buyed-" + id));
+			await template.Join(document.querySelector("#buyed-" + id));
 		}
 	}
 };

@@ -1,23 +1,29 @@
 
 import { model } from "./model.js";
-import { Layout, Template } from "./template.js";
+import { Template } from "./template.js";
 import { binding } from "./reactive.js";
 import { Database, database } from "./database.js";
 import { auth, hive } from "./server.js";
 import { cart } from "./cart.js";
+import "./client.js";
 
-model.classes.Товар = class Товар
+document.classes.content = class Content
 {
-	async view(element)
+	async View()
 	{
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
 		let url = new URL(location);
 		if (!url.searchParams.has("Номенклатура"))
 			return;
 		let id = url.searchParams.get("Номенклатура");
 		let record = await database.find(id);
 
-		let layout = await new Layout().load("товар.html");
-		let template = layout.template("#form");
+		let template = new Template(document.querySelector("#form"));
 		template.fill( { "товар": this.id } );
 
 		//document.title = record.title;
@@ -49,10 +55,10 @@ model.classes.Товар = class Товар
 		let qr = "https://xn--40-6kcai3c0bf.xn--p1ai/?id=" + record.id;
 		template.fill( { "qr": qr } );
 
-		await template.out(element);
-		await binding(element);
+		await template.Join(this);
+		//await binding(element);
 
-		let qrcode = new QRCode(document.find("#qrcode"));
+		let qrcode = new QRCode(document.querySelector("#qrcode"));
 		qrcode.makeCode(qr);
 
 		this.Обновить();
@@ -80,12 +86,11 @@ model.classes.Товар = class Товар
 											 "where": { "Пользователь": auth.account },
 											 "filter": { "Номенклатура": id,
 														 "deleted": "" } } );
-		document.find("#buying-" + id).show(покупка == null);
-		document.find("#buyed-" + id).show(покупка != null);
+		document.querySelector("#buying-" + id).show(покупка == null);
+		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let layout = await new Layout().load("товар.html");
-			let template = layout.template("#buyed");
+			let template = document.template("#buyed");
 			template.fill(покупка);
 			let item = await database.find(id);
 			template.fill(item);

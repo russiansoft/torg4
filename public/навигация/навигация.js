@@ -12,8 +12,7 @@ document.classes["sot-nav"] = class SotNav
 		this.classList.add("navbar", "sticky-top", "navbar-expand",
 		                   "navbar-dark", "bg-dark");
 		let layout = await server.LoadHTML("навигация.html");
-		let template = new Template(layout.querySelector("template"));
-		await template.fill(auth).fill(this).InsertInto(this);
+		await layout.template().fill(auth).fill(this).Join(this);
 		//document.find("button#login").show(!auth.user);
 		//document.find("button#logout").show(auth.user);
 	}

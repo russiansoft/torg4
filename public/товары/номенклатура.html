@@ -1,50 +1,71 @@
 
-<template>
-	<header class="container-fluid">
-		<div class="row m-2"></div>
-		<div class="row m-2">
-			<div class="col">
-				<button class="btn btn-primary" data-cmd="Записать">Записать</button>
-			</div>
-		</div>
-	</header>
-	<main class="container-fluid">
-		<div class="row m-2">
-			<h2 class="col" id="title">{title}</h2>
-		</div>
-		<div class="row m-2">
-			<label class="col-form-label col-sm-4">Изображение:</label>
-			<div class="col-sm-8">
-				<button class="btn btn-outline-secondary d-none" id="choose" data-cmd="Выбрать">
-					Выбрать
-				</button>
-				<button class="btn btn-outline-secondary d-none" id="delete" data-cmd="Удалить">
-					Удалить
-				</button>
-				<button class="btn btn-outline-secondary" id="add" data-cmd="Добавить">
-					Добавить
-				</button>
-			</div>
-		</div>
-		<section id="images">
-		</section>
-		<div class="row m-2">
-			<label class="col-form-label col-sm-12">Описание:</label>
-			<div class="col-sm-12">
-				<textarea class="form-control" data-bind="Описание" rows="7"></textarea>
-			</div>
-		</div>
-	</main>
-	<aside>
-	</aside>
-	<footer>
-	</footer>
-</template>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="sot.png">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-icons.css">
+		<link rel="stylesheet" href="col.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="qrcode.js"></script>
+		<script type="module">
+			import "./view.js";
+			import "./навигация.js";
+			import "./номенклатура.js";
+			import "./подвал.js";
+		</script>
+		<title>СВАРОПТТОРГ</title>
+	</head>
+	<body>
+		<section class="sot-nav"></section>
+		<section class="content"></section>
+		<section class="sot-footer"></section>
 
-<temlate id="image">
-	<div class="row m-2" id="{id}">
-		<div class="col-sm-12">
-			<img class="img-fluid">
-		</div>
-	</div>
-</temlate>
+		<template id="form">
+			<div class="container-fluid p-3">
+				<div class="row mb-3">
+					<div class="col">
+						<button class="btn btn-primary" data-cmd="Записать">Записать</button>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<h2 class="col" id="title">{title}</h2>
+				</div>
+				<div class="row mb-3">
+					<label class="col-sm-4 col-form-label">Изображение:</label>
+					<div class="col-sm-8">
+						<button class="btn btn-outline-secondary d-none" id="choose" data-cmd="Выбрать">
+							Выбрать
+						</button>
+						<button class="btn btn-outline-secondary d-none" id="delete" data-cmd="Удалить">
+							Удалить
+						</button>
+						<button class="btn btn-outline-secondary" id="add" data-cmd="Добавить">
+							Добавить
+						</button>
+					</div>
+				</div>
+				<section id="images">
+				</section>
+				<div class="row mb-3">
+					<label class="col-form-label col-sm-12">Описание:</label>
+					<div class="col">
+						<textarea class="form-control" data-bind="Описание" rows="7"></textarea>
+					</div>
+				</div>
+			</div>
+		</template>
+
+		<temlate id="image">
+			<div class="row m-2" id="{id}">
+				<div class="col-sm-12">
+					<img class="img-fluid">
+				</div>
+			</div>
+		</temlate>
+
+	</body>
+</html>
