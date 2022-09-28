@@ -6,8 +6,9 @@ import { Database, database } from "./database.js";
 import { auth, hive } from "./server.js";
 import { cart } from "./cart.js";
 import "./client.js";
+import { ПолучитьДанныеИзображения } from "./client.js";
 
-document.classes.content = class
+document.classes["form-class"] = class
 {
 	async Create()
 	{
@@ -35,28 +36,35 @@ document.classes.content = class
 
 		template.fill(record);
 
-		let file = record.Изображение;
-		if (file)
-		{
-			let attributes = { };
-			for (let part of file.split("|"))
-			{
-				if (!part)
-					continue;
-				let pair = part.split(":");
-				attributes[pair[0]] = pair[1];
-			}
-			attributes.address = attributes.address.replace(/\\/g, "/");
-			let base64 = await hive.image(attributes.address, 600, -1);
-			let image = "data:image/png;base64," + base64.content;
-			template.fill( { "image": image } );
-		}
+		//let image = await ПолучитьДанныеИзображения(record.Изображение, 600, -1);
+		//if (image)
+		//	template.fill( { "image": image } );
 
 		let qr = "https://xn--40-6kcai3c0bf.xn--p1ai/?id=" + record.id;
 		template.fill( { "qr": qr } );
 
 		await template.Join(this);
 		//await binding(element);
+
+		let images = [];
+		if (record.Изображение)
+			images.push(record.Изображение);
+		let query = { "from": "owner",
+			          "where": { "owner": id },
+                      "filter": { "deleted": "" } };
+		for (let id of await database.select(query))
+		{
+			let эскиз = await database.find(id);
+			if (эскиз.Изображение)
+				images.push(эскиз.Изображение);
+		}
+		for (let image of images)
+		{
+			let data = await ПолучитьДанныеИзображения(image);
+			let template = document.template("template#image-list-item");
+			template.fill( { "image": image, "src": data } );
+			await template.Join("section#image-list");
+		}
 
 		let qrcode = new QRCode(document.querySelector("#qrcode"));
 		qrcode.makeCode(qr);
@@ -96,5 +104,17 @@ document.classes.content = class
 			template.fill(item);
 			await template.Join("#buyed-" + id);
 		}
+	}
+}
+
+document.classes["thumbnail-class"] = class
+{
+	async ПереключитьИзображение()
+	{
+		document.get("section#image-box").innerHTML = "";
+		let data = await ПолучитьДанныеИзображения(this.dataset.image);
+		let template = document.template("template#image-item");
+		template.fill( { "src": data } );
+		await template.Join("section#image-box");
 	}
 }

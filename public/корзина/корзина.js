@@ -5,6 +5,7 @@ import { model } from "./model.js";
 import { binding } from "./reactive.js";
 import "./template.js";
 import { cart } from "./cart.js";
+import "./client.js";
 
 document.classes.form = class
 {
@@ -65,6 +66,10 @@ document.classes.form = class
 			}
 			await template.Join("main");
 		}
+		let has = records.length > 0;
+		document.get("a[href='этикетки']").enable(has);
+		document.get("button[data-cmd='Инвентаризация']").enable(has);
+		document.get("button[data-cmd='Очистить']").enable(has);
 	}
 
 	async Инвентаризация()
@@ -81,11 +86,8 @@ document.classes.form = class
 		for (let id of records)
 		{
 			let entry = await database.find(id);
-			let values =
-			{
-				"Номенклатура": entry.Номенклатура,
-				"Количество": "" + entry.Количество
-			};
+			let values = { "Номенклатура": entry.Номенклатура,
+						   "Количество": "" + entry.Количество };
 			let line = await database.add(doc.id, "Строки", values);
 		}
 		await database.commit();
@@ -94,6 +96,8 @@ document.classes.form = class
 
 	async Очистить()
 	{
+		if (!confirm("Очистить корзину?"))
+			return;
 		await cart.clear();
 		this.Заполнить();
 	}
@@ -102,17 +106,4 @@ document.classes.form = class
 	{
 		this.Заполнить();
 	}
-
-	async Загрузка()
-	{
-		Заполнить();
-	}
 };
-
-model.classes.Инвентаризация = class
-{
-}
-
-model.classes["Инвентаризация-Строка"] = class
-{
-}

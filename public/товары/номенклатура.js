@@ -1,5 +1,6 @@
 
-import { FileDialog } from "./client.js";
+import { FileDialog, ПолучитьДанныеИзображения,
+                     СохранитьДанныеИзображения } from "./client.js";
 import { Database, database } from "./database.js";
 import { Template } from "./template.js";
 import { auth, hive } from "./server.js";
@@ -31,38 +32,6 @@ document.classes["form-class"] = class
 		await this.ВывестиДополнительныеИзображения();
 	}
 
-	async ПолучитьДанныеИзображения(value)
-	{
-		if (!value)
-			return "";
-		let attributes = { };
-		for (let part of value.split("|"))
-		{
-			if (!part)
-				continue;
-			let pair = part.split(":");
-			attributes[pair[0]] = pair[1];
-		}
-		attributes.address = attributes.address.replace(/\\/g, "/");
-		let base64 = await hive.get(attributes.address);
-		let data = "data:image/jpeg;base64," + base64.content;
-		return data;
-	}
-
-	async СохранитьДанныеИзображения(name, type, data)
-	{
-		let extension = "";
-		let point = name.lastIndexOf(".");
-		if (point != -1)
-			extension = name.slice(point + 1);
-		let result = await hive.put(data, extension);
-		let value = "name:" + name;
-		if (type)
-			value += "|type:" + type;
-		value += "|address:" + result.address + "|";
-		return value;
-	}
-
 	async Записать()
 	{
 		await database.commit();
@@ -72,7 +41,7 @@ document.classes["form-class"] = class
 	async ВывестиГлавноеИзображение()
 	{
 		let object = await database.find(this.dataset.id);
-		let data = await this.ПолучитьДанныеИзображения(object.Изображение);
+		let data = await ПолучитьДанныеИзображения(object.Изображение);
 		if (data)
 		{
 			let template = document.template("template#image");
@@ -92,7 +61,7 @@ document.classes["form-class"] = class
 	{
 		new FileDialog().show(async (file) =>
 		{
-			let value = await this.СохранитьДанныеИзображения(file.name, file.type, file.data);
+			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
 			await database.save( [ { "id": this.dataset.id, "Изображение": value } ] );
 			await this.ВывестиГлавноеИзображение();
 		} );
@@ -114,7 +83,7 @@ document.classes["form-class"] = class
 		for (let id of await database.select(query))
 		{
 			let эскиз = await database.find(id);
-			let data = await this.ПолучитьДанныеИзображения(эскиз.Изображение);
+			let data = await ПолучитьДанныеИзображения(эскиз.Изображение);
 			if (!data)
 				continue;
 			let template = document.template("template#image");
@@ -129,7 +98,7 @@ document.classes["form-class"] = class
 	{
 		new FileDialog().show(async (file) =>
 		{
-			let value = await this.СохранитьДанныеИзображения(file.name, file.type, file.data);
+			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
 			await database.add(this.dataset.id, "Эскизы", { "Изображение": value } );
 			await this.ВывестиДополнительныеИзображения();
 		} );

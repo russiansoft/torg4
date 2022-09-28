@@ -21,7 +21,7 @@
 	</head>
 	<body>
 		<div class="nav-class"></div>
-		<div class="content"></div>
+		<div class="form-class"></div>
 		<div class="footer-class"></div>
 
 		<template id="form">
@@ -82,6 +82,12 @@
 					</div>
 				</div>
 				<div class="row mb-3">
+					<section class="col-sm-3" id="image-list">
+					</section>
+					<section class="col-sm-9" id="image-box">
+					</section>
+				</div>
+				<div class="row mb-3">
 					<div class="col">
 						<p class="lead text-wrap pre-wrap">{Описание}</p>
 					</div>
@@ -106,6 +112,15 @@
 					</a>
 				</p>
 			</div>
+		</template>
+
+		<template id="image-list-item">
+			<img class="img-fluid border rounded thumbnail-class" src="{src}"
+			     data-image="{image}" data-cmd="ПереключитьИзображение">
+		</template>
+
+		<template id="image-item">
+			<img class="img-fluid border rounded" src="{src}"s>
 		</template>
 
 	</body>
