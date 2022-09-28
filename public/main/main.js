@@ -3,7 +3,7 @@ import { model } from "./model.js";
 import { binding } from "./reactive.js";
 import { Layout } from "./template.js";
 
-model.classes.Main = class Main
+model.classes.Main = class
 {
 	async view(element)
 	{
@@ -19,7 +19,7 @@ model.classes.Main = class Main
 	}
 };
 
-model.classes.Подвал = class Подвал
+model.classes.Подвал = class
 {
 	async view(element)
 	{

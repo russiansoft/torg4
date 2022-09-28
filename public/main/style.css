@@ -51,6 +51,7 @@ tr
 
 input#search
 {
+	
 	border: gold solid 3px;
 }
 
@@ -64,7 +65,7 @@ input#search
 	cursor: pointer;
 }
 
-.sot-footer *
+.footer-class *
 {
 	color: white;
 }

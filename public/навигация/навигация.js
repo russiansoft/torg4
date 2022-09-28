@@ -5,7 +5,7 @@ import { server } from "./server.js";
 import { Template } from "./template.js";
 import { binding } from "./reactive.js";
 
-document.classes["sot-nav"] = class SotNav
+document.classes["nav-class"] = class
 {
 	async Create()
 	{

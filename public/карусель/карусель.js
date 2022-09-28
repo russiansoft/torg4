@@ -2,7 +2,7 @@
 import { server } from "./server.js";
 import { Template } from "./template.js";
 
-document.classes["sot-carousel"] = class SotCarousel
+document.classes["carousel-class"] = class
 {
 	async Create()
 	{

@@ -8,7 +8,7 @@ import { model } from "./model.js";
 import { review } from "./reactive.js";
 import { cart } from "./cart.js";
 
-document.classes.content = class Content
+document.classes.content = class
 {
 	async Create()
 	{
@@ -149,6 +149,6 @@ document.classes.content = class Content
 	}
 };
 
-model.classes.Эскиз = class Эскиз
+model.classes.Эскиз = class
 {
 };

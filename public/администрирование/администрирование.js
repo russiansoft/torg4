@@ -4,7 +4,7 @@ import { model } from "./model.js";
 import { Layout, Template } from "./template.js";
 import { binding } from "./reactive.js";
 
-model.classes.Администрирование = class Администрирование
+model.classes.Администрирование = class
 {
 	async view(element)
 	{

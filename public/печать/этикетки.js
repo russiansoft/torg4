@@ -6,7 +6,7 @@ import { binding } from "./reactive.js";
 import { Sheet } from "./sheet.js";
 import "./client.js";
 
-document.classes["form-class"] = class FormClass
+document.classes["form-class"] = class
 {
 	async Create()
 	{

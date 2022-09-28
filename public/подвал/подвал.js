@@ -5,7 +5,7 @@ import { server } from "./server.js";
 import { Template } from "./template.js";
 import { binding } from "./reactive.js";
 
-document.classes["sot-footer"] = class SotFooter
+document.classes["footer-class"] = class
 {
 	async Create()
 	{

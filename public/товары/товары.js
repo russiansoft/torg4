@@ -7,7 +7,7 @@ import "./покупка.js";
 import "./pagination.js";
 import "./client.js";
 
-document.classes.content = class Content
+document.classes.content = class
 {
 	async Create()
 	{

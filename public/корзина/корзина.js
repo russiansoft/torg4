@@ -6,7 +6,7 @@ import { binding } from "./reactive.js";
 import "./template.js";
 import { cart } from "./cart.js";
 
-document.classes.form = class Form
+document.classes.form = class
 {
 	async Create()
 	{
@@ -109,10 +109,10 @@ document.classes.form = class Form
 	}
 };
 
-model.classes.Инвентаризация = class Инвентаризация
+model.classes.Инвентаризация = class
 {
 }
 
-model.classes["Инвентаризация-Строка"] = class Инвентаризация_Строка
+model.classes["Инвентаризация-Строка"] = class
 {
 }

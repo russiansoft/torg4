@@ -7,7 +7,7 @@ import { auth, hive } from "./server.js";
 import { cart } from "./cart.js";
 import "./client.js";
 
-document.classes.content = class Content
+document.classes.content = class
 {
 	async Create()
 	{

@@ -3,7 +3,7 @@ import { Database } from "./database.js";
 import { model } from "./model.js";
 import { cart } from "./cart.js";
 
-model.classes.Покупка = class Покупка
+model.classes.Покупка = class
 {
 	async Увеличить()
 	{
