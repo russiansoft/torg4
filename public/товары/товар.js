@@ -60,11 +60,12 @@ document.classes["form-class"] = class
 		}
 		for (let image of images)
 		{
-			let data = await ПолучитьДанныеИзображения(image);
+			let data = await ПолучитьДанныеИзображения(image, 100, -1);
 			let template = document.template("template#image-list-item");
 			template.fill( { "image": image, "src": data } );
 			await template.Join("section#image-list");
 		}
+		document.get("section#image-list").show(images.length > 1);
 
 		let qrcode = new QRCode(document.querySelector("#qrcode"));
 		qrcode.makeCode(qr);
@@ -109,6 +110,13 @@ document.classes["form-class"] = class
 
 document.classes["thumbnail-class"] = class
 {
+	async Create()
+	{
+		if (document.querySelectorAll(".selected-image").length)
+			return;
+		await this.ПереключитьИзображение();
+	}
+
 	async ПереключитьИзображение()
 	{
 		document.get("section#image-box").innerHTML = "";
@@ -116,5 +124,9 @@ document.classes["thumbnail-class"] = class
 		let template = document.template("template#image-item");
 		template.fill( { "src": data } );
 		await template.Join("section#image-box");
+
+		for (let item of document.querySelectorAll(".thumbnail-class"))
+			item.classList.remove("selected-image");
+		this.classList.add("selected-image");
 	}
 }
