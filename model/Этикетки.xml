@@ -2,7 +2,6 @@
 
 <unit name="Этикетки">
 	<type name="Этикетки" title="Этикетки" scope="global" report="1">
-		<field.object name="Навигация" type="Навигация"/>
 		<field.string name="Пользователь"/>
 		<field.array name="Строки" type="Строка"/>
 		

@@ -8,7 +8,6 @@
 		<access.full type="Карусель"/>
 		<access.none type="Корзина"/>
 		<access.none type="Корзина-Строка"/>
-		<access.full type="Навигация"/>
 		<access.none type="Настройки"/>
 		<access.read type="Номенклатура"/>
 		<access.full type="Подвал"/>
@@ -28,7 +27,6 @@
 		<access.full type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
-		<access.full type="Навигация"/>
 		<access.full type="Настройки"/>
 		<access.full type="Номенклатура"/>
 		<access.full type="Подвал"/>
@@ -56,7 +54,6 @@
 		<access.none type="Карусель"/>
 		<access.full type="Корзина"/>
 		<access.full type="Корзина-Строка"/>
-		<access.full type="Навигация"/>
 		<access.full type="Настройки"/>
 		<access.full type="Номенклатура"/>
 		<access.full type="Подвал"/>

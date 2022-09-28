@@ -20,52 +20,86 @@
 		<title>СВАРОПТТОРГ</title>
 	</head>
 	<body>
-		<section class="nav-class"></section>
-		<section class="content"></section>
-		<section class="footer-class"></section>
+		<div class="nav-class"></div>
+		<div class="form-class"></div>
 
 		<template id="form">
 			<div class="container-fluid p-3">
 				<div class="row mb-3">
 					<div class="col">
-						<button class="btn btn-primary" data-cmd="Записать">Записать</button>
+						<button class="btn btn-primary" data-cmd="Записать">
+							Записать
+						</button>
 					</div>
 				</div>
 				<div class="row mb-3">
-					<h2 class="col" id="title">{title}</h2>
+					<h2 class="col">{title}</h2>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-4 col-form-label">Изображение:</label>
-					<div class="col-sm-8">
-						<button class="btn btn-outline-secondary d-none" id="choose" data-cmd="Выбрать">
+				<div class="row mb-2">
+					<div class="col">
+						<h5>Главное изображение</h5>
+					</div>
+				</div>
+				<section id="primary">
+				</section>
+				<div class="row mb-2">
+					<div class="col">
+						<button class="btn btn-outline-secondary d-none"
+						        data-cmd="ВыбратьГлавноеИзображение">
 							Выбрать
 						</button>
-						<button class="btn btn-outline-secondary d-none" id="delete" data-cmd="Удалить">
+						<button class="btn btn-outline-secondary d-none"
+						        data-cmd="УдалитьГлавноеИзображение">
 							Удалить
 						</button>
-						<button class="btn btn-outline-secondary" id="add" data-cmd="Добавить">
+					</div>
+				</div>
+				<div class="row mt-3 mb-2">
+					<div class="col">
+						<h5>Дополнительные изображения</h5>
+					</div>
+				</div>
+				<section id="secondary">
+				</section>
+				<div class="row g-2 mb-2">
+					<div class="col-auto">
+						<button class="btn btn-outline-secondary"
+						        data-cmd="ДобавитьДополнительноеИзображение">
 							Добавить
 						</button>
 					</div>
+					<div class="col-auto">
+						<button class="btn btn-outline-secondary"
+						        data-cmd="ОчиститьДополнительныеИзображения">
+							Очистить
+						</button>
+					</div>
 				</div>
-				<section id="images">
-				</section>
 				<div class="row mb-3">
 					<label class="col-form-label col-sm-12">Описание:</label>
 					<div class="col">
-						<textarea class="form-control" data-bind="Описание" rows="7"></textarea>
+						<textarea class="form-control" data-bind="Описание" rows="7">
+						</textarea>
 					</div>
 				</div>
 			</div>
 		</template>
 
-		<temlate id="image">
-			<div class="row m-2" id="{id}">
-				<div class="col-sm-12">
-					<img class="img-fluid">
+		<template id="image">
+			<div class="row mb-3">
+				<div class="col">
+					<img class="img-fluid border rounded" src="{src}">
 				</div>
 			</div>
-		</temlate>
+		</template>
+
+		<template id="no-image">
+			<div class="row mb-3">
+				<div class="col col-30ch">
+					<img class="img-fluid border rounded" src="nophoto.png">
+				</div>
+			</div>
+		</template>
 
 	</body>
 </html>
