@@ -9,7 +9,7 @@
 		<access.none type="Корзина"/>
 		<access.none type="Корзина-Строка"/>
 		<access.none type="Настройки"/>
-		<access.read type="Номенклатура"/>
+		<access.none type="Номенклатура"/>
 		<access.full type="Подвал"/>
 		<access.full type="Покупка"/>
 		<access.none type="Товары"/>

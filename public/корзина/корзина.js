@@ -7,7 +7,7 @@ import "./template.js";
 import { cart } from "./cart.js";
 import "./client.js";
 
-document.classes.form = class
+document.classes["form-class"] = class
 {
 	async Create()
 	{

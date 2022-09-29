@@ -4,6 +4,7 @@ import { database } from "./database.js";
 import { server } from "./server.js";
 import { Template } from "./template.js";
 import { binding } from "./reactive.js";
+import "./client.js";
 
 document.classes["nav-class"] = class
 {
@@ -13,8 +14,15 @@ document.classes["nav-class"] = class
 		                   "navbar-dark", "bg-dark");
 		let layout = await server.LoadHTML("навигация.html");
 		await layout.template().fill(auth).fill(this).Join(this);
-		//document.find("button#login").show(!auth.user);
-		//document.find("button#logout").show(auth.user);
+		document.get("button#login").show(!auth.user);
+		document.get("button#logout").show(auth.user);
+
+		for (let element of this.querySelectorAll("[data-read]"))
+		{
+			let access = await database.access(element.dataset.read);
+			if (access.indexOf("read") != -1)
+				element.classList.remove("d-none");
+		}		
 	}
 
 	async login()

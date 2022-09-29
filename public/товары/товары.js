@@ -7,7 +7,7 @@ import "./покупка.js";
 import "./pagination.js";
 import "./client.js";
 
-document.classes.content = class
+document.classes["form-class"] = class
 {
 	async Create()
 	{
@@ -20,14 +20,7 @@ document.classes.content = class
 		await document.template("#form").fill(this).Join(this);
 		//await binding(element);
 		this.Заполнить();
-		let search = document.querySelector("input#search");
-		let button = document.querySelector("button#fill");
-		search.addEventListener("keydown", (event) =>
-		{
-			if (event.key == "Enter")
-				button.click();
-		} );
-		search.focus();
+		document.get("input#search").focus();
 	}
 
 	async Заполнить(очистить = true)
@@ -117,3 +110,16 @@ document.classes.content = class
 		}
 	}
 };
+
+document.classes["item-class"] = class
+{
+	async ВКорзину()
+	{
+		let id = this.dataset.id;
+		console.log("item-class.ВКорзину id " + id);
+		if (!await cart.find(id))
+			await cart.add(id);
+		let db = await new Database().transaction();
+		document.body.ОбновитьЭлемент(db, id);
+	}
+}

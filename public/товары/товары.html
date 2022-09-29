@@ -19,12 +19,10 @@
 		</script>
 		<title>СВАРОПТТОРГ</title>
 	</head>
-	<body>
-		<div class="nav-class"></div>
-		<div class="content"></div>
-		<div class="footer-class"></div>
+	<body class="form-class">
 
 		<template id="form">
+			<div class="nav-class"></div>
 			<div class="container-fluid p-3">
 				<h2 class="row mb-3">
 					<div class="col-grow">
@@ -34,7 +32,7 @@
 				<div class="row g-2 mb-3">
 					<label class="col-auto col-form-label">Поиск:</label>
 					<div class="col">
-						<input class="form-control" id="search"/>
+						<input class="form-control" id="search" data-cmd="Заполнить"/>
 					</div>
 					<div class="col-auto">
 						<button class="btn btn-primary disabled" data-cmd="Заполнить" id="fill">
@@ -45,11 +43,12 @@
 				<div class="row g-3 mb-3" id="cards"></div>
 				<div class="row g-2 mb-4 pagination-class" data-take="15"></div>
 			</div>
+			<div class="footer-class"></div>
 		</template>
 
 		<template id="card">
 			<div class="col-sm-auto" data-id="{id}">
-				<div class="card" style="width: 18rem;" record="{id}">
+				<div class="card item-class" style="width: 18rem;" data-id="{id}">
 					<img class="img-fluid" src="{image}">
 					<div class="card-body">
 						<div class="title-container h5">
@@ -63,7 +62,7 @@
 									Арт.: {Артикул}
 								</div>
 								<div class="col-sm-auto">
-									<a class="btn btn-success" href="?type=Номенклатура&id={id}"
+									<a class="btn btn-success" href="номенклатура?id={id}"
 									target="_blank">
 										<i class="bi bi-pencil-fill"></i>
 									</a>
@@ -93,7 +92,7 @@
 		<template id="buyed">
 			<div class="col">
 				<p class="text-danger">
-					<a href="?type=Корзина">
+					<a href="корзина">
 						<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
 					</a>
 				</p>

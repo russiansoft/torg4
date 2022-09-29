@@ -1,26 +1,54 @@
 
-<template>
-	<main class="container-fluid">
-		<div class="row m-2">
-			<div class="col-grow">
-				<h2>Администрирование</h2>
-			</div>
-		</div>
-		<div class="row m-3">
-			<div class="col-grow">
-				<button class="btn btn-secondary" data-cmd="restart">
-					<i class="bi bi-bootstrap-reboot"></i> Перезапуск
-				</button>
-			</div>
-		</div>
-		<div class="row m-3">
-			<div class="col-grow">
-				<!-- Yandex.Metrika informer -->
-				<a href="https://metrika.yandex.ru/stat/?id=90014985&amp;from=informer"
-				target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/90014985/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-				style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="90014985" data-lang="ru" /></a>
-				<!-- /Yandex.Metrika informer -->
-			</div>
-		</div>
-	</main>
-</template>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="sot.png">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-icons.css">
+		<link rel="stylesheet" href="col.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="qrcode.js"></script>
+		<script type="module">
+			import "./view.js";
+			import "./навигация.js";
+			import "./администрирование.js";
+			import "./подвал.js";
+		</script>
+		<title>СВАРОПТТОРГ</title>
+	</head>
+	<body class="form-class">
+
+		<template>
+			<div class="nav-class"></div>
+			<main class="container-fluid">
+				<div class="row m-2">
+					<div class="col-grow">
+						<h2>Администрирование</h2>
+					</div>
+				</div>
+				<div class="row m-3">
+					<div class="col-grow">
+						<button class="btn btn-secondary" data-cmd="Перезапуск">
+							<i class="bi bi-bootstrap-reboot"></i> Перезапуск
+						</button>
+					</div>
+				</div>
+				<div class="row m-3">
+					<div class="col-grow">
+						<!-- Yandex.Metrika informer -->
+						<a href="https://metrika.yandex.ru/stat/?id=90014985&amp;from=informer"
+						target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/90014985/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+						style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" class="ym-advanced-informer" data-cid="90014985" data-lang="ru" /></a>
+						<!-- /Yandex.Metrika informer -->
+					</div>
+				</div>
+			</main>
+			<div class="footer-class"></div>
+		</template>
+
+	</body>
+</html>
+

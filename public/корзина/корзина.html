@@ -20,12 +20,10 @@
 		</script>
 		<title>СВАРОПТТОРГ</title>
 	</head>
-	<body>
-		<div class="nav-class"></div>
-		<div class="form"></div>
-		<div class="footer-class"></div>
+	<body class="form-class">
 				
 		<template id="form">
+			<div class="nav-class"></div>
 			<div class="container-fluid p-3">
 				<div class="row mb-3">
 					<h2 class="col">Корзина</h2>
@@ -55,6 +53,7 @@
 				<main>
 				</main>
 			</div>
+			<div class="footer-class"></div>
 		</template>
 
 		<template id="card">
@@ -68,7 +67,7 @@
 									<!-- <p>{Порядок}</p> -->
 								</div>
 								<div class="col-sm-5">
-									<a class="card-title h5" href="?type=Товар&Номенклатура={Номенклатура}">{Наименование}</a>
+									<a class="card-title h5" href="товар?Номенклатура={Номенклатура}">{Наименование}</a>
 									<p class="card-subtitle">Код: {Код}</p>
 									<p class="card-subtitle">Арт.: {Артикул}</p>
 									<p class="card-text">Цена: {Цена}</p>
