@@ -1,12 +1,12 @@
 
-import { model } from "./model.js";
-import { Layout } from "./template.js";
+import { server } from "./server.js";
+import { Template } from "./template.js";
 
-model.classes.Карусель = class Карусель
+document.classes["carousel-class"] = class
 {
-	async view(parent)
+	async Create()
 	{
-		let layout = await new Layout().load("карусель.html");
-		layout.template("#form").out(parent);
+		let layout = await server.LoadHTML("карусель.html");
+		await layout.template().Join(this);
 	}
 };

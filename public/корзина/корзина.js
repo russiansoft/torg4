@@ -1,28 +1,32 @@
 
 import { Database, database } from "./database.js";
-import { auth, hive } from "./server.js";
+import { server, auth, hive } from "./server.js";
 import { model } from "./model.js";
 import { binding } from "./reactive.js";
-import { Layout, Template } from "./template.js";
+import "./template.js";
 import { cart } from "./cart.js";
+import "./client.js";
 
-model.classes.Корзина = class Корзина
+document.classes["form-class"] = class
 {
-	async view(element)
+	async Create()
 	{
-		let layout = await new Layout().load("корзина.html");
-		let template = layout.template("#form");
-		template.fill(this);
-		await template.out(element);
-		await binding(element);
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
+		await document.template("#form").fill(this).Join(this);
+		//await binding(element);
 		this.Заполнить();
 	}
 
 	async Заполнить()
 	{
 		let db = await new Database().transaction();
-		let layout = await new Layout().load("корзина.html");
-		document.find("main").innerHTML = "";
+		let layout = await server.LoadHTML("корзина.html");
+		document.querySelector("main").innerHTML = "";
 		let query =  { "from": "ПокупкаПорядок",
 					   "where" : { "Пользователь" : auth.account },
 					   "filter" : { "deleted": "" }	};
@@ -60,8 +64,12 @@ model.classes.Корзина = class Корзина
 				else
 					template.fill( { "image": "nophoto.png" } );
 			}
-			template.out("main");
+			await template.Join("main");
 		}
+		let has = records.length > 0;
+		document.get("a[href='этикетки']").enable(has);
+		document.get("button[data-cmd='Инвентаризация']").enable(has);
+		document.get("button[data-cmd='Очистить']").enable(has);
 	}
 
 	async Инвентаризация()
@@ -71,18 +79,15 @@ model.classes.Корзина = class Корзина
 		await database.transaction();
 		let doc = await database.create("Инвентаризация");
 		// await database.save( [ { "id": doc.id, "ИнвентаризацияОформлен": "1" } ] );
-		let query =  { "from": "ПокупкаПорядок",
-					"where" : { "Пользователь" : auth.account },
-					"filter" : { "deleted": "" }	};
+		let query = { "from": "ПокупкаПорядок",
+					  "where" : { "Пользователь" : auth.account },
+					  "filter" : { "deleted": "" } };
 		let records = await database.select(query);
 		for (let id of records)
 		{
 			let entry = await database.find(id);
-			let values =
-			{
-				"Номенклатура": entry.Номенклатура,
-				"Количество": "" + entry.Количество
-			};
+			let values = { "Номенклатура": entry.Номенклатура,
+						   "Количество": "" + entry.Количество };
 			let line = await database.add(doc.id, "Строки", values);
 		}
 		await database.commit();
@@ -91,6 +96,8 @@ model.classes.Корзина = class Корзина
 
 	async Очистить()
 	{
+		if (!confirm("Очистить корзину?"))
+			return;
 		await cart.clear();
 		this.Заполнить();
 	}
@@ -99,17 +106,4 @@ model.classes.Корзина = class Корзина
 	{
 		this.Заполнить();
 	}
-
-	async Загрузка()
-	{
-		Заполнить();
-	}
 };
-
-model.classes.Инвентаризация = class Инвентаризация
-{
-}
-
-model.classes["Инвентаризация-Строка"] = class Инвентаризация_Строка
-{
-}

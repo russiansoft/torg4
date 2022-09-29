@@ -1,23 +1,30 @@
 
 import { model } from "./model.js";
-import { Layout, Template } from "./template.js";
+import { Template } from "./template.js";
 import { binding } from "./reactive.js";
 import { Database, database } from "./database.js";
 import { auth, hive } from "./server.js";
 import { cart } from "./cart.js";
+import "./client.js";
+import { ПолучитьДанныеИзображения } from "./client.js";
 
-model.classes.Товар = class Товар
+document.classes["form-class"] = class
 {
-	async view(element)
+	async Create()
 	{
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
 		let url = new URL(location);
 		if (!url.searchParams.has("Номенклатура"))
 			return;
 		let id = url.searchParams.get("Номенклатура");
 		let record = await database.find(id);
 
-		let layout = await new Layout().load("товар.html");
-		let template = layout.template("#form");
+		let template = new Template(document.querySelector("#form"));
 		template.fill( { "товар": this.id } );
 
 		//document.title = record.title;
@@ -29,30 +36,38 @@ model.classes.Товар = class Товар
 
 		template.fill(record);
 
-		let file = record.Изображение;
-		if (file)
-		{
-			let attributes = { };
-			for (let part of file.split("|"))
-			{
-				if (!part)
-					continue;
-				let pair = part.split(":");
-				attributes[pair[0]] = pair[1];
-			}
-			attributes.address = attributes.address.replace(/\\/g, "/");
-			let base64 = await hive.image(attributes.address, 600, -1);
-			let image = "data:image/png;base64," + base64.content;
-			template.fill( { "image": image } );
-		}
+		//let image = await ПолучитьДанныеИзображения(record.Изображение, 600, -1);
+		//if (image)
+		//	template.fill( { "image": image } );
 
 		let qr = "https://xn--40-6kcai3c0bf.xn--p1ai/?id=" + record.id;
 		template.fill( { "qr": qr } );
 
-		await template.out(element);
-		await binding(element);
+		await template.Join(this);
+		//await binding(element);
 
-		let qrcode = new QRCode(document.find("#qrcode"));
+		let images = [];
+		if (record.Изображение)
+			images.push(record.Изображение);
+		let query = { "from": "owner",
+			          "where": { "owner": id },
+                      "filter": { "deleted": "" } };
+		for (let id of await database.select(query))
+		{
+			let эскиз = await database.find(id);
+			if (эскиз.Изображение)
+				images.push(эскиз.Изображение);
+		}
+		for (let image of images)
+		{
+			let data = await ПолучитьДанныеИзображения(image, 100, -1);
+			let template = document.template("template#image-list-item");
+			template.fill( { "image": image, "src": data } );
+			await template.Join("section#image-list");
+		}
+		document.get("section#image-list").show(images.length > 1);
+
+		let qrcode = new QRCode(document.querySelector("#qrcode"));
 		qrcode.makeCode(qr);
 
 		this.Обновить();
@@ -80,16 +95,38 @@ model.classes.Товар = class Товар
 											 "where": { "Пользователь": auth.account },
 											 "filter": { "Номенклатура": id,
 														 "deleted": "" } } );
-		document.find("#buying-" + id).show(покупка == null);
-		document.find("#buyed-" + id).show(покупка != null);
+		document.querySelector("#buying-" + id).show(покупка == null);
+		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let layout = await new Layout().load("товар.html");
-			let template = layout.template("#buyed");
+			let template = document.template("#buyed");
 			template.fill(покупка);
 			let item = await database.find(id);
 			template.fill(item);
-			template.out("#buyed-" + id);
+			await template.Join("#buyed-" + id);
 		}
+	}
+}
+
+document.classes["thumbnail-class"] = class
+{
+	async Create()
+	{
+		if (document.querySelectorAll(".selected-image").length)
+			return;
+		await this.ПереключитьИзображение();
+	}
+
+	async ПереключитьИзображение()
+	{
+		document.get("section#image-box").innerHTML = "";
+		let data = await ПолучитьДанныеИзображения(this.dataset.image);
+		let template = document.template("template#image-item");
+		template.fill( { "src": data } );
+		await template.Join("section#image-box");
+
+		for (let item of document.querySelectorAll(".thumbnail-class"))
+			item.classList.remove("selected-image");
+		this.classList.add("selected-image");
 	}
 }

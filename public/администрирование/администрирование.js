@@ -1,19 +1,20 @@
 
+import { server, auth, hive } from "./server.js";
 import { Database, database } from "./database.js";
 import { model } from "./model.js";
-import { Layout, Template } from "./template.js";
+import "./template.js";
 import { binding } from "./reactive.js";
 
-model.classes.Администрирование = class Администрирование
+document.classes["form-class"] = class
 {
-	async view(element)
+	async Create()
 	{
-		let layout = await new Layout().load("администрирование.html");
-		await layout.template().fill(this).out(element);
-		await binding(element);
+		await auth.load();
+		await document.template().fill(this).Join(this);
+		//await binding(element);
 	}
 
-	async restart()
+	async Перезапуск()
 	{
 		if (!confirm("Выполнить перезапуск приложения?"))
 			return;

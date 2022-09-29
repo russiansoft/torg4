@@ -1,5 +1,5 @@
 
-<template id="form">
+<template>
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">
 			<img class="img align-text-top" src="sot.png" style="height:1.5em">
@@ -7,12 +7,12 @@
 			<span class="d-none d-sm-inline">СВАРОПТТОРГ</span>
 		</a>
 		<div class="navbar-nav">
-			<a class="nav-link active text-center" data-read="Товары" href="?type=Товары">
+			<a class="nav-link active text-center d-none" data-read="Номенклатура" href="товары">
 				<i class="bi bi-search fs-3 d-block d-sm-none"></i>
 				<i class="bi bi-search d-none d-sm-block d-md-inline"></i>
 				<span class="d-none d-sm-inline"> Каталог товаров</span>
 			</a>
-			<a class="nav-link active text-center" data-read="Корзина" href="?type=Корзина">
+			<a class="nav-link active text-center d-none" data-read="Номенклатура" href="корзина">
 				<i class="bi bi-cart3 fs-3 d-block d-sm-none"></i>
 				<i class="bi bi-cart3 d-none d-sm-block d-md-inline"></i>
 				<span class="d-none d-sm-inline"> Корзина</span>
@@ -42,8 +42,8 @@
 						<i class="bi bi-box-seam"></i> Мои заказы
 					</a>
 
-					<div class="dropdown-divider" data-read="Администрирование"></div>
-					<a class="nav-link" data-read="Администрирование" href="?type=Администрирование">
+					<div class="dropdown-divider d-none" data-read="Номенклатура"></div>
+					<a class="nav-link d-none" data-read="Номенклатура" href="администрирование">
 						<i class="bi bi-wrench-adjustable"></i> Администрирование
 					</a>
 				</div>

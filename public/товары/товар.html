@@ -1,85 +1,126 @@
 
-<template id="form">
-	<nav data-id="{товар}.Навигация"></nav>
-	<div class="row m-2"></div>
-	<div class="row m-2">
-		<h1 class="col">{Наименование}</h1>
-		<div class="col-sm-auto">
-			<a class="btn btn-success" href="?type=Номенклатура&id={id}"
-				target="_blank">
-				<i class="bi bi-pencil-fill"></i>
-			</a>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-4">
-			<p>Код:</p>
-		</div>
-		<div class="col-sm-8">
-			<strong class="col-sm-8">{Код}</strong>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-4">
-			<p>Артикул:</p>
-		</div>
-		<div class="col-sm-8">
-			<strong class="col-sm-8">{Артикул}</strong>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-4">
-			<p>Цена:</p>
-		</div>
-		<div class="col-sm-8">
-			<strong class="col-sm-8">{Цена}</strong>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-4">
-			<p>Остаток:</p>
-		</div>
-		<div class="col-sm-8">
-			<strong class="col-sm-8">{Остаток} {ЕдиницаИзмерения}</strong>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-auto d-none" id="buying-{id}">
-			<button class="btn btn-danger" data-cmd="ВКорзину">
-				<i class="bi bi-cart3"></i> В корзину
-			</button>
-		</div>
-		<div class="col-sm-auto d-none" id="buyed-{id}">
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-12">
-			<img class="img-fluid" src="{image}">
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-12">
-			<p class="lead text-wrap pre-wrap">{Описание}</p>
-		</div>
-	</div>
-	<div class="row m-2">
-		<div class="col-sm-5">
-			<div id="qrcode"></div>
-		</div>
-		<div class="col-sm-7">
-			<p><i>Ссылка на товар:</i></p>
-			<p>{qr}</p>
-		</div>
-	</div>
-	<div class="row m-5"></div>
-</template>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="sot.png">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-icons.css">
+		<link rel="stylesheet" href="col.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="qrcode.js"></script>
+		<script type="module">
+			import "./view.js";
+			import "./навигация.js";
+			import "./товар.js";
+			import "./подвал.js";
+		</script>
+		<title>СВАРОПТТОРГ</title>
+	</head>
+	<body class="form-class">
 
-<template id="buyed">
-	<div class="col">
-		<p class="text-danger">
-			<a href="?type=Корзина">
-				<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
-			</a>
-		</p>
-	</div>
-</template>
+		<template id="form">
+			<div class="nav-class"></div>
+			<div class="container-fluid p-3">
+				<div class="row mb-3">
+					<h1 class="col">{Наименование}</h1>
+					<div class="col-auto">
+						<a class="btn btn-success" href="номенклатура?id={id}"
+							target="_blank">
+							<i class="bi bi-pencil-fill"></i>
+						</a>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						Код:
+					</div>
+					<div class="col-sm-8">
+						<strong>{Код}</strong>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						Артикул:
+					</div>
+					<div class="col-sm-8">
+						<strong>{Артикул}</strong>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						Цена:
+					</div>
+					<div class="col-sm-8">
+						<strong>{Цена}</strong>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-4">
+						Остаток:
+					</div>
+					<div class="col-sm-8">
+						<strong>{Остаток} {ЕдиницаИзмерения}</strong>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-auto d-none" id="buying-{id}">
+						<button class="btn btn-danger" data-cmd="ВКорзину">
+							<i class="bi bi-cart3"></i> В корзину
+						</button>
+					</div>
+					<div class="col-sm-auto d-none" id="buyed-{id}">
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col">
+						<img class="img-fluid" src="{image}">
+					</div>
+				</div>
+				<div class="row g-2 mb-3">
+					<section class="col-sm-3 d-none" id="image-list">
+					</section>
+					<section class="col" id="image-box">
+					</section>
+				</div>
+				<div class="row mb-3">
+					<div class="col">
+						<p class="lead text-wrap pre-wrap">{Описание}</p>
+					</div>
+				</div>
+				<div class="row mb-3">
+					<div class="col-sm-5">
+						<div id="qrcode"></div>
+					</div>
+					<div class="col-sm-7">
+						<p><i>Ссылка на товар:</i></p>
+						<p>{qr}</p>
+					</div>
+				</div>
+			</div>
+			<div class="footer-class"></div>
+		</template>
+
+		<template id="buyed">
+			<div class="col">
+				<p class="text-danger">
+					<a href="корзина">
+						<strong>В корзине: {Количество} {ЕдиницаИзмерения}</strong>
+					</a>
+				</p>
+			</div>
+		</template>
+
+		<template id="image-list-item">
+			<img class="img-fluid border rounded thumbnail-class" src="{src}"
+			     data-image="{image}" data-cmd="ПереключитьИзображение">
+		</template>
+
+		<template id="image-item">
+			<img class="img-fluid w-100 border rounded" src="{src}"s>
+		</template>
+
+	</body>
+</html>

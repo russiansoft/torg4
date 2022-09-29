@@ -1,34 +1,35 @@
 
-import { FileDialog } from "./client.js";
+import { FileDialog, ПолучитьДанныеИзображения,
+                     СохранитьДанныеИзображения } from "./client.js";
 import { Database, database } from "./database.js";
-import { Layout, Template } from "./template.js";
-import { hive } from "./server.js";
+import { Template } from "./template.js";
+import { auth, hive } from "./server.js";
 import { model } from "./model.js";
-import { form } from "./form.js";
-import { binding } from "./reactive.js";
+//import { form } from "./form.js";
+import { review } from "./reactive.js";
 import { cart } from "./cart.js";
 
-model.classes.Номенклатура = class Номенклатура
+document.classes["form-class"] = class
 {
-	async view(element)
+	async Create()
 	{
-		let layout = await new Layout().load("номенклатура.html");
-		let template = layout.template();
-		template.fill(form.object);
-		await template.out(element);
-		await binding(element);
-		//document.find("#title").innerHTML = form.object.title;
-		await this.ВывестиИзображение(form.object.Изображение);
-	}
+		// Аутентификация
+		await auth.load();
 
-	async ВКорзину()
-	{
-		console.log("add in cart:" + this.id);
-		if (!await cart.find(this.id))
-			await cart.add(this.id);
-		let db = await new Database().transaction();
-		form.object.ОбновитьЭлемент(db, this.id);
+		// Начало транзакции
+		await database.transaction();
 
+		// Получение идентификатора
+		let url = new URL(location);
+		this.dataset.id = url.searchParams.get("id");
+
+		// Получение экземпляра объекта
+		let object = await database.find(this.dataset.id);
+
+		await document.template("template#form").fill(object).Join(this);
+		await review(this);
+		await this.ВывестиГлавноеИзображение();
+		await this.ВывестиДополнительныеИзображения();
 	}
 
 	async Записать()
@@ -37,53 +38,80 @@ model.classes.Номенклатура = class Номенклатура
 		close();
 	}
 
-	async Выбрать()
+	async ВывестиГлавноеИзображение()
 	{
-		new FileDialog().show(async function(file)
+		let object = await database.find(this.dataset.id);
+		let data = await ПолучитьДанныеИзображения(object.Изображение);
+		if (data)
 		{
-			let extension = "";
-			let point = file.name.lastIndexOf(".");
-			if (point != -1)
-				extension = file.name.slice(point + 1);
-			
-			let result = await hive.put(file.data, extension);
-			let value = "name:" + file.name;
-			if (file.type) 
-				value += "|type:" + file.type;
-			value += "|address:" + result.address + "|";
+			let template = document.template("template#image");
+			template.fill( { "src": data } );
+			await template.Spawn("section#primary");
+		}
+		else
+		{
+			let template = document.template("template#no-image");
+			await template.Spawn("section#primary");
+		}
+		document.get("button[data-cmd='ВыбратьГлавноеИзображение']").show(!data);
+		document.get("button[data-cmd='УдалитьГлавноеИзображение']").show(data);
+	}
 
-			await database.save( [ { "id": form.object.id, "Изображение": value } ] );
-			await form.object.ВывестиИзображение(value);
+	async ВыбратьГлавноеИзображение()
+	{
+		new FileDialog().show(async (file) =>
+		{
+			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
+			await database.save( [ { "id": this.dataset.id, "Изображение": value } ] );
+			await this.ВывестиГлавноеИзображение();
 		} );
 	}
 
-	async Удалить()
+	async УдалитьГлавноеИзображение()
 	{
-		await database.save( [ { "id": form.object.id, "Изображение": "" } ] );
-		await this.ВывестиИзображение("");
+		await database.save( [ { "id": this.dataset.id, "Изображение": "" } ] );
+		await this.ВывестиГлавноеИзображение();
 	}
 
-	async ВывестиИзображение(value)
+	async ВывестиДополнительныеИзображения()
 	{
-		if (value)
+		document.get("section#secondary").innerHTML = "";
+		let query = { "from": "owner",
+			          "where": { "owner": this.dataset.id },
+                      "filter": { "deleted": "" } };
+		let has = false;
+		for (let id of await database.select(query))
 		{
-			let attributes = { };
-			for (let part of value.split("|"))
-			{
-				if (!part)
-					continue;
-				let pair = part.split(":");
-				attributes[pair[0]] = pair[1];
-			}
-			attributes.address = attributes.address.replace(/\\/g, "/");
-			let base64 = await hive.get(attributes.address);
-			let image = "data:image/jpeg;base64," + base64.content;
-			document.find("#image").src = image;
+			let эскиз = await database.find(id);
+			let data = await ПолучитьДанныеИзображения(эскиз.Изображение);
+			if (!data)
+				continue;
+			let template = document.template("template#image");
+			template.fill( { "src": data } );
+			await template.Join("section#secondary");
+			has = true;
 		}
-		else
-			document.find("#image").src = "";
-		document.find("#choose").show(!value);
-		document.find("#delete").show(value);
+		document.get("button[data-cmd='ОчиститьДополнительныеИзображения']").enable(has);
+	}
+
+	async ДобавитьДополнительноеИзображение()
+	{
+		new FileDialog().show(async (file) =>
+		{
+			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
+			await database.add(this.dataset.id, "Эскизы", { "Изображение": value } );
+			await this.ВывестиДополнительныеИзображения();
+		} );
+	}
+
+	async ОчиститьДополнительныеИзображения()
+	{
+		let changes = [ ];
+		let query = { "from": "owner",
+			          "where": { "owner": this.dataset.id } };
+		for (let id of await database.select(query))
+			changes.push( { "id": id, "deleted": "1" } );
+		await database.save(changes);
+		await this.ВывестиДополнительныеИзображения();
 	}
 };
-

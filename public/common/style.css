@@ -51,6 +51,7 @@ tr
 
 input#search
 {
+	
 	border: gold solid 3px;
 }
 
@@ -64,7 +65,7 @@ input#search
 	cursor: pointer;
 }
 
-footer *
+.footer-class *
 {
 	color: white;
 }
@@ -72,4 +73,9 @@ footer *
 .pre-wrap
 {
 	white-space: pre-wrap !important;
+}
+
+.selected-image
+{
+	border: 3px solid blue !important;
 }

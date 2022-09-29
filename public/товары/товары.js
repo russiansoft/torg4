@@ -1,43 +1,38 @@
 
 import { Database, database } from "./database.js";
-import { auth, hive } from "./server.js";
-import { model } from "./model.js";
-import { binding } from "./reactive.js";
-import { Layout, Template } from "./template.js";
+import { server, auth, hive } from "./server.js";
+import { Template } from "./template.js";
 import { cart } from "./cart.js";
-import { form } from "./form.js";
 import "./покупка.js";
-import "./номенклатура.js";
-import "./paginator.js";
+import "./pagination.js";
+import "./client.js";
 
-model.classes.Товары = class Товары
+document.classes["form-class"] = class
 {
-	async view(element)
+	async Create()
 	{
-		let layout = await new Layout().load("товары.html");
-		let template = layout.template("#form");
-		template.fill(this);
-		await template.out(element);
-		await binding(element);
+		// Аутентификация
+		await auth.load();
+
+		// Начало транзакции
+		await database.transaction();
+
+		await document.template("#form").fill(this).Join(this);
+		//await binding(element);
 		this.Заполнить();
-		let search = document.find("input#search");
-		let button = document.find("button#fill");
-		search.addEventListener("keydown", (event) =>
-		{
-			if (event.key == "Enter")
-				button.click();
-		} );
-		search.focus();
+		document.get("input#search").focus();
 	}
 
 	async Заполнить(очистить = true)
 	{
-		let layout = await new Layout().load("товары.html");
-		let paginator = await database.get(this.id + ".Paginator");
-		let button = document.find("button#fill");
+		let pagination = document.querySelector(".pagination-class");
+		let button = document.querySelector("button#fill");
 		button.classList.add("disabled");
 		if (очистить)
-			paginator.clear();
+		{
+			document.querySelector("#cards").innerHTML = "";
+			pagination.reset();
+		}
 		let db = null;
 		try
 		{
@@ -45,14 +40,14 @@ model.classes.Товары = class Товары
 		}
 		catch
 		{
-			new Template("#restricted").out("main");
+			await document.template("#restricted").Join("main");
 			return;
 		}
 		let query =  { "from": "Номенклатура" };
-		let search = document.find("#search").value;
+		let search = document.querySelector("#search").value;
 		if (search)
 			query.search = search;
-		paginator.split(query);
+		pagination.split(query);
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -62,7 +57,8 @@ model.classes.Товары = class Товары
 			record.Артикул = ("" + record.Артикул).trim();
 			if (!record.Артикул)
 				record.Артикул = "(нет)";
-			let template = layout.template("#card").fill(record);
+			let template = document.template("#card");
+			template.fill(record);
 
 			let file = record.Изображение;
 			if (file)
@@ -83,16 +79,16 @@ model.classes.Товары = class Товары
 			}
 			else
 				template.fill( { "image": "nophoto.png" } );
-			template.out("main");
+			await template.Join(document.querySelector("#cards"));
 
 			await this.ОбновитьЭлемент(db, id);
-			paginator.add();
+			pagination.add();
 		}
-		await paginator.request(db);
+		await pagination.Request(db);
 		button.classList.remove("disabled");
 	}
 
-	async more()
+	async More()
 	{
 		await this.Заполнить(false);
 	}
@@ -102,16 +98,28 @@ model.classes.Товары = class Товары
 		let покупка = await db.find( { "from": "Покупка",
 									   "where": { "Пользователь": auth.account },
 									   "filter": { "Номенклатура": id, "deleted": "" } } );
-		document.find("#buying-" + id).show(покупка == null);
-		document.find("#buyed-" + id).show(покупка != null);
+		document.querySelector("#buying-" + id).show(покупка == null);
+		document.querySelector("#buyed-" + id).show(покупка != null);
 		if (покупка != null)
 		{
-			let layout = await new Layout().load("товары.html");
-			let template = layout.template("#buyed");
+			let template = document.template("#buyed");
 			template.fill(покупка);
 			let item = await db.find(id);
 			template.fill(item);
-			template.out("#buyed-" + id);
+			await template.Join("#buyed-" + id);
 		}
 	}
 };
+
+document.classes["item-class"] = class
+{
+	async ВКорзину()
+	{
+		let id = this.dataset.id;
+		console.log("item-class.ВКорзину id " + id);
+		if (!await cart.find(id))
+			await cart.add(id);
+		let db = await new Database().transaction();
+		document.body.ОбновитьЭлемент(db, id);
+	}
+}
