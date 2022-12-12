@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="icon" href="sot.png">
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="bootstrap-icons.css">
+		<link rel="stylesheet" href="col.css">
+		<link rel="stylesheet" href="style.css"/>
+		<script src="bootstrap.bundle.min.js"></script>
+		<script src="qrcode.js"></script>
+		<script type="module">
+			// import "./client.js";
+			// import "./form.js";
+			// import "./main.js";
+			import "./view.js";
+			import "./навигация.js";
+			import "./карусель.js";
+			import "./подвал.js";
+
+			// import "./index.js";
+			// import "./товары.js";
+			// import "./товар.js";
+			// import "./номенклатура.js";
+			// import "./корзина.js";
+			// import "./покупка.js";
+			// import "./этикетки.js";
+			// import "./администрирование.js";
+		</script>
+		<title>СВАРОПТТОРГ</title>
+	</head>
+	<body data-auth="device">
+		<script>
+			let url = new URL(location);
+			let type = decodeURI(url.pathname);
+			if (type.startsWith("/"))
+				type = type.substring(1);
+			if (!type)
+				type = "начало";
+			document.body.dataset.class = type;
+			let script = document.createElement("script");
+			script.type = "module";
+			script.src = type + ".js";
+			document.head.append(script);
+		</script>
+	</body>
+</html>

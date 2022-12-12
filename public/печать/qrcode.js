@@ -160,7 +160,7 @@ var QRCode;
 		var android = false;
 		var sAgent = navigator.userAgent;
 		
-		if (/android/i.test(sAgent)) { // android
+		if (/android/i.test(sAgent)) {// android
 			android = true;
 			var aMat = sAgent.toString().match(/android ([0-9]\.[0-9])/i);
 			
@@ -272,7 +272,7 @@ var QRCode;
 		};
 		
 		return Drawing;
-	})() : (function () { // Drawing in Canvas
+	})() : (function () {// Drawing in Canvas
 		function _onMakeImage() {
 			this._elImage.src = this._elCanvas.toDataURL("image/png");
 			this._elImage.style.display = "block";
@@ -320,26 +320,26 @@ var QRCode;
 
                     if (self._fFail) {
                         self._fFail.call(self);
-                    }
-                };
+                   }
+               };
                 var fOnSuccess = function() {
                     self._bSupportDataURI = true;
 
                     if (self._fSuccess) {
                         self._fSuccess.call(self);
-                    }
-                };
+                   }
+               };
 
                 el.onabort = fOnError;
                 el.onerror = fOnError;
                 el.onload = fOnSuccess;
                 el.src = "data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="; // the Image contains 1px data.
                 return;
-            } else if (self._bSupportDataURI === true && self._fSuccess) {
+           } else if (self._bSupportDataURI === true && self._fSuccess) {
                 self._fSuccess.call(self);
-            } else if (self._bSupportDataURI === false && self._fFail) {
+           } else if (self._bSupportDataURI === false && self._fFail) {
                 self._fFail.call(self);
-            }
+           }
 		};
 		
 		/**
@@ -518,7 +518,7 @@ var QRCode;
 	 *    text : "http://naver.com",
 	 *    width : 128,
 	 *    height : 128
-	 * });
+	 *});
 	 * 
 	 * oQRCode.clear(); // Clear the QRCode.
 	 * oQRCode.makeCode("http://map.naver.com"); // Re-create the QRCode.

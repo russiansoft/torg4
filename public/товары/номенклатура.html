@@ -1,104 +1,79 @@
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<link rel="icon" href="sot.png">
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-icons.css">
-		<link rel="stylesheet" href="col.css">
-		<link rel="stylesheet" href="style.css"/>
-		<script src="bootstrap.bundle.min.js"></script>
-		<script src="qrcode.js"></script>
-		<script type="module">
-			import "./view.js";
-			import "./навигация.js";
-			import "./номенклатура.js";
-			import "./подвал.js";
-		</script>
-		<title>СВАРОПТТОРГ</title>
-	</head>
-	<body class="form-class">
-	
-		<template id="form">
-			<div class="nav-class"></div>
-			<div class="container-fluid p-3">
-				<div class="row mb-3">
-					<div class="col">
-						<button class="btn btn-primary" data-cmd="Записать">
-							Записать
-						</button>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<h2 class="col">{title}</h2>
-				</div>
-				<div class="row mb-2">
-					<div class="col">
-						<h5>Главное изображение</h5>
-					</div>
-				</div>
-				<section id="primary">
-				</section>
-				<div class="row mb-2">
-					<div class="col">
-						<button class="btn btn-outline-secondary d-none"
-						        data-cmd="ВыбратьГлавноеИзображение">
-							Выбрать
-						</button>
-						<button class="btn btn-outline-secondary d-none"
-						        data-cmd="УдалитьГлавноеИзображение">
-							Удалить
-						</button>
-					</div>
-				</div>
-				<div class="row mt-3 mb-2">
-					<div class="col">
-						<h5>Дополнительные изображения</h5>
-					</div>
-				</div>
-				<section id="secondary">
-				</section>
-				<div class="row g-2 mb-2">
-					<div class="col-auto">
-						<button class="btn btn-outline-secondary"
-						        data-cmd="ДобавитьДополнительноеИзображение">
-							Добавить
-						</button>
-					</div>
-					<div class="col-auto">
-						<button class="btn btn-outline-secondary"
-						        data-cmd="ОчиститьДополнительныеИзображения">
-							Очистить
-						</button>
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-form-label col-sm-12">Описание:</label>
-					<div class="col">
-						<textarea class="form-control" data-bind="Описание" rows="7">
-						</textarea>
-					</div>
-				</div>
+<template id="form">
+	<div class="nav-class"></div>
+	<div class="container-fluid p-3">
+		<div class="row mb-3">
+			<div class="col">
+				<button class="btn btn-primary" data-cmd="Записать">
+					Записать
+				</button>
 			</div>
-		</template>
-
-		<template id="image">
-			<div class="row mb-3">
-				<div class="col">
-					<img class="img-fluid border rounded" src="{src}">
-				</div>
+		</div>
+		<div class="row mb-3">
+			<h2 class="col">{title}</h2>
+		</div>
+		<div class="row mb-2">
+			<div class="col">
+				<h5>Главное изображение</h5>
 			</div>
-		</template>
-
-		<template id="no-image">
-			<div class="row mb-3">
-				<div class="col col-30ch">
-					<img class="img-fluid border rounded" src="nophoto.png">
-				</div>
+		</div>
+		<section id="primary">
+		</section>
+		<div class="row mb-2">
+			<div class="col">
+				<button class="btn btn-outline-secondary d-none"
+						data-cmd="ВыбратьГлавноеИзображение">
+					Выбрать
+				</button>
+				<button class="btn btn-outline-secondary d-none"
+						data-cmd="УдалитьГлавноеИзображение">
+					Удалить
+				</button>
 			</div>
-		</template>
+		</div>
+		<div class="row mt-3 mb-2">
+			<div class="col">
+				<h5>Дополнительные изображения</h5>
+			</div>
+		</div>
+		<section id="secondary">
+		</section>
+		<div class="row g-2 mb-2">
+			<div class="col-auto">
+				<button class="btn btn-outline-secondary"
+						data-cmd="ДобавитьДополнительноеИзображение">
+					Добавить
+				</button>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-outline-secondary"
+						data-cmd="ОчиститьДополнительныеИзображения">
+					Очистить
+				</button>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label class="col-form-label col-sm-12">Описание:</label>
+			<div class="col">
+				<textarea class="form-control" data-bind="Описание" rows="7">
+				</textarea>
+			</div>
+		</div>
+	</div>
+</template>
 
-	</body>
-</html>
+<template id="image">
+	<div class="row mb-3">
+		<div class="col">
+			<img class="img-fluid border rounded" src="{src}">
+		</div>
+	</div>
+</template>
+
+<template id="no-image">
+	<div class="row mb-3">
+		<div class="col col-30ch">
+			<img class="img-fluid border rounded" src="nophoto.png">
+		</div>
+	</div>
+</template>

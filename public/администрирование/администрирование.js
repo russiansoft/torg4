@@ -1,16 +1,16 @@
 
-import { server, auth, hive } from "./server.js";
-import { Database, database } from "./database.js";
-import { model } from "./model.js";
+import {server, auth, hive} from "./server.js";
+import {Database, database} from "./database.js";
+import {model} from "./model.js";
 import "./template.js";
-import { binding } from "./reactive.js";
+import {binding} from "./reactive.js";
 
 document.classes["form-class"] = class
 {
 	async Create()
 	{
 		await auth.load();
-		await document.template().fill(this).Join(this);
+		await layout.template().fill(this).Join(this);
 		//await binding(element);
 	}
 

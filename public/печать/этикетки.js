@@ -1,31 +1,20 @@
 
-import { server } from "./server.js";
-import { Database, database } from "./database.js";
-import { auth, hive } from "./server.js";
-import { binding } from "./reactive.js";
-import { Sheet } from "./sheet.js";
-import "./client.js";
+import {server, auth, hive, FileDialog, database, review, Sheet} from "./manuscript.js";
 
-document.classes["form-class"] = class
+document.classes["этикетки"] = class
 {
 	async Create()
 	{
-		// Аутентификация
-		await auth.load();
-
-		// Начало транзакции
-		await database.transaction();
+		await database.Begin();
 
 		this.images = [];
-		let layout = await server.LoadHTML("этикетки.html");
+		let layout = await server.Layout("этикетки.html");
 		let template = layout.template("#form");
 		template.fill(this);
 		await template.Join(this);
-		//await binding(element);
-
-		let query =  { "from": "ПокупкаПорядок",
-					   "where" : { "Пользователь" : auth.account },
-					   "filter" : { "deleted": "" }	};
+		let query =  {"from": "ПокупкаПорядок",
+					  "where": {"Пользователь" : auth.account},
+					  "filter": {"deleted": ""}};
 		let records = await database.select(query);
 		for (let id of records)
 		{
@@ -49,7 +38,7 @@ document.classes["form-class"] = class
 			// if (img.src == "")
 			// 	throw "Пустая картинка";
 		}
-		setTimeout(async () => { await this.ОжиданиеКартинок(); } , 100);
+		setTimeout(async () => {await this.ОжиданиеКартинок();} , 100);
 	}
 
 	async ОжиданиеКартинок()

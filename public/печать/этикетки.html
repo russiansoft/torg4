@@ -1,98 +1,73 @@
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<link rel="icon" href="sot.png">
-		<link rel="stylesheet" href="bootstrap.min.css">
-		<link rel="stylesheet" href="bootstrap-icons.css">
-		<link rel="stylesheet" href="col.css">
-		<link rel="stylesheet" href="style.css"/>
-		<script src="bootstrap.bundle.min.js"></script>
-		<script src="qrcode.js"></script>
-		<script type="module">
-			import "./view.js";
-			import "./навигация.js";
-			import "./этикетки.js";
-			import "./подвал.js";
-		</script>
-		<title>СВАРОПТТОРГ</title>
-	</head>
-	<body class="form-class">
-
-		<template id="form">
-			<div class="nav-class"></div>
-			<header>
-				<div class="container-fluid p-0">
-					<h1 class="row m-2">
-						<p class="col">
-							Этикетки
-						</p>
-					</h1>	
-					<div class="row m-2">
-						<div class="col">
-							<img src="hourglass.gif" id="hourglass"/>
-							<a class="btn btn-primary d-none" id="print">
-								Печать
-							</a>
-						</div>
-					</div>
+<template id="form">
+	<div class="nav-class"></div>
+	<header>
+		<div class="container-fluid p-0">
+			<h1 class="row m-2">
+				<p class="col">
+					Этикетки
+				</p>
+			</h1>	
+			<div class="row m-2">
+				<div class="col">
+					<img src="hourglass.gif" id="hourglass"/>
+					<a class="btn btn-primary d-none" id="print">
+						Печать
+					</a>
 				</div>
-			</header>
-			<main class="container-fluid">
-				<table class="table-bordered_ d-none">
-					<colgroup>
-						<col style="width: 2ch;"></col>
-						<col style="width: 9ch;"></col>
-						<col style="width: 2ch;"></col>
-						<col style="width: 13ch;"></col>
-						<col style="width: 10ch;"></col>
-					</colgroup>
-					<tbody>
-					</tbody>
-				</table>
-			</main>
-			<aside>
-			</aside>
-			<footer>
-			</footer>
-			<div class="footer-class"></div>
-		</template>
+			</div>
+		</div>
+	</header>
+	<main class="container-fluid">
+		<table class="table-bordered_ d-none">
+			<colgroup>
+				<col style="width: 2ch;"></col>
+				<col style="width: 9ch;"></col>
+				<col style="width: 2ch;"></col>
+				<col style="width: 13ch;"></col>
+				<col style="width: 10ch;"></col>
+			</colgroup>
+			<tbody>
+			</tbody>
+		</table>
+	</main>
+	<aside>
+	</aside>
+	<footer>
+	</footer>
+	<div class="footer-class"></div>
+</template>
 
-		<template id="label">
-			<tr>
-				<td class="border-top" colspan="5"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="1" rowspan="4" id="qrcode-{id}"></td>
-				<td></td>
-				<td class="fw-bold text-wrap" colspan="2" rowspan="2">
-					<p class="title" style="max-height:2em; overflow-y: hidden;">{title}</p>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td colspan="3"></td>
-				<td style="text-align: left; font-size: 7pt;">СВАРОПТТОРГ</td>
-				<td class="text-end align-top pt-4" rowspan="3"
-					style="font-family: EanGnivc; font-size: 24pt;">{Код}</td>
-				<td></td>
-			</tr>
-			<tr style="font-size: 6pt;">
-				<td colspan="3"></td>
-				<td style="text-align: left;">сварка40.рф</td>
-			</tr>
-			<tr>
-				<td></td>
-			</tr>
-			<tr>
-				<td class="border-top" colspan="5"></td>
-			</tr>
-		</template>
-
-	</body>
-</html>
+<template id="label">
+	<tr>
+		<td class="border-top" colspan="5"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td colspan="1" rowspan="4" id="qrcode-{id}"></td>
+		<td></td>
+		<td class="fw-bold text-wrap" colspan="2" rowspan="2">
+			<p class="title" style="max-height:2em; overflow-y: hidden;">{title}</p>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td colspan="3"></td>
+		<td style="text-align: left; font-size: 7pt;">СВАРОПТТОРГ</td>
+		<td class="text-end align-top pt-4" rowspan="3"
+			style="font-family: EanGnivc; font-size: 24pt;">{Код}</td>
+		<td></td>
+	</tr>
+	<tr style="font-size: 6pt;">
+		<td colspan="3"></td>
+		<td style="text-align: left;">сварка40.рф</td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td class="border-top" colspan="5"></td>
+	</tr>
+</template>

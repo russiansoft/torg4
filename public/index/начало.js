@@ -1,9 +1,9 @@
 
-import { server, auth, hive } from "./server.js";
-import { Database, database } from "./database.js";
+import {server, auth, hive} from "./server.js";
+import {database} from "./database.js";
 import "./client.js";
 
-document.classes["form-class"] = class
+document.classes["начало"] = class
 {
 	async Create()
 	{
@@ -17,9 +17,10 @@ document.classes["form-class"] = class
 		await auth.load();
 
 		// Начало транзакции
-		await database.transaction();
+		await database.Begin();
 
-		await document.template().Join(this);
+		let html = await server.Layout("начало.html");
+		await html.template().Join(this);
 		// binding(element);
 	}
 };

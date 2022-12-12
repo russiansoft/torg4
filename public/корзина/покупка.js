@@ -1,7 +1,7 @@
 
-import { Database } from "./database.js";
-import { model } from "./model.js";
-import { cart } from "./cart.js";
+import {Database} from "./database.js";
+import {model} from "./model.js";
+import {cart} from "./cart.js";
 
 document.classes["item-class"] = class
 {
@@ -19,7 +19,7 @@ document.classes["item-class"] = class
 
 	async ВывестиКоличество()
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(this.dataset.id);
 		let record = await db.find(entry.Номенклатура);
 		let element = document.get("#count-" + this.dataset.id);
@@ -37,7 +37,7 @@ document.classes["item-class"] = class
 
 	async Удалить()
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(this.dataset.id);
 		let record = await db.find(entry.Номенклатура);
 		if (!confirm("Удалить из корзины " + record.title + "?"))

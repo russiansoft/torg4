@@ -1,46 +1,39 @@
 
-import { Database, database } from "./database.js";
-import { server, auth, hive } from "./server.js";
-import { model } from "./model.js";
-import { binding } from "./reactive.js";
-import "./template.js";
-import { cart } from "./cart.js";
+import {server, binding, database, review, auth, hive} from "./manuscript.js";
+import {cart} from "./cart.js";
 import "./client.js";
+import "./покупка.js";
 
-document.classes["form-class"] = class
+document.classes["корзина"] = class
 {
 	async Create()
 	{
-		// Аутентификация
-		await auth.load();
+		await database.Begin();
 
-		// Начало транзакции
-		await database.transaction();
-
-		await document.template("#form").fill(this).Join(this);
+		this.layout = await server.Layout("корзина.html");
+		await this.layout.template("#form").fill(this).Join(this);
 		//await binding(element);
 		this.Заполнить();
 	}
 
 	async Заполнить()
 	{
-		let db = await new Database().transaction();
-		let layout = await server.LoadHTML("корзина.html");
+		await database.Rebase();
 		document.querySelector("main").innerHTML = "";
-		let query =  { "from": "ПокупкаПорядок",
-					   "where" : { "Пользователь" : auth.account },
-					   "filter" : { "deleted": "" }	};
-		let records = await db.select(query);
+		let query = {"from": "ПокупкаПорядок",
+					 "where": {"Пользователь": auth.account},
+					 "filter": {"deleted": ""}};
+		let records = await database.select(query);
 		for (let id of records)
 		{
 			await database.find(id); // Для команд
 
-			let entry = await db.find(id);
-			let template = layout.template("#card").fill(entry);
+			let entry = await database.find(id);
+			let template = this.layout.template("#card").fill(entry);
 
 			if (entry.Номенклатура)
 			{
-				let record = await db.find(entry.Номенклатура);
+				let record = await database.find(entry.Номенклатура);
 				if (!record)
 					continue;
 				template.fill(record);
@@ -48,7 +41,7 @@ document.classes["form-class"] = class
 				let file = record.Изображение;
 				if (file)
 				{
-					let attributes = { };
+					let attributes = {};
 					for (let part of file.split("|"))
 					{
 						if (!part)
@@ -59,10 +52,10 @@ document.classes["form-class"] = class
 					attributes.address = attributes.address.replace(/\\/g, "/");
 					let base64 = await hive.get(attributes.address);
 					let image = "data:image/jpeg;base64," + base64.content;
-					template.fill( { "image": image } );
+					template.fill({"image": image});
 				}
 				else
-					template.fill( { "image": "nophoto.png" } );
+					template.fill({"image": "nophoto.png"});
 			}
 			await template.Join("main");
 		}
@@ -76,18 +69,18 @@ document.classes["form-class"] = class
 	{
 		if (!confirm("Создать инвентаризацию по выбранным товарам?"))
 			return;
-		await database.transaction();
+		await database.Begin();
 		let doc = await database.create("Инвентаризация");
-		// await database.save( [ { "id": doc.id, "ИнвентаризацияОформлен": "1" } ] );
-		let query = { "from": "ПокупкаПорядок",
-					  "where" : { "Пользователь" : auth.account },
-					  "filter" : { "deleted": "" } };
+		// await database.save( [ {"id": doc.id, "ИнвентаризацияОформлен": "1"} ] );
+		let query = {"from": "ПокупкаПорядок",
+					  "where" : {"Пользователь" : auth.account},
+					  "filter" : {"deleted": ""}};
 		let records = await database.select(query);
 		for (let id of records)
 		{
 			let entry = await database.find(id);
-			let values = { "Номенклатура": entry.Номенклатура,
-						   "Количество": "" + entry.Количество };
+			let values = {"Номенклатура": entry.Номенклатура,
+						   "Количество": "" + entry.Количество};
 			let line = await database.add(doc.id, "Строки", values);
 		}
 		await database.commit();

@@ -23,15 +23,20 @@
 					<i class="bi bi-person d-none d-sm-block d-md-inline"></i>
 					<span class="d-none d-sm-inline">
 						<span class="d-sm-inline d-md-none">Профиль</span>
-						<span class="d-sm-none d-md-inline">{user}</span>
+						<span class="d-sm-none d-md-inline">{title}</span>
 						<small><i class="bi bi-caret-down-fill"></i></small>
 					</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-					<div class="dropdown-header d-block d-md-none">{user}</div>
+					<div class="dropdown-header d-block d-md-none">{title}</div>
 					<button class="dropdown-item d-none" id="login" data-cmd="login">
-						Войти
+						<i class="bi bi-google"></i>
+						Войти через Google
 					</button>
+					<a class="dropdown-item d-none" id="telegram" href="telegram">
+						<i class="bi bi-telegram"></i>
+						Войти через Telegram
+					</a>
 					<button class="dropdown-item d-none" id="logout" data-cmd="logout">
 						<i class="bi bi-door-open"></i>
 						Выйти

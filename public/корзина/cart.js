@@ -1,15 +1,15 @@
 
-import { Database } from "./database.js";
-import { auth } from "./server.js";
+import {Database} from "./database.js";
+import {auth} from "./server.js";
 
 export let cart = new class Cart
 {
 	async add(id)
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let max = 0;
-		let query =  { "from": "Покупка",
-			           "where" : { "Пользователь" : auth.account } };
+		let query =  {"from": "Покупка",
+			           "where" : {"Пользователь" : auth.account}};
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -17,27 +17,27 @@ export let cart = new class Cart
 			if (max < entry.Порядок)
 				max = entry.Порядок;
 		}
-		let values = { "Пользователь": auth.account,
+		let values = {"Пользователь": auth.account,
 					   "Порядок": "" + (max + 1),
 					   "Номенклатура": id,
-					   "Количество": "1" };
+					   "Количество": "1"};
 		let record = await db.create("Покупка",  values);
 		await db.commit();
 	}
 
 	async find(item)
 	{
-		let db = await new Database().transaction();
-		let query =  { "from": "Покупка",
-			           "where": { "Пользователь": auth.account },
-					   "filter": { "Номенклатура": item,
-						           "deleted": "" } };
+		let db = await new Database().Begin();
+		let query =  {"from": "Покупка",
+			           "where": {"Пользователь": auth.account},
+					   "filter": {"Номенклатура": item,
+						           "deleted": ""}};
 		return await db.find(query);
 	}
 
 	async get(id)
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(id);
 		if (entry)
 			return entry.Количество;
@@ -45,53 +45,53 @@ export let cart = new class Cart
 
 	async set(id, count)
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(id);
-		await db.save( [ { "id": id, "Количество": "" + count } ] );
+		await db.save( [ {"id": id, "Количество": "" + count} ] );
 		await db.commit();
 	}
 
 	async remove(id)
 	{
-		let db = await new Database().transaction();
-		await db.save([ { "id": id, "deleted": "1" } ]);
+		let db = await new Database().Begin();
+		await db.save([ {"id": id, "deleted": "1"} ]);
 		await db.commit();
 	}
 
 	async plus(id)
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(id);
-		await db.save( [ { "id": id, "Количество": "" + (entry.Количество + 1) } ] );
+		await db.save( [ {"id": id, "Количество": "" + (entry.Количество + 1)} ] );
 		await db.commit();
 	}
 
 	async minus(id)
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let entry = await db.find(id);
-		await db.save( [ { "id": id, "Количество": "" + (entry.Количество - 1) } ] );
+		await db.save( [ {"id": id, "Количество": "" + (entry.Количество - 1)} ] );
 		await db.commit();
 	}
 
 	async clear()
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let changes = [ ];
-		let query =  { "from": "Покупка",
-			           "where" : { "Пользователь" : auth.account } };
+		let query =  {"from": "Покупка",
+			           "where" : {"Пользователь" : auth.account}};
 		for (let id of await db.select(query))
-			changes.push( { "id": id, "deleted": "1" } );
+			changes.push({"id": id, "deleted": "1"});
 		await db.save(changes);
 		await db.commit();
 	}
 
 	async count()
 	{
-		let db = await new Database().transaction();
+		let db = await new Database().Begin();
 		let changes = [ ];
-		let query =  { "from": "Покупка",
-			           "where" : { "Пользователь" : auth.account, "deleted": "" } };
+		let query =  {"from": "Покупка",
+			           "where" : {"Пользователь" : auth.account, "deleted": ""}};
 		let records = await db.select(query);
 		return records.length;
 	}

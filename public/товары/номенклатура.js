@@ -1,23 +1,14 @@
 
-import { FileDialog, ПолучитьДанныеИзображения,
-                     СохранитьДанныеИзображения } from "./client.js";
-import { Database, database } from "./database.js";
-import { Template } from "./template.js";
-import { auth, hive } from "./server.js";
-import { model } from "./model.js";
-//import { form } from "./form.js";
-import { review } from "./reactive.js";
-import { cart } from "./cart.js";
+import {server, binding, database, review, auth} from "./manuscript.js";
+import {FileDialog, ПолучитьДанныеИзображения,
+        СохранитьДанныеИзображения} from "./client.js";
+import {cart} from "./cart.js";
 
-document.classes["form-class"] = class
+document.classes["номенклатура"] = class
 {
 	async Create()
 	{
-		// Аутентификация
-		await auth.load();
-
-		// Начало транзакции
-		await database.transaction();
+		await database.Begin();
 
 		// Получение идентификатора
 		let url = new URL(location);
@@ -26,7 +17,8 @@ document.classes["form-class"] = class
 		// Получение экземпляра объекта
 		let object = await database.find(this.dataset.id);
 
-		await document.template("template#form").fill(object).Join(this);
+		this.layout = await server.Layout("номенклатура.html");
+		await this.layout.template("#form").fill(object).Join(this);
 		await review(this);
 		await this.ВывестиГлавноеИзображение();
 		await this.ВывестиДополнительныеИзображения();
@@ -44,14 +36,14 @@ document.classes["form-class"] = class
 		let data = await ПолучитьДанныеИзображения(object.Изображение);
 		if (data)
 		{
-			let template = document.template("template#image");
-			template.fill( { "src": data } );
-			await template.Spawn("section#primary");
+			let template = this.layout.template("#image");
+			template.fill({"src": data});
+			await template.Join("section#primary", true);
 		}
 		else
 		{
-			let template = document.template("template#no-image");
-			await template.Spawn("section#primary");
+			let template = this.layout.template("#no-image");
+			await template.Join("section#primary", true);
 		}
 		document.get("button[data-cmd='ВыбратьГлавноеИзображение']").show(!data);
 		document.get("button[data-cmd='УдалитьГлавноеИзображение']").show(data);
@@ -62,23 +54,23 @@ document.classes["form-class"] = class
 		new FileDialog().show(async (file) =>
 		{
 			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
-			await database.save( [ { "id": this.dataset.id, "Изображение": value } ] );
+			await database.save([{"id": this.dataset.id, "Изображение": value}]);
 			await this.ВывестиГлавноеИзображение();
-		} );
+		});
 	}
 
 	async УдалитьГлавноеИзображение()
 	{
-		await database.save( [ { "id": this.dataset.id, "Изображение": "" } ] );
+		await database.save([{"id": this.dataset.id, "Изображение": ""}]);
 		await this.ВывестиГлавноеИзображение();
 	}
 
 	async ВывестиДополнительныеИзображения()
 	{
 		document.get("section#secondary").innerHTML = "";
-		let query = { "from": "owner",
-			          "where": { "owner": this.dataset.id },
-                      "filter": { "deleted": "" } };
+		let query = {"from": "owner",
+			         "where": {"owner": this.dataset.id},
+                     "filter": {"deleted": ""}};
 		let has = false;
 		for (let id of await database.select(query))
 		{
@@ -86,8 +78,8 @@ document.classes["form-class"] = class
 			let data = await ПолучитьДанныеИзображения(эскиз.Изображение);
 			if (!data)
 				continue;
-			let template = document.template("template#image");
-			template.fill( { "src": data } );
+			let template = this.layout.template("#image");
+			template.fill({"src": data});
 			await template.Join("section#secondary");
 			has = true;
 		}
@@ -99,18 +91,17 @@ document.classes["form-class"] = class
 		new FileDialog().show(async (file) =>
 		{
 			let value = await СохранитьДанныеИзображения(file.name, file.type, file.data);
-			await database.add(this.dataset.id, "Эскизы", { "Изображение": value } );
+			await database.add(this.dataset.id, "Эскизы", {"Изображение": value});
 			await this.ВывестиДополнительныеИзображения();
-		} );
+		});
 	}
 
 	async ОчиститьДополнительныеИзображения()
 	{
 		let changes = [ ];
-		let query = { "from": "owner",
-			          "where": { "owner": this.dataset.id } };
+		let query = {"from": "owner", "where": {"owner": this.dataset.id}};
 		for (let id of await database.select(query))
-			changes.push( { "id": id, "deleted": "1" } );
+			changes.push({"id": id, "deleted": "1"});
 		await database.save(changes);
 		await this.ВывестиДополнительныеИзображения();
 	}

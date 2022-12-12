@@ -1,9 +1,9 @@
 
-import { auth } from "./server.js";
-import { database } from "./database.js";
-import { server } from "./server.js";
-import { Template } from "./template.js";
-import { binding } from "./reactive.js";
+import {auth} from "./server.js";
+import {database} from "./database.js";
+import {server} from "./server.js";
+import {Template} from "./template.js";
+import {binding} from "./reactive.js";
 import "./client.js";
 
 document.classes["nav-class"] = class
@@ -12,10 +12,11 @@ document.classes["nav-class"] = class
 	{
 		this.classList.add("navbar", "sticky-top", "navbar-expand",
 		                   "navbar-dark", "bg-dark");
-		let layout = await server.LoadHTML("навигация.html");
+		let layout = await server.Layout("навигация.html");
 		await layout.template().fill(auth).fill(this).Join(this);
-		document.get("button#login").show(!auth.user);
-		document.get("button#logout").show(auth.user);
+		document.get("#login").show(!auth.user);
+		document.get("#telegram").show(!auth.user);
+		document.get("#logout").show(auth.user);
 
 		for (let element of this.querySelectorAll("[data-read]"))
 		{
@@ -28,6 +29,11 @@ document.classes["nav-class"] = class
 	async login()
 	{
 		auth.google();
+	}
+
+	async Telegram()
+	{
+		alert("?");
 	}
 
 	async logout()

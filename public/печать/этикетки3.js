@@ -1,10 +1,10 @@
 
 async function Сформировать()
 {
-	await database.transaction();
-	let query =  { "from": "ПокупкаПорядок",
-		           "where": { "Пользователь": auth.account },
-		           "filter": { "deleted": "" }	};
+	await database.Begin();
+	let query =  {"from": "ПокупкаПорядок",
+		           "where": {"Пользователь": auth.account},
+		           "filter": {"deleted": ""}	};
 	let records = await database.select(query);
 	let rows = [];
 	let row = null;
@@ -24,7 +24,7 @@ async function Сформировать()
 	if (row)
 	{
 		while (row.length < 3)
-			row.push( { "id": "", "title": "", "Код": "" } );
+			row.push({"id": "", "title": "", "Код": ""});
 	}
 	for (let row of rows)
 	{
