@@ -3,7 +3,7 @@ async function Сформировать()
 {
 	await database.Begin();
 	let query =  {"from": "ПокупкаПорядок",
-		           "where": {"Пользователь": auth.account},
+		           "where": {"Пользователь": auth.user},
 		           "filter": {"deleted": ""}	};
 	let records = await database.select(query);
 	let rows = [];
