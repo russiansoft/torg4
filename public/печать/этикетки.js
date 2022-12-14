@@ -13,7 +13,7 @@ document.classes["этикетки"] = class
 		template.fill(this);
 		await template.Join(this);
 		let query =  {"from": "ПокупкаПорядок",
-					  "where": {"Пользователь" : auth.account},
+					  "where": {"Пользователь" : auth.user},
 					  "filter": {"deleted": ""}};
 		let records = await database.select(query);
 		for (let id of records)

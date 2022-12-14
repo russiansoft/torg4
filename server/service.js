@@ -40,7 +40,7 @@ let service = new class
 
 	async Call(result)
 	{
-		let uri = "http://127.0.0.1:2020/work";
+		let uri = "http://127.0.0.1:2019/work";
 		let content = JSON.stringify(result);
 		return new Promise((resolve, reject) =>
 		{
