@@ -82,7 +82,7 @@ document.classes["товары"] = class
 	async ОбновитьЭлемент(id)
 	{
 		let покупка = await database.find({"from": "Покупка",
-									       "where": {"Пользователь": auth.user},
+									       "where": {"Пользователь": auth.account},
 									       "filter": {"Номенклатура": id, "deleted": ""}});
 		document.querySelector("#buying-" + id).show(покупка == null);
 		document.querySelector("#buyed-" + id).show(покупка != null);

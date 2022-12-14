@@ -85,7 +85,7 @@ document.classes["товар"] = class
 			return;
 		let id = url.searchParams.get("Номенклатура");
 		let покупка = await database.find({"from": "Покупка",
-											 "where": {"Пользователь": auth.user},
+											 "where": {"Пользователь": auth.account},
 											 "filter": {"Номенклатура": id,
 														 "deleted": ""}});
 		document.querySelector("#buying-" + id).show(покупка == null);

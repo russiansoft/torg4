@@ -21,7 +21,7 @@ document.classes["корзина"] = class
 		await database.Rebase();
 		document.querySelector("main").innerHTML = "";
 		let query = {"from": "ПокупкаПорядок",
-					 "where": {"Пользователь": auth.user},
+					 "where": {"Пользователь": auth.account},
 					 "filter": {"deleted": ""}};
 		let records = await database.select(query);
 		for (let id of records)
@@ -73,7 +73,7 @@ document.classes["корзина"] = class
 		let doc = await database.create("Инвентаризация");
 		// await database.save( [ {"id": doc.id, "ИнвентаризацияОформлен": "1"} ] );
 		let query = {"from": "ПокупкаПорядок",
-					  "where" : {"Пользователь" : auth.user},
+					  "where" : {"Пользователь" : auth.account},
 					  "filter" : {"deleted": ""}};
 		let records = await database.select(query);
 		for (let id of records)
