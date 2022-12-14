@@ -1,6 +1,5 @@
 
-import {server, auth, hive} from "./server.js";
-import {database} from "./database.js";
+import {server, binding, database, review, auth, hive} from "./manuscript.js";
 import "./client.js";
 
 document.classes["начало"] = class
