@@ -63,7 +63,7 @@ let server = new class
 {
 	async Call(gateway, method, list = { }, log = true)
 	{
-		let uri = "http://127.0.0.1:2020/" + method;
+		let uri = "http://127.0.0.1:2019/" + method;
 		let content = JSON.stringify(list);
 		return new Promise((resolve, reject) =>
 		{
