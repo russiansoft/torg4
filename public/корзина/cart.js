@@ -9,7 +9,7 @@ export let cart = new class Cart
 		let db = await new Database().Begin();
 		let max = 0;
 		let query =  {"from": "Покупка",
-			           "where" : {"Пользователь" : auth.account}};
+			           "where" : {"Пользователь" : auth.user}};
 		let records = await db.select(query);
 		for (let id of records)
 		{
@@ -17,7 +17,7 @@ export let cart = new class Cart
 			if (max < entry.Порядок)
 				max = entry.Порядок;
 		}
-		let values = {"Пользователь": auth.account,
+		let values = {"Пользователь": auth.user,
 					   "Порядок": "" + (max + 1),
 					   "Номенклатура": id,
 					   "Количество": "1"};
@@ -29,7 +29,7 @@ export let cart = new class Cart
 	{
 		let db = await new Database().Begin();
 		let query =  {"from": "Покупка",
-			           "where": {"Пользователь": auth.account},
+			           "where": {"Пользователь": auth.user},
 					   "filter": {"Номенклатура": item,
 						           "deleted": ""}};
 		return await db.find(query);
@@ -79,7 +79,7 @@ export let cart = new class Cart
 		let db = await new Database().Begin();
 		let changes = [ ];
 		let query =  {"from": "Покупка",
-			           "where" : {"Пользователь" : auth.account}};
+			           "where" : {"Пользователь" : auth.user}};
 		for (let id of await db.select(query))
 			changes.push({"id": id, "deleted": "1"});
 		await db.save(changes);
@@ -91,7 +91,7 @@ export let cart = new class Cart
 		let db = await new Database().Begin();
 		let changes = [ ];
 		let query =  {"from": "Покупка",
-			           "where" : {"Пользователь" : auth.account, "deleted": ""}};
+			           "where" : {"Пользователь" : auth.user, "deleted": ""}};
 		let records = await db.select(query);
 		return records.length;
 	}
