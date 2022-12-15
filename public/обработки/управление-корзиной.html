@@ -1,0 +1,45 @@
+
+<template id="form">
+	<div class="nav-class"></div>
+	<div class="container-fluid p-3">
+		<h2 class="row mb-3">
+			<div class="col-grow">
+				Управление корзиной
+			</div>
+		</h2>
+		<div class="row g-2 mb-3">
+			<div class="col-auto">
+				<button class="btn btn-primary" data-cmd="Заполнить">
+					Заполнить
+				</button>
+			</div>
+			<div class="col-auto">
+				<button class="btn btn-secondary" data-cmd="УстановитьПользователя">
+					Установить пользователя
+				</button>
+			</div>
+		</div>
+		<div class="row g-2 mb-3">
+			<label class="col-auto col-form-label">Пользователь:</label>
+			<div class="col">
+				<input class="form-control" id="user"/>
+			</div>
+		</div>
+		<main></main>
+	</div>
+	<div class="footer-class"></div>
+</template>
+
+<template id="card">
+	<div class="row g-3 mb-3" data-id="{id}">
+		<div class="col-auto">
+			<div class="card">
+				<div class="card-body">
+					<div class="title-container h5">
+						<a class="card-title h5" href="товар?Номенклатура={id}">{Наименование}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
